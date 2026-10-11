@@ -1,0 +1,4733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NETRA | Connect. Discover.</title>
+
+<meta name="description"
+content="NETRA is a modern social commerce platform connecting people, creators, businesses and shoppers.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.botpress.cloud/webchat/v3.3/shareable.html?configUrl=https://files.bpcontent.cloud/2025/12/05/20/20251205201533-DEX0RP9Z.json">
+
+<link rel="stylesheet" href="HomePage.html">
+<link rel="stylesheet" href="Settings.html">
+<script src="firebase.js"></script>
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+    --blue:#1769ff;
+    --blue-dark:#0d47c9;
+    --navy:#07111f;
+    --text:#0f172a;
+    --muted:#64748b;
+    --bg:#f7f9fc;
+    --white:#ffffff;
+    --line:#e7ebf2;
+    --soft:#eef5ff;
+    --danger:#dc2626;
+    --success:#16a34a;
+    --radius:18px;
+    --shadow:0 20px 60px rgba(8,32,70,.10);
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.55;
+    overflow-x:hidden;
+}
+
+body.modal-open{
+    overflow:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+.container{
+    width:min(1200px,92%);
+    margin:auto;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    height:38px;
+    background:var(--navy);
+    color:#cbd5e1;
+    font-size:12px;
+}
+
+.topbar .container{
+    height:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.topbar a:hover{
+    color:#ffffff;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav{
+    height:76px;
+    background:rgba(255,255,255,.96);
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(18px);
+}
+
+.nav-inner{
+    height:100%;
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:27px;
+    font-weight:900;
+    letter-spacing:-1.2px;
+    color:var(--navy);
+    white-space:nowrap;
+}
+
+.logo-mark{
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+    color:#ffffff;
+    box-shadow:0 8px 22px rgba(23,105,255,.30);
+    position:relative;
+    overflow:hidden;
+    transition:.25s ease;
+}
+
+.logo-mark::before{
+    content:"";
+    position:absolute;
+    width:28px;
+    height:28px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:9px;
+    transform:rotate(45deg);
+}
+
+.logo-mark span{
+    position:relative;
+    z-index:2;
+    font-size:21px;
+    font-weight:900;
+}
+
+.logo:hover .logo-mark{
+    transform:translateY(-2px) scale(1.04);
+}
+
+.logo-text{
+    color:var(--navy);
+}
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.navlinks{
+    display:flex;
+    gap:25px;
+    margin-left:auto;
+    font-size:13px;
+    font-weight:700;
+    color:#475569;
+}
+
+.navlinks a{
+    position:relative;
+    padding:28px 0;
+    transition:.2s;
+}
+
+.navlinks a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:19px;
+    width:0;
+    height:2px;
+    background:var(--blue);
+    transition:.2s;
+}
+
+.navlinks a:hover{
+    color:var(--blue);
+}
+
+.navlinks a:hover::after{
+    width:100%;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:13px;
+    transition:.2s;
+    border:1px solid transparent;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    background:var(--blue);
+    color:#ffffff;
+    box-shadow:0 9px 22px rgba(23,105,255,.22);
+}
+
+.btn-primary:hover{
+    background:var(--blue-dark);
+}
+
+.btn-light{
+    background:#ffffff;
+    border-color:var(--line);
+    color:var(--text);
+}
+
+.btn-light:hover{
+    border-color:#cbd5e1;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    background:#ffffff;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    color:#475569;
+}
+
+.mobile-menu{
+    display:none;
+}
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobile-nav{
+    display:none;
+    position:absolute;
+    top:76px;
+    left:0;
+    right:0;
+    background:#ffffff;
+    border-bottom:1px solid var(--line);
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    padding:18px 4%;
+}
+
+.mobile-nav.active{
+    display:block;
+}
+
+.mobile-nav a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 10px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+}
+
+.mobile-nav a:hover{
+    background:var(--soft);
+    color:var(--blue);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    background:#ffffff;
+    padding:84px 0 70px;
+    border-bottom:1px solid var(--line);
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:70px;
+}
+
+.kicker{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    padding:7px 11px;
+    background:var(--soft);
+    color:var(--blue);
+    border-radius:30px;
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    margin-bottom:20px;
+}
+
+.kicker i{
+    font-size:7px;
+}
+
+.hero h1{
+    font-size:clamp(44px,5.7vw,72px);
+    line-height:1.02;
+    letter-spacing:-3.5px;
+    max-width:680px;
+}
+
+.hero h1 em{
+    font-style:normal;
+    color:var(--blue);
+}
+
+.hero-copy{
+    font-size:17px;
+    color:var(--muted);
+    max-width:610px;
+    margin:23px 0 28px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:11px;
+    flex-wrap:wrap;
+}
+
+.hero-note{
+    margin-top:17px;
+    font-size:11px;
+    color:#94a3b8;
+}
+
+.hero-note i{
+    color:#22a06b;
+    margin-right:5px;
+}
+
+/* =========================================================
+   HERO MOCKUP
+========================================================= */
+
+.hero-visual{
+    position:relative;
+}
+
+.dashboard{
+    background:#ffffff;
+    border:1px solid var(--line);
+    border-radius:25px;
+    box-shadow:var(--shadow);
+    padding:13px;
+    position:relative;
+}
+
+.window-top{
+    height:38px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:0 7px;
+}
+
+.dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#cbd5e1;
+}
+
+.window-title{
+    margin:auto;
+    font-size:10px;
+    color:#94a3b8;
+}
+
+.mock{
+    border:1px solid var(--line);
+    border-radius:17px;
+    overflow:hidden;
+    background:#f8fafc;
+}
+
+.mock-nav{
+    height:50px;
+    background:#ffffff;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    padding:0 15px;
+    gap:18px;
+}
+
+.mock-logo{
+    font-size:15px;
+    font-weight:800;
+    color:var(--blue);
+}
+
+.mock-body{
+    display:grid;
+    grid-template-columns:150px 1fr 140px;
+    min-height:340px;
+}
+
+.mock-side,
+.mock-right{
+    background:#ffffff;
+    padding:14px;
+}
+
+.mock-side{
+    border-right:1px solid var(--line);
+}
+
+.mock-right{
+    border-left:1px solid var(--line);
+}
+
+.side-item{
+    font-size:9px;
+    color:#64748b;
+    padding:9px 7px;
+    border-radius:7px;
+    margin-bottom:3px;
+}
+
+.side-item i{
+    width:16px;
+}
+
+.side-item.active{
+    background:var(--soft);
+    color:var(--blue);
+    font-weight:700;
+}
+
+.mock-feed{
+    padding:12px;
+}
+
+.stories{
+    display:flex;
+    gap:8px;
+    margin-bottom:10px;
+}
+
+.circle{
+    height:37px;
+    width:37px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#1769ff,#a5c5ff);
+    border:2px solid #ffffff;
+    outline:1px solid #1769ff;
+}
+
+.mock-post{
+    background:#ffffff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:10px;
+    margin-bottom:9px;
+}
+
+.post-head{
+    display:flex;
+    gap:7px;
+    align-items:center;
+}
+
+.mini-avatar{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:#dbeafe;
+}
+
+.skeleton{
+    height:5px;
+    width:70px;
+    background:#e2e8f0;
+    border-radius:10px;
+}
+
+.skeleton.short{
+    width:42px;
+    margin-top:4px;
+}
+
+.mock-image{
+    height:105px;
+    border-radius:8px;
+    background:linear-gradient(135deg,#dbeafe,#f8fbff);
+    display:grid;
+    place-items:center;
+    color:var(--blue);
+    font-size:27px;
+    margin-top:9px;
+}
+
+.post-actions{
+    display:flex;
+    justify-content:space-between;
+    font-size:8px;
+    color:#94a3b8;
+    margin-top:8px;
+}
+
+.right-card{
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:9px;
+    margin-bottom:8px;
+}
+
+.right-card b{
+    font-size:9px;
+}
+
+.right-line{
+    height:5px;
+    background:#e8eef6;
+    border-radius:5px;
+    margin-top:7px;
+}
+
+.float-card{
+    position:absolute;
+    right:-25px;
+    bottom:25px;
+    background:#ffffff;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    border-radius:14px;
+    padding:13px;
+    width:160px;
+}
+
+.float-card b{
+    font-size:11px;
+}
+
+.float-card p{
+    font-size:9px;
+    color:var(--muted);
+    margin-top:3px;
+}
+
+.float-card i{
+    color:var(--blue);
+    margin-right:5px;
+}
+
+/* =========================================================
+   AUDIENCE
+========================================================= */
+
+.logos{
+    padding:28px 0;
+    background:#ffffff;
+    border-bottom:1px solid var(--line);
+}
+
+.logos p{
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    font-size:10px;
+    font-weight:800;
+    color:#94a3b8;
+    margin-bottom:18px;
+}
+
+.logo-row{
+    display:flex;
+    justify-content:center;
+    gap:50px;
+    flex-wrap:wrap;
+    color:#94a3b8;
+    font-weight:800;
+    font-size:15px;
+}
+
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
+
+.section{
+    padding:88px 0;
+}
+
+.section-head{
+    text-align:center;
+    max-width:720px;
+    margin:0 auto 45px;
+}
+
+.eyebrow{
+    color:var(--blue);
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+}
+
+.section h2{
+    font-size:39px;
+    letter-spacing:-1.8px;
+    line-height:1.15;
+    margin:8px 0 12px;
+}
+
+.section-head p{
+    color:var(--muted);
+    font-size:15px;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-section{
+    padding:110px 0;
+    background:#ffffff;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:70px;
+    align-items:center;
+}
+
+.about-copy h2{
+    font-size:clamp(34px,4vw,52px);
+    line-height:1.08;
+    letter-spacing:-2px;
+    margin-bottom:22px;
+}
+
+.about-copy h2 em{
+    font-style:normal;
+    color:var(--blue);
+}
+
+.about-copy p{
+    color:var(--muted);
+    font-size:16px;
+    max-width:680px;
+    margin-bottom:16px;
+}
+
+.about-points{
+    display:grid;
+    gap:12px;
+    margin-top:28px;
+}
+
+.about-points>div{
+    display:flex;
+    gap:13px;
+    align-items:flex-start;
+    padding:14px 16px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#fbfcff;
+}
+
+.about-points i{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    background:var(--soft);
+    color:var(--blue);
+    display:grid;
+    place-items:center;
+    flex:none;
+}
+
+.about-points span{
+    font-size:13px;
+    color:var(--muted);
+}
+
+.about-points b{
+    display:block;
+    color:var(--text);
+    margin-bottom:2px;
+}
+
+.about-card{
+    background:linear-gradient(145deg,#07111f,#123a78);
+    color:#ffffff;
+    border-radius:28px;
+    padding:28px;
+    box-shadow:0 25px 70px rgba(7,30,65,.2);
+}
+
+.about-card-top{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding-bottom:24px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.about-icon{
+    width:50px;
+    height:50px;
+    border-radius:15px;
+    background:rgba(255,255,255,.12);
+    display:grid;
+    place-items:center;
+    color:#ffffff;
+    font-size:20px;
+}
+
+.about-card-top b{
+    display:block;
+    font-size:16px;
+}
+
+.about-card-top small{
+    display:block;
+    color:#b9c9e4;
+    margin-top:3px;
+}
+
+.about-stat{
+    padding:20px 0;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.about-stat strong{
+    display:block;
+    font-size:19px;
+}
+
+.about-stat span{
+    color:#b9c9e4;
+    font-size:13px;
+}
+
+.about-card-footer{
+    padding-top:20px;
+    color:#cbd8eb;
+    font-size:12px;
+}
+
+.about-card-footer i{
+    margin-right:7px;
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.feature{
+    background:#ffffff;
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:27px;
+    transition:.25s;
+}
+
+.feature:hover{
+    box-shadow:var(--shadow);
+    transform:translateY(-5px);
+}
+
+.feature-icon{
+    width:48px;
+    height:48px;
+    background:var(--soft);
+    color:var(--blue);
+    border-radius:14px;
+    display:grid;
+    place-items:center;
+    font-size:19px;
+    margin-bottom:18px;
+}
+
+.feature h3{
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.feature p{
+    font-size:13px;
+    color:var(--muted);
+}
+
+/* =========================================================
+   BUSINESS
+========================================================= */
+
+.business{
+    background:#ffffff;
+}
+
+.business-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:65px;
+    align-items:center;
+}
+
+.business h2{
+    font-size:42px;
+    line-height:1.12;
+    letter-spacing:-2px;
+    margin:9px 0 15px;
+}
+
+.business p{
+    color:var(--muted);
+    font-size:15px;
+}
+
+.checks{
+    display:grid;
+    gap:14px;
+    margin-top:24px;
+}
+
+.check{
+    display:flex;
+    gap:11px;
+    font-size:13px;
+}
+
+.check i{
+    color:var(--blue);
+    margin-top:4px;
+}
+
+.business-card{
+    background:linear-gradient(145deg,#f1f6ff,#ffffff);
+    border:1px solid #dfeaff;
+    border-radius:25px;
+    padding:24px;
+    box-shadow:var(--shadow);
+}
+
+.seller-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.seller{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.seller-avatar{
+    height:42px;
+    width:42px;
+    border-radius:13px;
+    background:var(--blue);
+    color:#ffffff;
+    display:grid;
+    place-items:center;
+    font-weight:800;
+}
+
+.verified{
+    color:var(--blue);
+    font-size:11px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:18px;
+}
+
+.product{
+    min-height:135px;
+    background:#ffffff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:10px;
+}
+
+.product-img{
+    height:80px;
+    border-radius:9px;
+    background:#eef4ff;
+    display:grid;
+    place-items:center;
+    color:var(--blue);
+    font-size:25px;
+}
+
+.product small{
+    display:block;
+    font-size:9px;
+    color:#64748b;
+    margin-top:6px;
+}
+
+.product b{
+    font-size:11px;
+}
+
+/* =========================================================
+   NUMBERS
+========================================================= */
+
+.numbers{
+    background:var(--navy);
+    color:#ffffff;
+}
+
+.numbers .section-head p{
+    color:#94a3b8;
+}
+
+.number-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    text-align:center;
+    gap:20px;
+}
+
+.number b{
+    font-size:31px;
+}
+
+.number span{
+    display:block;
+    color:#94a3b8;
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+    padding:85px 0;
+}
+
+.cta-box{
+    background:linear-gradient(135deg,#0d47c9,#1769ff);
+    border-radius:28px;
+    padding:65px 25px;
+    text-align:center;
+    color:#ffffff;
+    box-shadow:0 25px 65px rgba(23,105,255,.24);
+}
+
+.cta-box h2{
+    font-size:42px;
+    letter-spacing:-2px;
+}
+
+.cta-box p{
+    color:#dbe8ff;
+    margin:9px 0 25px;
+    font-size:15px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:#07111f;
+    color:#94a3b8;
+    padding:58px 0 25px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.6fr repeat(4,1fr);
+    gap:35px;
+}
+
+.footer-brand .logo{
+    display:inline-flex;
+    margin-bottom:12px;
+}
+
+.footer-brand .logo-text{
+    color:#ffffff;
+}
+
+.footer-brand p{
+    font-size:12px;
+    max-width:270px;
+}
+
+.footer-col h4{
+    color:#ffffff;
+    font-size:12px;
+    margin-bottom:14px;
+}
+
+.footer-col a{
+    font-size:11px;
+    display:block;
+    margin:9px 0;
+}
+
+.footer-col a:hover{
+    color:#ffffff;
+}
+
+.footer-bottom{
+    border-top:1px solid #1d2a3c;
+    margin-top:40px;
+    padding-top:19px;
+    font-size:10px;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* =========================================================
+   AUTH OVERLAY
+========================================================= */
+
+.auth-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(7,17,31,.72);
+    backdrop-filter:blur(12px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:99999;
+}
+
+.auth-overlay.active{
+    display:flex;
+}
+
+.auth-card{
+    width:min(540px,100%);
+    max-height:94vh;
+    overflow:auto;
+    background:#ffffff;
+    border-radius:26px;
+    box-shadow:0 30px 90px rgba(0,0,0,.30);
+    padding:30px;
+    animation:authIn .25s ease;
+}
+
+@keyframes authIn{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* =========================================================
+   AUTH HEADER
+========================================================= */
+
+.auth-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.auth-brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-weight:900;
+    font-size:24px;
+    color:var(--navy);
+}
+
+.auth-logo-mark{
+    width:38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+    border-radius:11px;
+    background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+    color:#ffffff;
+    font-weight:900;
+    box-shadow:0 6px 16px rgba(23,105,255,.25);
+}
+
+.auth-close{
+    border:0;
+    background:#f1f5f9;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    font-size:18px;
+    color:#475569;
+    transition:.2s;
+}
+
+.auth-close:hover{
+    background:#e2e8f0;
+    transform:rotate(90deg);
+}
+
+/* =========================================================
+   AUTH CONTENT
+========================================================= */
+
+.auth-card h2{
+    font-size:28px;
+    letter-spacing:-1px;
+}
+
+.auth-sub{
+    color:var(--muted);
+    font-size:13px;
+    margin:5px 0 20px;
+}
+
+.auth-form{
+    display:grid;
+    gap:13px;
+}
+
+.auth-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.auth-field label{
+    display:block;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:6px;
+    color:#334155;
+}
+
+.input-wrap{
+    position:relative;
+}
+
+.auth-field input,
+.auth-field select{
+    width:100%;
+    height:45px;
+    border:1px solid #dbe2ea;
+    border-radius:11px;
+    padding:0 12px;
+    outline:none;
+    font-size:13px;
+    background:#ffffff;
+    color:#0f172a;
+    transition:.2s;
+}
+
+.input-wrap input{
+    padding-right:45px;
+}
+
+.auth-field input:focus,
+.auth-field select:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(23,105,255,.1);
+}
+
+.password-toggle{
+    position:absolute;
+    top:50%;
+    right:10px;
+    transform:translateY(-50%);
+    border:0;
+    background:transparent;
+    color:#64748b;
+    width:30px;
+    height:30px;
+}
+
+.password-toggle:hover{
+    color:var(--blue);
+}
+
+.auth-submit{
+    height:47px;
+    border:0;
+    border-radius:11px;
+    background:var(--blue);
+    color:#ffffff;
+    font-weight:800;
+    margin-top:5px;
+    transition:.2s;
+}
+
+.auth-submit:hover{
+    background:var(--blue-dark);
+    transform:translateY(-1px);
+}
+
+.auth-submit:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.auth-switch{
+    font-size:12px;
+    text-align:center;
+    margin-top:18px;
+    color:#64748b;
+}
+
+.auth-switch button{
+    border:0;
+    background:none;
+    color:var(--blue);
+    font-weight:800;
+}
+
+.auth-switch button:hover{
+    text-decoration:underline;
+}
+
+.auth-note{
+    font-size:10px;
+    color:#94a3b8;
+    text-align:center;
+    margin-top:12px;
+    line-height:1.6;
+}
+
+.field-help,
+.password-note{
+    display:block;
+    color:#64748b;
+    font-size:11px;
+    margin-top:5px;
+}
+
+.optional{
+    font-weight:400;
+    color:#94a3b8;
+}
+
+.check-row{
+    display:flex;
+    gap:9px;
+    align-items:flex-start;
+    font-size:11px;
+    color:#475569;
+    line-height:1.5;
+    margin:5px 0;
+}
+
+.check-row input{
+    margin-top:2px;
+    accent-color:var(--blue);
+}
+
+.check-row a{
+    color:var(--blue);
+}
+
+.age-note{
+    font-size:10px;
+    color:#94a3b8;
+    margin-top:2px;
+}
+
+/* =========================================================
+   AUTH MESSAGE
+========================================================= */
+
+.auth-message{
+    display:none;
+    border-radius:12px;
+    padding:11px 13px;
+    font-size:12px;
+    margin-bottom:14px;
+    line-height:1.5;
+}
+
+.auth-message.show{
+    display:block;
+}
+
+.auth-message.info{
+    background:#eef5ff;
+    color:#174ea6;
+    border:1px solid #cfe0ff;
+}
+
+.auth-message.success{
+    background:#ecfdf5;
+    color:#166534;
+    border:1px solid #bbf7d0;
+}
+
+.auth-message.error{
+    background:#fef2f2;
+    color:#991b1b;
+    border:1px solid #fecaca;
+}
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+.forgot-btn{
+    display:block;
+    margin:1px 0 0 auto;
+    border:0;
+    background:none;
+    color:var(--blue);
+    font-size:11px;
+}
+
+.forgot-btn:hover{
+    text-decoration:underline;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px){
+
+    .navlinks{
+        display:none;
+    }
+
+    .mobile-menu{
+        display:grid;
+    }
+
+    .hero-grid,
+    .business-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero-visual{
+        max-width:700px;
+        margin:auto;
+    }
+
+    .mock-body{
+        grid-template-columns:120px 1fr;
+    }
+
+    .mock-right{
+        display:none;
+    }
+
+    .feature-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1.5fr repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:650px){
+
+    .topbar{
+        display:none;
+    }
+
+    .nav{
+        height:68px;
+    }
+
+    .mobile-nav{
+        top:68px;
+    }
+
+    .actions .btn-light{
+        display:none;
+    }
+
+    .mobile-menu{
+        display:grid;
+    }
+
+    .hero{
+        padding:55px 0;
+    }
+
+    .hero h1{
+        font-size:45px;
+        letter-spacing:-2.5px;
+    }
+
+    .hero-copy{
+        font-size:15px;
+    }
+
+    .float-card{
+        right:-5px;
+        bottom:12px;
+    }
+
+    .feature-grid,
+    .number-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:60px 0;
+    }
+
+    .section h2,
+    .business h2{
+        font-size:31px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .footer-brand{
+        grid-column:1/-1;
+    }
+
+    .footer-bottom{
+        display:block;
+    }
+
+    .footer-bottom span{
+        display:block;
+        margin-top:7px;
+    }
+
+    .logo-row{
+        gap:22px;
+        font-size:12px;
+    }
+
+    .mock-side{
+        display:none;
+    }
+
+    .mock-body{
+        display:block;
+    }
+
+    .products{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .auth-overlay{
+        padding:10px;
+    }
+
+    .auth-card{
+        padding:22px;
+        border-radius:20px;
+    }
+
+    .auth-grid{
+        grid-template-columns:1fr;
+    }
+
+    .auth-card h2{
+        font-size:24px;
+    }
+
+}
+
+@media(max-width:430px){
+
+    .logo{
+        font-size:23px;
+    }
+
+    .logo-mark{
+        width:38px;
+        height:38px;
+    }
+
+    .hero h1{
+        font-size:39px;
+    }
+
+    .hero-buttons .btn{
+        width:100%;
+    }
+
+    .float-card{
+        position:relative;
+        right:auto;
+        bottom:auto;
+        margin:12px auto 0;
+        width:100%;
+    }
+
+    .cta-box{
+        padding:45px 18px;
+    }
+
+    .cta-box h2{
+        font-size:32px;
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
+
+<div class="topbar">
+
+    <div class="container">
+
+        <span>
+            Building a better way to connect people and commerce.
+        </span>
+
+        <span>
+            <a href="#about-netra">About NETRA</a>
+            &nbsp; • &nbsp;
+            <a href="#support">Help & Support</a>
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="nav">
+
+    <div class="container nav-inner">
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-mark">
+                <span>N</span>
+            </div>
+
+            <span class="logo-text">
+                NETRA
+            </span>
+
+        </a>
+
+
+        <div class="navlinks">
+
+            <a href="#platform">
+                Platform
+            </a>
+
+            <a href="#business">
+                For Business
+            </a>
+
+            <a href="#about-netra">
+                About
+            </a>
+
+        </div>
+
+
+        <div class="actions">
+
+            <a
+                class="btn btn-light"
+                href="#"
+                onclick="openAuth('login');return false;"
+            >
+                Sign in
+            </a>
+
+            <a
+                class="btn btn-primary"
+                href="#"
+                onclick="openAuth('register');return false;"
+            >
+                Get started
+            </a>
+
+            <button
+                class="icon-btn mobile-menu"
+                id="mobileMenuButton"
+                onclick="toggleMobileMenu()"
+                aria-label="Open menu"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE NAV -->
+
+    <div
+        class="mobile-nav"
+        id="mobileNav"
+    >
+
+        <a href="#platform" onclick="closeMobileMenu()">
+            <i class="fa-solid fa-layer-group"></i>
+            Platform
+        </a>
+
+        <a href="#business" onclick="closeMobileMenu()">
+            <i class="fa-solid fa-store"></i>
+            For Business
+        </a>
+
+        <a href="#about-netra" onclick="closeMobileMenu()">
+            <i class="fa-solid fa-circle-info"></i>
+            About NETRA
+        </a>
+
+        <a
+            href="#"
+            onclick="closeMobileMenu();openAuth('login');return false;"
+        >
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Sign in
+        </a>
+
+        <a
+            href="#"
+            onclick="closeMobileMenu();openAuth('register');return false;"
+        >
+            <i class="fa-solid fa-user-plus"></i>
+            Create account
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<header class="hero">
+
+    <div class="container hero-grid">
+
+
+        <div>
+
+            <div class="kicker">
+
+                <i class="fa-solid fa-circle"></i>
+
+                Social commerce, reimagined
+
+            </div>
+
+
+            <h1>
+
+                One platform for
+
+                <em>
+                    people, ideas and business.
+                </em>
+
+            </h1>
+
+
+            <p class="hero-copy">
+
+                NETRA brings social connection, creator content and
+                online shopping into one modern experience — built to
+                help people discover more and businesses grow.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    class="btn btn-primary"
+                    href="#"
+                    onclick="openAuth('register');return false;"
+                >
+
+                    Join NETRA
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+                <a
+                    class="btn btn-light"
+                    href="#platform"
+                >
+
+                    Explore the platform
+
+                </a>
+
+            </div>
+
+
+            <div class="hero-note">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                Free to join · Designed for web and mobile
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+
+            <div class="dashboard">
+
+                <div class="window-top">
+
+                    <i class="dot"></i>
+                    <i class="dot"></i>
+                    <i class="dot"></i>
+
+                    <span class="window-title">
+                        netra.com.ng
+                    </span>
+
+                </div>
+
+
+                <div class="mock">
+
+                    <div class="mock-nav">
+
+                        <span class="mock-logo">
+                            NETRA
+                        </span>
+
+                        <i
+                            class="fa-regular fa-bell"
+                            style="font-size:10px"
+                        ></i>
+
+                    </div>
+
+
+                    <div class="mock-body">
+
+
+                        <aside class="mock-side">
+
+                            <div class="side-item active">
+                                <i class="fa-solid fa-house"></i>
+                                Home
+                            </div>
+
+                            <div class="side-item">
+                                <i class="fa-solid fa-user-group"></i>
+                                Your Friends
+                            </div>
+
+                            <div class="side-item">
+                                <i class="fa-solid fa-store"></i>
+                                Marketplace
+                            </div>
+
+                            <div class="side-item">
+                                <i class="fa-solid fa-video"></i>
+                                NETRA Tube
+                            </div>
+
+                            <div class="side-item">
+                                <i class="fa-solid fa-message"></i>
+                                Messenger
+                            </div>
+
+                        </aside>
+
+
+                        <main class="mock-feed">
+
+                            <div class="stories">
+
+                                <div class="circle"></div>
+                                <div class="circle"></div>
+                                <div class="circle"></div>
+                                <div class="circle"></div>
+
+                            </div>
+
+
+                            <div class="mock-post">
+
+                                <div class="post-head">
+
+                                    <div class="mini-avatar"></div>
+
+                                    <div>
+
+                                        <div class="skeleton"></div>
+
+                                        <div class="skeleton short"></div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="mock-image">
+
+                                    <i class="fa-solid fa-bag-shopping"></i>
+
+                                </div>
+
+
+                                <div class="post-actions">
+
+                                    <span>
+                                        ♥ 2.4K
+                                    </span>
+
+                                    <span>
+                                        💬 184
+                                    </span>
+
+                                    <span>
+                                        ↗ Share
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </main>
+
+
+                        <aside class="mock-right">
+
+                            <div class="right-card">
+
+                                <b>
+                                    Trending
+                                </b>
+
+                                <div class="right-line"></div>
+
+                                <div
+                                    class="right-line"
+                                    style="width:65%"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="right-card">
+
+                                <b>
+                                   Grow Your Business
+                                </b>
+
+                                <div class="right-line"></div>
+
+                                <div
+                                    class="right-line"
+                                    style="width:55%"
+                                ></div>
+
+
+                            </div>
+
+                             <div class="right-card">
+
+                                <b>
+                                   Explore Skills
+                                </b>
+
+                                <div class="right-line"></div>
+
+                                <div
+                                    class="right-line"
+                                    style="width:55%"
+                                ></div>
+
+
+                            </div>
+
+
+                        </aside>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="float-card">
+
+                <b>
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    Everything connected
+
+                </b>
+
+                <p>
+                    Social + content + commerce in one experience.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     AUDIENCE
+========================================================= -->
+
+<section class="logos">
+
+    <div class="container">
+
+        <p>
+            Designed for a connected digital economy
+        </p>
+
+        <div class="logo-row">
+
+            <span>PEOPLE</span>
+            <span>CREATORS</span>
+            <span>SELLERS</span>
+            <span>BUSINESSES</span>
+            <span>COMMUNITIES</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section
+    class="about-section"
+    id="about-netra"
+>
+
+    <div class="container about-grid">
+
+
+        <div class="about-copy">
+
+            <div class="eyebrow">
+                ABOUT NETRA
+            </div>
+
+
+            <h2>
+
+                Built to bring
+
+                <em>
+                    people, ideas and business
+                </em>
+
+                together.
+
+            </h2>
+
+
+            <p>
+
+                NETRA is a social-commerce platform designed to make
+                it easier for people to connect, discover content,
+                build communities and shop from businesses they trust
+                — all in one place.
+
+            </p>
+
+
+            <p>
+
+                We are building NETRA around a simple idea:
+                social interaction and online commerce should feel
+                natural, useful and connected.
+
+            </p>
+
+
+            <div class="about-points">
+
+
+                <div>
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <span>
+
+                        <b>
+                            For people
+                        </b>
+
+                        Connect with friends, communities and creators.
+
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <i class="fa-solid fa-store"></i>
+
+                    <span>
+
+                        <b>
+                            For businesses
+                        </b>
+
+                        Showcase products and build lasting customer
+                        relationships.
+
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                    <span>
+
+                        <b>
+                            For creators
+                        </b>
+
+                        Share ideas, build an audience and create
+                        opportunities.
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="about-card">
+
+
+            <div class="about-card-top">
+
+                <span class="about-icon">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                </span>
+
+
+                <span>
+
+                    <b>
+                        One connected platform
+                    </b>
+
+                    <small>
+                        Social · Content · Commerce
+                    </small>
+
+                </span>
+
+            </div>
+
+
+            <div class="about-stat">
+
+                <strong>
+                    Connect
+                </strong>
+
+                <span>
+                    Build relationships and communities
+                </span>
+
+            </div>
+
+
+            <div class="about-stat">
+
+                <strong>
+                    Discover
+                </strong>
+
+                <span>
+                    Find people, ideas and products
+                </span>
+
+            </div>
+
+
+            <div class="about-stat">
+
+                <strong>
+                    Grow
+                </strong>
+
+                <span>
+                    Turn attention into opportunities
+                </span>
+
+            </div>
+
+
+            <div class="about-card-footer">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Designed with privacy, security and user control in mind.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PLATFORM
+========================================================= -->
+
+<section
+    class="section"
+    id="platform"
+>
+
+    <div class="container">
+
+
+        <div class="section-head">
+
+            <div class="eyebrow">
+                The NETRA platform
+            </div>
+
+            <h2>
+                Everything you need to connect and grow.
+            </h2>
+
+            <p>
+                A single experience that brings together the features
+                people already use every day — with room to discover
+                something new.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <h3>
+                    Social connection
+                </h3>
+
+                <p>
+                    Build your network, follow people, share updates
+                    and stay close to the communities that matter.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+
+                <h3>
+                    Marketplace
+                </h3>
+
+                <p>
+                    Discover products and sellers, save favorites
+                    and move from discovery to shopping with ease.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+
+                <h3>
+                    NETRA Tube
+                </h3>
+
+                <p>
+                    Explore videos, creators and short-form content
+                    in a dedicated entertainment experience.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+
+                <h3>
+                    Messaging
+                </h3>
+
+                <p>
+                    Keep conversations private and organized with
+                    direct messaging and communication tools.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+
+                <h3>
+                    Smart notifications
+                </h3>
+
+                <p>
+                    Stay informed about activity, messages, orders,
+                    friends and updates that matter to you.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <h3>
+                    Privacy & control
+                </h3>
+
+                <p>
+                    Manage your account, privacy, notifications,
+                    appearance and security from one settings center.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BUSINESS
+========================================================= -->
+
+<section
+    class="section business"
+    id="business"
+>
+
+    <div class="container business-grid">
+
+
+        <div>
+
+            <div class="eyebrow">
+                For businesses & sellers
+            </div>
+
+            <h2>
+                Turn attention into opportunity.
+            </h2>
+
+            <p>
+                NETRA gives businesses a place to build an audience,
+                showcase products and create lasting customer
+                relationships.
+            </p>
+
+
+            <div class="checks">
+
+
+                <div class="check">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+
+                        <b>
+                            Business presence
+                        </b>
+
+                        <br>
+
+                        Build a professional profile for your brand.
+
+                    </span>
+
+                </div>
+
+
+                <div class="check">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+
+                        <b>
+                            Product discovery
+                        </b>
+
+                        <br>
+
+                        Put products where people are already
+                        discovering things.
+
+                    </span>
+
+                </div>
+
+
+                <div class="check">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+
+                        <b>
+                            Community growth
+                        </b>
+
+                        <br>
+
+                        Connect with customers beyond a single
+                        transaction.
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="business-card">
+
+
+            <div class="seller-head">
+
+                <div class="seller">
+
+                    <div class="seller-avatar">
+                        N
+                    </div>
+
+                    <div>
+
+                        <b style="font-size:12px">
+                            NETRA Store
+                        </b>
+
+                        <div class="verified">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Verified business
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <i class="fa-solid fa-ellipsis"></i>
+
+            </div>
+
+
+            <div class="products">
+
+
+                <div class="product">
+
+                    <div class="product-img">
+                        <i class="fa-solid fa-headphones"></i>
+                    </div>
+
+                    <small>
+                        Featured product
+                    </small>
+
+                    <b>
+                        Wireless Audio
+                    </b>
+
+                </div>
+
+
+                <div class="product">
+
+                    <div class="product-img">
+                        <i class="fa-solid fa-shirt"></i>
+                    </div>
+
+                    <small>
+                        Trending
+                    </small>
+
+                    <b>
+                        Premium Fashion
+                    </b>
+
+                </div>
+
+
+                <div class="product">
+
+                    <div class="product-img">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+
+                    <small>
+                        Popular
+                    </small>
+
+                    <b>
+                        Smart Devices
+                    </b>
+
+                </div>
+
+
+                <div class="product">
+
+                    <div class="product-img">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+
+                    <small>
+                        New arrival
+                    </small>
+
+                    <b>
+                        Everyday Essentials
+                    </b>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     NUMBERS
+========================================================= -->
+
+<section class="section numbers">
+
+    <div class="container">
+
+
+        <div class="section-head">
+
+            <div class="eyebrow">
+                Built to scale
+            </div>
+
+            <h2>
+                One foundation. Many possibilities.
+            </h2>
+
+            <p>
+                NETRA is being designed as a platform that can grow
+                with its community, creators and businesses.
+            </p>
+
+        </div>
+
+
+        <div class="number-grid">
+
+
+            <div class="number">
+                <b>01</b>
+                <span>Social network</span>
+            </div>
+
+
+            <div class="number">
+                <b>02</b>
+                <span>Creator ecosystem</span>
+            </div>
+
+
+            <div class="number">
+                <b>03</b>
+                <span>Marketplace</span>
+            </div>
+
+
+            <div class="number">
+                <b>04</b>
+                <span>Business tools</span>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+                Welcome to NETRA.
+            </h2>
+
+            <p>
+                Connect with people. Discover what matters.
+                Build what comes next.
+            </p>
+
+            <a
+                class="btn btn-light"
+                href="#"
+                onclick="openAuth('register');return false;"
+            >
+
+                Create your free account
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer id="support">
+
+    <div class="container">
+
+
+        <div class="footer-grid">
+
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo">
+
+                    <div class="logo-mark">
+                        <span>N</span>
+                    </div>
+
+                    <span class="logo-text">
+                        NETRA
+                    </span>
+
+                </a>
+
+                <p>
+                    A modern social commerce platform connecting
+                    people, creators, communities and businesses.
+                </p>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>
+                    Platform
+                </h4>
+
+                <a href="#platform">
+                    Features
+                </a>
+
+                <a href="#">
+                    Friends
+                </a>
+
+                <a href="#">
+                    Marketplace
+                </a>
+
+                <a href="#">
+                    NETRA Tube
+                </a>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>
+                    Business
+                </h4>
+
+                <a href="#business">
+                    For Business
+                </a>
+
+                <a href="#">
+                    Seller tools
+                </a>
+
+                <a href="#">
+                    Advertising
+                </a>
+
+                <a href="#">
+                    Business help
+                </a>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="#about-netra">
+                    About NETRA
+                </a>
+
+                <a href="#">
+                    Careers
+                </a>
+
+                <a href="#">
+                    News
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>
+                    Account
+                </h4>
+
+                <a
+                    href="#"
+                    onclick="openAuth('login');return false;"
+                >
+                    Sign in
+                </a>
+
+                <a
+                    href="#"
+                    onclick="openAuth('register');return false;"
+                >
+                    Register
+                </a>
+
+                <a href="settings.html">
+                    Settings
+                </a>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+            © 2027 Netra Adekoya Joshua Production
+            </span>
+ 
+            <span>
+                Connect · Discover · Shop
+            </span>
+ 
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     AUTH MODAL
+========================================================= -->
+
+<div
+    class="auth-overlay"
+    id="authOverlay"
+    onclick="handleOverlayClick(event)"
+>
+
+
+    <div class="auth-card">
+
+
+        <!-- AUTH HEADER -->
+
+        <div class="auth-head">
+
+            <div class="auth-brand">
+
+                <div class="auth-logo-mark">
+                    N
+                </div>
+
+                <span>
+                    NETRA
+                </span>
+
+            </div>
+
+
+            <button
+                class="auth-close"
+                type="button"
+                onclick="closeAuth()"
+                aria-label="Close"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            class="auth-message"
+            id="authMessage"
+        ></div>
+
+
+        <!-- =====================================================
+             LOGIN PANEL
+        ====================================================== -->
+
+        <div id="loginPanel">
+
+            <h2>
+                Welcome back.
+            </h2>
+
+            <p class="auth-sub">
+                Sign in to continue to your NETRA homepage.
+            </p>
+
+
+            <form
+                class="auth-form"
+                id="loginForm"
+            >
+
+
+                <div class="auth-field">
+
+                    <label for="loginEmail">
+                        Email address
+                    </label>
+
+                    <input
+                        id="loginEmail"
+                        type="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="auth-field">
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+
+                    <div class="input-wrap">
+
+                        <input
+                            id="loginPassword"
+                            type="password"
+                            placeholder="Your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+
+                        <button
+                            class="password-toggle"
+                            type="button"
+                            onclick="togglePassword('loginPassword',this)"
+                            aria-label="Show password"
+                        >
+
+                            <i class="fa-regular fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="forgot-btn"
+                    onclick="resetPassword()"
+                >
+                    Forgot password?
+                </button>
+
+
+                <button
+                    class="auth-submit"
+                    id="loginSubmit"
+                    type="submit"
+                >
+
+                    Sign in to NETRA
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+
+            </form>
+
+
+            <!-- FIXED ACCOUNT CREATION AREA -->
+
+            <div class="auth-switch">
+
+                <span>
+                    Don't have an account?
+                </span>
+
+                <button
+                    type="button"
+                    onclick="showRegister()"
+                >
+                    Create one
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             REGISTER PANEL
+        ====================================================== -->
+
+        <div
+            id="registerPanel"
+            style="display:none"
+        >
+
+
+            <h2>
+                Create your NETRA account.
+            </h2>
+
+
+            <p class="auth-sub">
+
+                Create your profile, connect with people,
+                discover products and build your community.
+
+            </p>
+
+
+            <form
+                class="auth-form"
+                id="registerForm"
+            >
+
+
+                <!-- NAME -->
+
+                <div class="auth-grid">
+
+
+                    <div class="auth-field">
+
+                        <label for="firstName">
+                            First name
+                        </label>
+
+                        <input
+                            id="firstName"
+                            type="text"
+                            required
+                            placeholder="First name"
+                            autocomplete="given-name"
+                        >
+
+                    </div>
+
+
+                    <div class="auth-field">
+
+                        <label for="lastName">
+                            Last name
+                        </label>
+
+                        <input
+                            id="lastName"
+                            type="text"
+                            required
+                            placeholder="Last name"
+                            autocomplete="family-name"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- USERNAME -->
+
+                <div class="auth-field">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        id="username"
+                        type="text"
+                        required
+                        minlength="3"
+                        maxlength="30"
+                        pattern="[A-Za-z0-9_.]+"
+                        placeholder="e.g. joshua_01"
+                        autocomplete="username"
+                    >
+
+                    <small class="field-help">
+                        Letters, numbers, underscores and periods only.
+                    </small>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="auth-field">
+
+                    <label for="registerEmail">
+                        Email address
+                    </label>
+
+                    <input
+                        id="registerEmail"
+                        type="email"
+                        required
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                    >
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="auth-field">
+
+                    <label for="phone">
+
+                        Phone number
+
+                        <span class="optional">
+                            (optional)
+                        </span>
+
+                    </label>
+
+                    <input
+                        id="phone"
+                        type="tel"
+                        placeholder="+234 800 000 0000"
+                        autocomplete="tel"
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="auth-grid">
+
+
+                    <div class="auth-field">
+
+                        <label for="registerPassword">
+                            Password
+                        </label>
+
+
+                        <div class="input-wrap">
+
+                            <input
+                                id="registerPassword"
+                                type="password"
+                                required
+                                minlength="8"
+                                placeholder="At least 8 characters"
+                                autocomplete="new-password"
+                            >
+
+                            <button
+                                class="password-toggle"
+                                type="button"
+                                onclick="togglePassword('registerPassword',this)"
+                                aria-label="Show password"
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-field">
+
+                        <label for="confirmPassword">
+                            Confirm password
+                        </label>
+
+
+                        <div class="input-wrap">
+
+                            <input
+                                id="confirmPassword"
+                                type="password"
+                                required
+                                minlength="8"
+                                placeholder="Repeat password"
+                                autocomplete="new-password"
+                            >
+
+                            <button
+                                class="password-toggle"
+                                type="button"
+                                onclick="togglePassword('confirmPassword',this)"
+                                aria-label="Show password"
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="password-note">
+
+                    Use 8+ characters with a mix of letters and numbers.
+
+                </div>
+
+
+                <!-- BIRTHDAY + AGE -->
+
+                <div class="auth-grid">
+
+
+                    <div class="auth-field">
+
+                        <label for="birthday">
+                            Birthday
+                        </label>
+
+                        <input
+                            id="birthday"
+                            type="date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="auth-field">
+
+                        <label for="age">
+                            Age
+                        </label>
+
+                        <input
+                            id="age"
+                            type="number"
+                            min="13"
+                            max="120"
+                            readonly
+                            required
+                            placeholder="Auto-calculated"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- GENDER -->
+
+                <div class="auth-field">
+
+                    <label for="gender">
+
+                        Gender
+
+                        <span class="optional">
+                            (optional)
+                        </span>
+
+                    </label>
+
+                    <select id="gender">
+
+                        <option value="">
+                            Prefer not to say
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Non-binary">
+                            Non-binary
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- RELATIONSHIP -->
+
+                <div class="auth-field">
+
+                    <label for="relationship">
+
+                        Relationship status
+
+                        <span class="optional">
+                            (optional)
+                        </span>
+
+                    </label>
+
+                    <select id="relationship">
+
+                        <option value="">
+                            Prefer not to say
+                        </option>
+
+                        <option value="Single">
+                            Single
+                        </option>
+
+                        <option value="In a relationship">
+                            In a relationship
+                        </option>
+
+                        <option value="Engaged">
+                            Engaged
+                        </option>
+
+                        <option value="Married">
+                            Married
+                        </option>
+
+                        <option value="It's complicated">
+                            It's complicated
+                        </option>
+
+                        <option value="Separated">
+                            Separated
+                        </option>
+
+                        <option value="Divorced">
+                            Divorced
+                        </option>
+
+                        <option value="Widowed">
+                            Widowed
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- COUNTRY -->
+
+                <div class="auth-field">
+
+                    <label for="country">
+                        Country / region
+                    </label>
+
+                    <select
+                        id="country"
+                        required
+                    >
+
+                        <option value="">
+                            Select country
+                        </option>
+
+                        <option value="Nigeria">
+                            Nigeria
+                        </option>
+
+                        <option value="Ghana">
+                            Ghana
+                        </option>
+
+                        <option value="Kenya">
+                            Kenya
+                        </option>
+
+                        <option value="South Africa">
+                            South Africa
+                        </option>
+
+                        <option value="United Kingdom">
+                            United Kingdom
+                        </option>
+
+                        <option value="United States">
+                            United States
+                        </option>
+
+                        <option value="Canada">
+                            Canada
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TERMS -->
+
+                <label class="check-row">
+
+                    <input
+                        id="terms"
+                        type="checkbox"
+                        required
+                    >
+
+                    <span>
+
+                        I agree to NETRA's
+
+                        <a href="#">
+                            Terms
+                        </a>
+
+                        and
+
+                        <a href="#">
+                            Privacy Policy
+                        </a>.
+
+                    </span>
+
+                </label>
+
+
+                <!-- MARKETING -->
+
+                <label class="check-row">
+
+                    <input
+                        id="marketing"
+                        type="checkbox"
+                    >
+
+                    <span>
+
+                        Send me occasional product,
+                        community and feature updates.
+
+                    </span>
+
+                </label>
+
+
+                <div class="age-note">
+
+                    You must be at least 13 years old to create
+                    a NETRA account. Your birthday helps us provide
+                    age-appropriate features.
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    class="auth-submit"
+                    id="registerSubmit"
+                    type="submit"
+                >
+
+                    Create secure account
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+
+            </form>
+
+
+            <!-- FIXED LOGIN SWITCH -->
+
+            <div class="auth-switch">
+
+                <span>
+                    Already have an account?
+                </span>
+
+                <button
+                    type="button"
+                    onclick="showLogin()"
+                >
+                    Sign in
+                </button>
+
+            </div>
+
+
+            <p class="auth-note">
+
+                NETRA uses Firebase Authentication for accounts
+                and Firestore for profile information.
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     GENERAL JAVASCRIPT
+========================================================= -->
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMobileMenu(){
+
+    const menu =
+        document.getElementById("mobileNav");
+
+    const button =
+        document.getElementById("mobileMenuButton");
+
+    menu.classList.toggle("active");
+
+    const icon =
+        button.querySelector("i");
+
+    if(menu.classList.contains("active")){
+
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-xmark");
+
+    }else{
+
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+
+    }
+
+}
+
+
+function closeMobileMenu(){
+
+    const menu =
+        document.getElementById("mobileNav");
+
+    const button =
+        document.getElementById("mobileMenuButton");
+
+    menu.classList.remove("active");
+
+    const icon =
+        button.querySelector("i");
+
+    icon.classList.remove("fa-xmark");
+    icon.classList.add("fa-bars");
+
+}
+
+
+/* =========================================================
+   AUTH MODAL
+========================================================= */
+
+const authOverlay =
+    document.getElementById("authOverlay");
+
+const loginPanel =
+    document.getElementById("loginPanel");
+
+const registerPanel =
+    document.getElementById("registerPanel");
+
+
+function openAuth(mode="login"){
+
+    authOverlay.classList.add("active");
+
+    document.body.classList.add("modal-open");
+
+    if(mode === "register"){
+
+        showRegister();
+
+    }else{
+
+        showLogin();
+
+    }
+
+}
+
+
+function closeAuth(){
+
+    authOverlay.classList.remove("active");
+
+    document.body.classList.remove("modal-open");
+
+    clearAuthMessage();
+
+}
+
+
+function handleOverlayClick(event){
+
+    if(event.target === authOverlay){
+
+        closeAuth();
+
+    }
+
+}
+
+
+function showLogin(){
+
+    loginPanel.style.display="block";
+
+    registerPanel.style.display="none";
+
+    clearAuthMessage();
+
+}
+
+
+function showRegister(){
+
+    loginPanel.style.display="none";
+
+    registerPanel.style.display="block";
+
+    clearAuthMessage();
+
+}
+
+
+window.openAuth = openAuth;
+window.closeAuth = closeAuth;
+window.showLogin = showLogin;
+window.showRegister = showRegister;
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeAuth();
+
+            closeMobileMenu();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PASSWORD VISIBILITY
+========================================================= */
+
+function togglePassword(id,button){
+
+    const input =
+        document.getElementById(id);
+
+    const icon =
+        button.querySelector("i");
+
+
+    if(input.type === "password"){
+
+        input.type="text";
+
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    }else{
+
+        input.type="password";
+
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+}
+
+
+window.togglePassword = togglePassword;
+
+
+/* =========================================================
+   AUTH MESSAGE
+========================================================= */
+
+function showMessage(
+    text,
+    type="info"
+){
+
+    const box =
+        document.getElementById("authMessage");
+
+    box.textContent = text;
+
+    box.className =
+        "auth-message show " + type;
+
+}
+
+
+function clearAuthMessage(){
+
+    const box =
+        document.getElementById("authMessage");
+
+    box.textContent="";
+
+    box.className="auth-message";
+
+}
+
+
+window.showMessage = showMessage;
+
+
+/* =========================================================
+   AGE CALCULATION
+========================================================= */
+
+const birthday =
+    document.getElementById("birthday");
+
+const age =
+    document.getElementById("age");
+
+
+function calculateAge(){
+
+    if(!birthday.value){
+
+        age.value="";
+
+        return null;
+
+    }
+
+
+    const dob =
+        new Date(
+            birthday.value + "T00:00:00"
+        );
+
+
+    const today =
+        new Date();
+
+
+    if(dob > today){
+
+        age.value="";
+
+        return null;
+
+    }
+
+
+    let calculatedAge =
+        today.getFullYear()
+        -
+        dob.getFullYear();
+
+
+    const month =
+        today.getMonth()
+        -
+        dob.getMonth();
+
+
+    if(
+        month < 0 ||
+        (
+            month === 0 &&
+            today.getDate() < dob.getDate()
+        )
+    ){
+
+        calculatedAge--;
+
+    }
+
+
+    age.value =
+        calculatedAge >= 0
+        ? calculatedAge
+        : "";
+
+
+    return calculatedAge;
+
+}
+
+
+birthday.addEventListener(
+    "change",
+    calculateAge
+);
+
+
+/* =========================================================
+   BIRTHDAY MAXIMUM
+========================================================= */
+
+const todayForDate =
+    new Date();
+
+const maxBirthday =
+    new Date(
+        todayForDate.getFullYear() - 13,
+        todayForDate.getMonth(),
+        todayForDate.getDate()
+    );
+
+birthday.max =
+    maxBirthday.toISOString().split("T")[0];
+
+
+/* =========================================================
+   USERNAME NORMALIZATION
+========================================================= */
+
+const usernameInput =
+    document.getElementById("username");
+
+
+usernameInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+            .replace(/[^A-Za-z0-9_.]/g,"")
+            .toLowerCase();
+
+    }
+);
+
+
+/* =========================================================
+   PASSWORD VALIDATION
+========================================================= */
+
+function passwordIsStrong(password){
+
+    if(password.length < 8){
+
+        return false;
+
+    }
+
+    const hasLetter =
+        /[A-Za-z]/.test(password);
+
+    const hasNumber =
+        /[0-9]/.test(password);
+
+
+    return hasLetter && hasNumber;
+
+}
+
+
+/* =========================================================
+   CLOSE MENU WHEN CLICKING OUTSIDE
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const nav =
+            document.querySelector(".nav");
+
+        const mobileNav =
+            document.getElementById("mobileNav");
+
+
+        if(
+            mobileNav.classList.contains("active") &&
+            !nav.contains(event.target)
+        ){
+
+            closeMobileMenu();
+
+        }
+
+    }
+);
+
+</script>
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<script type="module">
+
+/*
+    NETRA FIREBASE AUTHENTICATION
+
+    Firebase currently supports the modular Web SDK.
+    This file uses browser-module imports so you can
+    continue using a plain HTML/CSS/JS project.
+*/
+
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendEmailVerification,
+    sendPasswordResetEmail,
+    updateProfile
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE CONFIGURATION
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "YOUR_FIREBASE_API_KEY",
+
+    authDomain:
+        "YOUR_PROJECT.firebaseapp.com",
+
+    projectId:
+        "YOUR_PROJECT_ID",
+
+    storageBucket:
+        "YOUR_PROJECT.firebasestorage.app",
+
+    messagingSenderId:
+        "YOUR_SENDER_ID",
+
+    appId:
+        "YOUR_APP_ID"
+
+};
+
+
+/* =========================================================
+   CHECK CONFIGURATION
+========================================================= */
+
+const firebaseReady =
+    !Object.values(firebaseConfig)
+    .some(
+        value =>
+            String(value).startsWith("YOUR_")
+    );
+
+
+let auth = null;
+let db = null;
+
+
+/* =========================================================
+   INITIALIZE FIREBASE
+========================================================= */
+
+if(firebaseReady){
+
+    try{
+
+        const app =
+            initializeApp(firebaseConfig);
+
+
+        auth =
+            getAuth(app);
+
+
+        db =
+            getFirestore(app);
+
+
+        console.log(
+            "NETRA Firebase connected successfully."
+        );
+
+    }catch(error){
+
+        console.error(
+            "Firebase initialization error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FRIENDLY FIREBASE ERRORS
+========================================================= */
+
+function friendlyError(error){
+
+    const errors = {
+
+        "auth/email-already-in-use":
+            "An account with this email already exists. Try signing in.",
+
+        "auth/invalid-email":
+            "Please enter a valid email address.",
+
+        "auth/weak-password":
+            "Choose a stronger password with at least 8 characters.",
+
+        "auth/invalid-credential":
+            "Email or password is incorrect.",
+
+        "auth/user-not-found":
+            "No account was found with that email.",
+
+        "auth/wrong-password":
+            "Email or password is incorrect.",
+
+        "auth/too-many-requests":
+            "Too many attempts. Please wait a moment and try again.",
+
+        "auth/network-request-failed":
+            "Network connection failed. Check your internet connection.",
+
+        "auth/operation-not-allowed":
+            "Email/password authentication has not been enabled in Firebase."
+
+    };
+
+
+    return (
+        errors[error.code] ||
+        error.message ||
+        "Something went wrong. Please try again."
+    );
+
+}
+
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+document
+.getElementById("registerForm")
+.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        const submitButton =
+            document.getElementById("registerSubmit");
+
+
+        const firstName =
+            document
+            .getElementById("firstName")
+            .value
+            .trim();
+
+
+        const lastName =
+            document
+            .getElementById("lastName")
+            .value
+            .trim();
+
+
+        const username =
+            document
+            .getElementById("username")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const email =
+            document
+            .getElementById("registerEmail")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const phone =
+            document
+            .getElementById("phone")
+            .value
+            .trim();
+
+
+        const password =
+            document
+            .getElementById("registerPassword")
+            .value;
+
+
+        const confirmPassword =
+            document
+            .getElementById("confirmPassword")
+            .value;
+
+
+        const birthdayValue =
+            document
+            .getElementById("birthday")
+            .value;
+
+
+        const gender =
+            document
+            .getElementById("gender")
+            .value;
+
+
+        const relationship =
+            document
+            .getElementById("relationship")
+            .value;
+
+
+        const country =
+            document
+            .getElementById("country")
+            .value;
+
+
+        const marketing =
+            document
+            .getElementById("marketing")
+            .checked;
+
+
+        const calculatedAge =
+            calculateAge();
+
+
+        /* -------------------------------------------------
+           VALIDATION
+        ------------------------------------------------- */
+
+        if(!firebaseReady){
+
+            showMessage(
+                "Firebase is not connected yet. Replace the YOUR_ values in the Firebase configuration.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !firstName ||
+            !lastName
+        ){
+
+            showMessage(
+                "Please enter your first and last name.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!/^[A-Za-z0-9_.]+$/.test(username)){
+
+            showMessage(
+                "Username can only contain letters, numbers, underscores and periods.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(calculatedAge === null){
+
+            showMessage(
+                "Please enter your birthday.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(calculatedAge < 13){
+
+            showMessage(
+                "You must be at least 13 years old to join NETRA.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(calculatedAge > 120){
+
+            showMessage(
+                "Please enter a valid birthday.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!passwordIsStrong(password)){
+
+            showMessage(
+                "Password must contain at least 8 characters, including letters and numbers.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(password !== confirmPassword){
+
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* -------------------------------------------------
+           LOADING
+        ------------------------------------------------- */
+
+        submitButton.disabled=true;
+
+        submitButton.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Creating account...';
+
+
+        try{
+
+            /* ---------------------------------------------
+               CREATE FIREBASE USER
+            --------------------------------------------- */
+
+            const credential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            const user =
+                credential.user;
+
+
+            /* ---------------------------------------------
+               UPDATE FIREBASE PROFILE
+            --------------------------------------------- */
+
+            await updateProfile(
+                user,
+                {
+
+                    displayName:
+                        `${firstName} ${lastName}`.trim()
+
+                }
+            );
+
+
+            /* ---------------------------------------------
+               CREATE FIRESTORE PROFILE
+            --------------------------------------------- */
+
+            await setDoc(
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                ),
+                {
+
+                    uid:
+                        user.uid,
+
+                    firstName:
+                        firstName,
+
+                    lastName:
+                        lastName,
+
+                    displayName:
+                        `${firstName} ${lastName}`.trim(),
+
+                    username:
+                        username,
+
+                    email:
+                        email,
+
+                    phone:
+                        phone,
+
+                    birthday:
+                        birthdayValue,
+
+                    age:
+                        calculatedAge,
+
+                    gender:
+                        gender,
+
+                    relationship:
+                        relationship,
+
+                    country:
+                        country,
+
+                    marketing:
+                        marketing,
+
+                    profilePhoto:
+                        "",
+
+                    bio:
+                        "",
+ 
+                    createdAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            /* ---------------------------------------------
+               SEND EMAIL VERIFICATION
+            --------------------------------------------- */
+
+            await sendEmailVerification(user);
+
+
+            showMessage(
+                "Your NETRA account has been created. A verification email has been sent to you.",
+                "success"
+            );
+
+
+            /* ---------------------------------------------
+               SAVE BASIC SESSION INFORMATION
+            --------------------------------------------- */
+
+            localStorage.setItem(
+                "netraNewUser",
+                "true"
+            );
+
+
+            localStorage.setItem(
+                "netraUserName",
+                `${firstName} ${lastName}`.trim()
+            );
+
+
+            /* ---------------------------------------------
+               REDIRECT
+            --------------------------------------------- */
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "HomePage.html";
+
+                },
+                1600
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "NETRA registration error:",
+                error
+            );
+
+
+            showMessage(
+                friendlyError(error),
+                "error"
+            );
+
+
+            submitButton.disabled=false;
+
+            submitButton.innerHTML =
+                'Create secure account <i class="fa-solid fa-arrow-right"></i>';
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+document
+.getElementById("loginForm")
+.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        const submitButton =
+            document.getElementById("loginSubmit");
+
+
+        const email =
+            document
+            .getElementById("loginEmail")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const password =
+            document
+            .getElementById("loginPassword")
+            .value;
+
+
+        if(!firebaseReady){
+
+            showMessage(
+                "Firebase is not connected yet. Replace the YOUR_ values in the Firebase configuration.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!email || !password){
+
+            showMessage(
+                "Enter your email and password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        submitButton.disabled=true;
+
+        submitButton.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
+
+
+        try{
+
+            const credential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            const user =
+                credential.user;
+
+
+            localStorage.setItem(
+                "netraUserName",
+                user.displayName || ""
+            );
+
+
+            localStorage.setItem(
+                "netraNewUser",
+                "false"
+            );
+
+
+            showMessage(
+                "Login successful. Welcome back to NETRA.",
+                "success"
+            );
+
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "HomePage.html";
+
+                },
+                700
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "NETRA login error:",
+                error
+            );
+
+
+            showMessage(
+                friendlyError(error),
+                "error"
+            );
+
+
+            submitButton.disabled=false;
+
+            submitButton.innerHTML =
+                'Sign in to NETRA <i class="fa-solid fa-arrow-right"></i>';
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+window.resetPassword =
+async function(){
+
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if(!email){
+
+        showMessage(
+            "Enter your email address first.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!firebaseReady){
+
+        showMessage(
+            "Connect Firebase first to use password recovery.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await sendPasswordResetEmail(
+            auth,
+            email
+        );
+
+
+        showMessage(
+            "Password reset instructions have been sent to your email.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Password reset error:",
+            error
+        );
+
+
+        showMessage(
+            friendlyError(error),
+            "error"
+        );
+
+    }
+
+};
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Netra — Profile</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="HomePage.html">
+<link rel="stylesheet" href="Messagner.html">
+<link rel="stylesheet" href="NewsPage.html">
+<link rel="stylesheet" href="Friendspage.html">
+<link rel="stylesheet" href="Videos.html">
+<link rel="stylesheet" href="Watch Page.html">
+<link rel="stylesheet" href="Group Page.html">
+<link rel="stylesheet" href="Find friendpage.html">
+<link rel="stylesheet" href="Settings.html">
+<link rel="stylesheet" href="Storepage.html">
+
+<style>
+/* =========================================================
+   NETRA PROFILE
+   NEW USER VERSION
+========================================================= */
+
+:root{
+    --blue:#1769ff;
+    --blue-dark:#0d47c9;
+    --navy:#07111f;
+    --soft:#eef5ff;
+
+    --secondary:#635bff;
+    --purple:#8b5cf6;
+    --accent:#06b6d4;
+
+    --bg:#f5f8ff;
+    --card:#ffffff;
+    --text:#07111f;
+    --muted:#718096;
+    --border:#e2e8f0;
+
+    --danger:#ef4444;
+    --success:#16a34a;
+
+    --shadow:0 12px 35px rgba(7,17,31,.07);
+
+    --radius:20px;
+}
+
+body.dark{
+    --bg:#07111f;
+    --card:#0d1728;
+    --soft:#13233a;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --border:#22324a;
+    --shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    transition:.25s;
+}
+
+button,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    border:0;
+}
+
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:72px;
+
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    align-items:center;
+}
+
+body.dark .topbar{
+    background:rgba(7,17,31,.94);
+}
+
+.topbar-inner{
+    width:min(1400px,94%);
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:23px;
+    font-weight:800;
+    color:var(--text);
+}
+
+.logo-mark{
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:13px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769ff,
+            #635bff,
+            #8b5cf6
+        );
+
+    box-shadow:0 8px 20px rgba(99,91,255,.25);
+}
+
+.search-box{
+    flex:1;
+    max-width:420px;
+
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:0 15px;
+
+    background:var(--soft);
+    border:1px solid transparent;
+
+    border-radius:13px;
+}
+
+.search-box:focus-within{
+    border-color:var(--blue);
+}
+
+.search-box i{
+    color:var(--muted);
+}
+
+.search-box input{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:var(--text);
+}
+
+.search-box input::placeholder{
+    color:var(--muted);
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.icon-btn{
+    width:43px;
+    height:43px;
+
+    border-radius:13px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--soft);
+    color:var(--text);
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.icon-btn:hover{
+    transform:translateY(-2px);
+    background:#dfeaff;
+    color:var(--blue);
+}
+
+body.dark .icon-btn:hover{
+    background:#182a44;
+}
+
+.nav-avatar{
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--secondary)
+        );
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+
+    overflow:hidden;
+}
+
+.nav-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.page{
+    width:min(1400px,94%);
+    margin:28px auto 100px;
+}
+
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
+
+.profile-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.cover{
+    height:300px;
+
+    position:relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769ff 0%,
+            #635bff 55%,
+            #8b5cf6 78%,
+            #06b6d4 100%
+        );
+
+    background-size:cover;
+    background-position:center;
+}
+
+.cover.has-image{
+    background-repeat:no-repeat;
+}
+
+.cover::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.04),
+            rgba(0,0,0,.12)
+        );
+}
+
+.cover-edit{
+    position:absolute;
+    right:22px;
+    bottom:20px;
+    z-index:2;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:11px 16px;
+
+    border-radius:12px;
+
+    background:#fff;
+    color:#111827;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+    transition:.2s;
+}
+
+.cover-edit:hover{
+    transform:translateY(-2px);
+}
+
+.profile-info{
+    position:relative;
+
+    padding:0 32px 28px;
+}
+
+.profile-avatar-wrap{
+    position:relative;
+
+    width:145px;
+    height:145px;
+
+    margin-top:-72px;
+
+    z-index:5;
+}
+
+.profile-avatar{
+    width:145px;
+    height:145px;
+
+    border-radius:50%;
+
+    border:6px solid var(--card);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--secondary)
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    font-size:52px;
+    font-weight:800;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.avatar-edit{
+    position:absolute;
+    right:3px;
+    bottom:5px;
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:var(--card);
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.profile-main-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+
+    margin-top:12px;
+}
+
+.profile-name-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.profile-name{
+    font-size:29px;
+    font-weight:800;
+}
+
+.new-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    background:#e9f1ff;
+    color:var(--blue);
+
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.4px;
+}
+
+body.dark .new-badge{
+    background:#152d55;
+}
+
+.username{
+    margin-top:4px;
+
+    color:var(--muted);
+    font-size:14px;
+}
+
+.profile-buttons{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    min-height:42px;
+
+    padding:0 17px;
+
+    border-radius:12px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    background:var(--blue);
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:var(--blue-dark);
+}
+
+.btn-light{
+    background:var(--soft);
+    color:var(--text);
+}
+
+.btn-danger{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+body.dark .btn-danger{
+    background:#3a171b;
+    color:#fca5a5;
+}
+
+.bio{
+    max-width:720px;
+    margin-top:17px;
+
+    line-height:1.65;
+
+    color:var(--text);
+}
+
+.profile-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:17px;
+
+    margin-top:15px;
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+.profile-meta span{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.profile-stats{
+    display:flex;
+    flex-wrap:wrap;
+
+    margin-top:25px;
+
+    border-top:1px solid var(--border);
+    padding-top:22px;
+
+    gap:35px;
+}
+
+.stat{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    cursor:pointer;
+}
+
+.stat strong{
+    font-size:18px;
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs{
+    display:flex;
+    gap:4px;
+
+    margin-top:16px;
+
+    padding:6px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+    border-radius:15px;
+
+    box-shadow:var(--shadow);
+
+    overflow-x:auto;
+}
+
+.tab{
+    flex:1;
+    min-width:100px;
+
+    padding:12px 16px;
+
+    border-radius:10px;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    transition:.2s;
+}
+
+.tab:hover{
+    color:var(--blue);
+}
+
+.tab.active{
+    background:var(--soft);
+    color:var(--blue);
+}
+
+/* =========================================================
+   CONTENT GRID
+========================================================= */
+
+.content-grid{
+    display:grid;
+
+    grid-template-columns:minmax(0,1fr) 330px;
+
+    gap:20px;
+
+    margin-top:20px;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px;
+}
+
+.card-title{
+    font-size:17px;
+    font-weight:800;
+
+    margin-bottom:17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+.welcome-card{
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--card),
+            var(--soft)
+        );
+}
+
+.welcome-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    border-radius:50%;
+
+    background:rgba(23,105,255,.09);
+
+    right:-50px;
+    top:-50px;
+}
+
+.welcome-content{
+    position:relative;
+    z-index:1;
+}
+
+.welcome-icon{
+    width:56px;
+    height:56px;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--secondary)
+        );
+
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+
+    margin-bottom:15px;
+}
+
+.welcome-card h2{
+    font-size:23px;
+    margin-bottom:8px;
+}
+
+.welcome-card p{
+    color:var(--muted);
+    line-height:1.6;
+    max-width:700px;
+}
+
+/* =========================================================
+   COMPLETION
+========================================================= */
+
+.progress-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:10px;
+}
+
+.progress-number{
+    color:var(--blue);
+    font-weight:800;
+}
+
+.progress-bar{
+    width:100%;
+    height:9px;
+
+    background:var(--soft);
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+
+    width:20%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--secondary),
+            var(--accent)
+        );
+
+    border-radius:20px;
+
+    transition:.4s;
+}
+
+.checklist{
+    margin-top:18px;
+
+    display:grid;
+
+    gap:10px;
+}
+
+.check-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:12px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+}
+
+.check-left{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.check-icon{
+    width:34px;
+    height:34px;
+
+    border-radius:10px;
+
+    background:var(--soft);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:var(--muted);
+}
+
+.check-item.done .check-icon{
+    background:#dcfce7;
+    color:var(--success);
+}
+
+body.dark .check-item.done .check-icon{
+    background:#123322;
+}
+
+.check-item small{
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+}
+
+.check-status{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:700;
+}
+
+.check-item.done .check-status{
+    color:var(--success);
+}
+
+/* =========================================================
+   POST COMPOSER
+========================================================= */
+
+.composer{
+    display:flex;
+    gap:12px;
+}
+
+.composer-avatar{
+    flex:0 0 46px;
+
+    width:46px;
+    height:46px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--secondary)
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    font-weight:800;
+
+    overflow:hidden;
+}
+
+.composer-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.composer-main{
+    flex:1;
+}
+
+.composer textarea{
+    width:100%;
+
+    min-height:95px;
+
+    resize:vertical;
+
+    padding:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    outline:none;
+
+    background:var(--bg);
+    color:var(--text);
+
+    line-height:1.5;
+}
+
+.composer textarea:focus{
+    border-color:var(--blue);
+}
+
+.composer-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-top:10px;
+}
+
+.composer-tools{
+    display:flex;
+    gap:6px;
+}
+
+.tool-btn{
+    width:38px;
+    height:38px;
+
+    border-radius:10px;
+
+    background:var(--soft);
+
+    color:var(--muted);
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.tool-btn:hover{
+    color:var(--blue);
+    transform:translateY(-2px);
+}
+
+.image-preview{
+    position:relative;
+
+    margin-top:10px;
+
+    display:none;
+}
+
+.image-preview img{
+    width:100%;
+    max-height:350px;
+
+    object-fit:cover;
+
+    border-radius:14px;
+}
+
+.remove-preview{
+    position:absolute;
+    top:10px;
+    right:10px;
+
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.7);
+    color:#fff;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   POSTS
+========================================================= */
+
+.posts-list{
+    display:grid;
+    gap:18px;
+}
+
+.post{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:20px;
+}
+
+.post-header{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.post-author{
+    display:flex;
+    gap:11px;
+}
+
+.post-avatar{
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--secondary)
+        );
+
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+}
+
+.post-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.post-name{
+    font-weight:800;
+}
+
+.post-time{
+    font-size:12px;
+    color:var(--muted);
+
+    margin-top:3px;
+}
+
+.post-menu{
+    display:flex;
+    gap:5px;
+}
+
+.post-delete-btn{
+    width:38px;
+    height:38px;
+
+    border-radius:10px;
+
+    background:transparent;
+
+    color:#000000;
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:16px;
+
+    transition:.2s;
+}
+
+.post-delete-btn:hover{
+    background:rgba(0,0,0,.08);
+    color:#000000;
+    transform:scale(1.05);
+}
+
+body.dark .post-delete-btn{
+    color:#000000;
+    background:#ffffff;
+}
+
+body.dark .post-delete-btn:hover{
+    background:#e5e7eb;
+}
+
+.post-text{
+    margin-top:15px;
+
+    line-height:1.65;
+
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+}
+
+.post-image{
+    width:100%;
+
+    max-height:600px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    margin-top:14px;
+}
+
+.post-actions{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+
+    margin-top:15px;
+
+    border-top:1px solid var(--border);
+
+    padding-top:10px;
+
+    gap:4px;
+}
+
+.post-action{
+    min-height:40px;
+
+    border-radius:10px;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+
+    font-size:13px;
+    font-weight:700;
+
+    transition:.2s;
+}
+
+.post-action:hover{
+    background:var(--soft);
+    color:var(--blue);
+}
+
+.post-action.active{
+    color:var(--blue);
+}
+
+.comments{
+    margin-top:12px;
+
+    display:none;
+}
+
+.comments.open{
+    display:block;
+}
+
+.comment-form{
+    display:flex;
+    gap:8px;
+}
+
+.comment-form input{
+    flex:1;
+
+    height:40px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:0 12px;
+
+    outline:none;
+
+    background:var(--bg);
+    color:var(--text);
+}
+
+.comment-list{
+    margin-top:10px;
+
+    display:grid;
+    gap:7px;
+}
+
+.comment{
+    background:var(--soft);
+
+    border-radius:10px;
+
+    padding:9px 11px;
+
+    font-size:13px;
+}
+
+/* =========================================================
+   EMPTY STATES
+========================================================= */
+
+.empty{
+    text-align:center;
+
+    padding:45px 20px;
+
+    color:var(--muted);
+}
+
+.empty-icon{
+    width:65px;
+    height:65px;
+
+    border-radius:18px;
+
+    margin:0 auto 14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--soft);
+
+    color:var(--blue);
+
+    font-size:25px;
+}
+
+.empty h3{
+    color:var(--text);
+
+    margin-bottom:7px;
+}
+
+.empty p{
+    max-width:430px;
+    margin:auto;
+
+    line-height:1.6;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.quick-list{
+    display:grid;
+    gap:8px;
+}
+
+.quick-action{
+    width:100%;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    background:var(--soft);
+
+    color:var(--text);
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    transition:.2s;
+}
+
+.quick-action:hover{
+    transform:translateX(3px);
+    color:var(--blue);
+}
+
+.quick-action i{
+    width:20px;
+    text-align:center;
+}
+
+.progress-side{
+    text-align:center;
+}
+
+.circle-progress{
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    margin:8px auto 15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        conic-gradient(
+            var(--blue) 20%,
+            var(--soft) 20%
+        );
+
+    position:relative;
+}
+
+.circle-progress::before{
+    content:"";
+
+    position:absolute;
+
+    width:91px;
+    height:91px;
+
+    border-radius:50%;
+
+    background:var(--card);
+}
+
+.circle-progress span{
+    position:relative;
+
+    font-size:22px;
+    font-weight:800;
+}
+
+/* =========================================================
+   ABOUT / OTHER TABS
+========================================================= */
+
+.about-grid{
+    display:grid;
+    gap:12px;
+}
+
+.about-row{
+    display:flex;
+    align-items:flex-start;
+    gap:13px;
+
+    padding:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:13px;
+}
+
+.about-row i{
+    width:25px;
+
+    color:var(--blue);
+
+    margin-top:2px;
+}
+
+.about-row strong{
+    display:block;
+    margin-bottom:3px;
+}
+
+.about-row span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    z-index:2000;
+
+    background:rgba(2,6,23,.68);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal.open{
+    display:flex;
+}
+
+.modal-box{
+    width:min(570px,100%);
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    box-shadow:0 25px 80px rgba(0,0,0,.25);
+}
+
+.modal-header{
+    padding:20px;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.modal-header h3{
+    font-size:18px;
+}
+
+.close-modal{
+    width:38px;
+    height:38px;
+
+    border-radius:10px;
+
+    background:var(--soft);
+
+    color:var(--text);
+
+    cursor:pointer;
+}
+
+.modal-body{
+    padding:20px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:13px;
+
+    font-weight:700;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+
+    border:1px solid var(--border);
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    outline:none;
+
+    border-radius:12px;
+
+    padding:12px;
+}
+
+.form-group textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    border-color:var(--blue);
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+
+    padding-top:5px;
+}
+
+/* COVER MODAL */
+
+.cover-preview{
+    width:100%;
+    height:220px;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769ff,
+            #635bff,
+            #8b5cf6,
+            #06b6d4
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:15px;
+
+    position:relative;
+}
+
+.cover-preview img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:none;
+}
+
+.cover-preview-empty{
+    color:#fff;
+
+    text-align:center;
+}
+
+.cover-preview-empty i{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+/* PROFILE IMAGE MODAL */
+
+.profile-preview{
+    width:150px;
+    height:150px;
+
+    border-radius:50%;
+
+    margin:5px auto 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--secondary)
+        );
+
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:48px;
+    font-weight:800;
+
+    overflow:hidden;
+}
+
+.profile-preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    right:22px;
+    bottom:22px;
+
+    z-index:4000;
+
+    background:#07111f;
+    color:#fff;
+
+    padding:13px 17px;
+
+    border-radius:12px;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.25);
+
+    transform:translateY(30px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    font-size:13px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobile-nav{
+    display:none;
+
+    position:fixed;
+
+    bottom:0;
+    left:0;
+    right:0;
+
+    height:66px;
+
+    z-index:1500;
+
+    background:var(--card);
+
+    border-top:1px solid var(--border);
+
+    box-shadow:0 -8px 30px rgba(0,0,0,.08);
+}
+
+.mobile-nav a{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:4px;
+
+    color:var(--muted);
+
+    font-size:10px;
+    font-weight:700;
+}
+
+.mobile-nav a i{
+    font-size:18px;
+}
+
+.mobile-nav a.active{
+    color:var(--blue);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .content-grid{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:20px;
+    }
+}
+
+@media(max-width:760px){
+
+    .topbar{
+        height:64px;
+    }
+
+    .topbar-inner{
+        width:94%;
+    }
+
+    .logo span{
+        display:none;
+    }
+
+    .logo-mark{
+        width:40px;
+        height:40px;
+    }
+
+    .search-box{
+        max-width:none;
+    }
+
+    .top-actions .home-btn,
+    .top-actions .message-btn{
+        display:none;
+    }
+
+    .page{
+        width:100%;
+        margin-top:12px;
+        margin-bottom:85px;
+    }
+
+    .profile-card{
+        border-radius:0;
+        border-left:0;
+        border-right:0;
+    }
+
+    .cover{
+        height:210px;
+    }
+
+    .cover-edit{
+        right:14px;
+        bottom:14px;
+        padding:9px 12px;
+        font-size:12px;
+    }
+
+    .profile-info{
+        padding:0 16px 22px;
+    }
+
+    .profile-avatar-wrap{
+        width:105px;
+        height:105px;
+
+        margin-top:-52px;
+    }
+
+    .profile-avatar{
+        width:105px;
+        height:105px;
+
+        font-size:38px;
+
+        border-width:5px;
+    }
+
+    .avatar-edit{
+        width:33px;
+        height:33px;
+
+        right:0;
+        bottom:1px;
+    }
+
+    .profile-main-row{
+        flex-direction:column;
+    }
+
+    .profile-name{
+        font-size:23px;
+    }
+
+    .profile-buttons{
+        width:100%;
+    }
+
+    .profile-buttons .btn{
+        flex:1;
+    }
+
+    .profile-stats{
+        gap:20px;
+        justify-content:space-between;
+    }
+
+    .stat{
+        flex-direction:column;
+        gap:2px;
+    }
+
+    .tabs{
+        border-radius:0;
+        border-left:0;
+        border-right:0;
+
+        margin-top:10px;
+    }
+
+    .tab{
+        min-width:85px;
+        padding:11px 10px;
+        font-size:12px;
+    }
+
+    .content-grid{
+        margin-top:10px;
+    }
+
+    .card{
+        border-radius:0;
+        border-left:0;
+        border-right:0;
+        padding:17px;
+    }
+
+    .sidebar{
+        display:block;
+    }
+
+    .sidebar .card{
+        margin-bottom:10px;
+    }
+
+    .mobile-nav{
+        display:flex;
+    }
+
+    .post{
+        border-radius:0;
+        border-left:0;
+        border-right:0;
+    }
+
+    .post-actions{
+        grid-template-columns:repeat(5,1fr);
+    }
+
+    .post-action span{
+        display:none;
+    }
+
+    .post-action{
+        font-size:17px;
+    }
+
+    .composer-bottom{
+        align-items:flex-end;
+    }
+}
+
+@media(max-width:480px){
+
+    .search-box{
+        display:none;
+    }
+
+    .profile-meta{
+        display:grid;
+        gap:9px;
+    }
+
+    .profile-stats{
+        gap:9px;
+    }
+
+    .stat strong{
+        font-size:16px;
+    }
+
+    .stat span{
+        font-size:11px;
+    }
+
+    .welcome-card h2{
+        font-size:20px;
+    }
+
+    .composer-avatar{
+        width:40px;
+        height:40px;
+        flex-basis:40px;
+    }
+
+    .composer textarea{
+        min-height:80px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =======================================================
+     TOPBAR
+======================================================= -->
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <a href="HomePage.html" class="logo">
+
+           
+            <span>NETRA</span>
+
+        </a>
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search your posts..."
+            >
+
+        </div>
+
+        <div class="top-actions">
+
+            <a href="HomePage.html"
+               class="icon-btn home-btn"
+               title="Home">
+
+                <i class="fa-solid fa-house"></i>
+
+            </a>
+
+            <button
+                class="icon-btn"
+                id="themeBtn"
+                title="Toggle dark mode">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+            <a href="Messagner.html"
+               class="icon-btn message-btn"
+               title="Messages">
+
+                <i class="fa-solid fa-message"></i>
+
+            </a>
+
+            <div class="nav-avatar" id="navAvatar">
+                Y
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="page">
+
+<!-- =======================================================
+     PROFILE CARD
+======================================================= -->
+
+<section class="profile-card">
+
+    <div class="cover" id="cover">
+
+        <button
+            class="cover-edit"
+            id="editCoverBtn">
+
+            <i class="fa-solid fa-camera"></i>
+
+            Edit Cover
+
+        </button>
+
+    </div>
+
+
+    <div class="profile-info">
+
+        <div class="profile-avatar-wrap">
+
+            <div
+                class="profile-avatar"
+                id="profileAvatar">
+
+                Y
+
+            </div>
+
+            <button
+                class="avatar-edit"
+                id="editAvatarBtn"
+                title="Change profile photo">
+
+                <i class="fa-solid fa-camera"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="profile-main-row">
+
+            <div>
+
+                <div class="profile-name-row">
+
+                    <h1
+                        class="profile-name"
+                        id="profileName">
+
+                        Your Name
+
+                    </h1>
+
+                    <span class="new-badge">
+
+                        <i class="fa-solid fa-sparkles"></i>
+
+                        NEW TO NETRA
+
+                    </span>
+
+                </div>
+
+                <div
+                    class="username"
+                    id="profileUsername">
+
+                    @username
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-buttons">
+
+                <button
+                    class="btn btn-primary"
+                    id="editProfileBtn">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Edit Profile
+
+                </button>
+
+                <button
+                    class="btn btn-light"
+                    id="shareProfileBtn">
+
+                    <i class="fa-solid fa-share-nodes"></i>
+
+                    Share
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <p
+            class="bio"
+            id="profileBio">
+
+            Complete your profile so people can get to know you.
+
+        </p>
+
+
+        <div class="profile-meta" id="profileMeta">
+
+            <!-- generated by JS -->
+
+        </div>
+
+
+        <div class="profile-stats">
+
+            <div class="stat">
+
+                <strong id="postsCount">0</strong>
+                <span>Posts</span>
+
+            </div>
+
+            <div class="stat">
+
+                <strong id="friendsCount">0</strong>
+                <span>Friends</span>
+
+            </div>
+
+            <div class="stat">
+
+                <strong id="followersCount">0</strong>
+                <span>Followers</span>
+
+            </div>
+
+            <div class="stat">
+
+                <strong id="followingCount">0</strong>
+                <span>Following</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     TABS
+======================================================= -->
+
+<nav class="tabs">
+
+    <button
+        class="tab active"
+        data-tab="posts">
+
+        <i class="fa-solid fa-newspaper"></i>
+        Posts
+
+    </button>
+
+    <button
+        class="tab"
+        data-tab="about">
+
+        <i class="fa-solid fa-circle-info"></i>
+        About
+
+    </button>
+
+    <button
+        class="tab"
+        data-tab="photos">
+
+        <i class="fa-solid fa-image"></i>
+        Photos
+
+    </button>
+
+    <button
+        class="tab"
+        data-tab="friends">
+
+        <i class="fa-solid fa-user-group"></i>
+        Friends
+
+    </button>
+
+    <button
+        class="tab"
+        data-tab="reels">
+
+        <i class="fa-solid fa-clapperboard"></i>
+        Reels
+
+    </button>
+
+</nav>
+
+
+<!-- =======================================================
+     CONTENT
+======================================================= -->
+
+<div class="content-grid">
+
+    <section id="mainContent">
+
+        <!-- WELCOME -->
+
+        <div class="card welcome-card">
+
+            <div class="welcome-content">
+
+                <div class="welcome-icon">
+
+                    <i class="fa-solid fa-hand-wave"></i>
+
+                </div>
+
+                <h2>
+                    Welcome to Netra 👋
+                </h2>
+
+                <p>
+                    Your profile is ready. Add a few details,
+                    upload your photos and create your first post
+                    to start building your presence on Netra.
+                </p>
+
+                <br>
+
+                <button
+                    class="btn btn-primary"
+                    id="welcomePostBtn">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Create Your First Post
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPLETION -->
+
+        <div
+            class="card"
+            style="margin-top:20px;">
+
+            <div class="card-title">
+
+                <span>
+                    Complete your profile
+                </span>
+
+                <span
+                    class="progress-number"
+                    id="completionNumber">
+
+                    20%
+
+                </span>
+
+            </div>
+
+
+            <div class="progress-top">
+
+                <span
+                    style="font-size:13px;color:var(--muted);">
+
+                    Help people discover you
+
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="checklist"
+                id="checklist">
+
+                <!-- generated by JS -->
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPOSER -->
+
+        <div
+            class="card"
+            id="composerCard"
+            style="margin-top:20px;">
+
+            <div class="card-title">
+
+                <span>
+                    Create your first post
+                </span>
+
+            </div>
+
+
+            <div class="composer">
+
+                <div
+                    class="composer-avatar"
+                    id="composerAvatar">
+
+                    Y
+
+                </div>
+
+
+                <div class="composer-main">
+
+                    <textarea
+                        id="postText"
+                        placeholder="What's on your mind? Share your first post on Netra..."></textarea>
+
+
+                    <div
+                        class="image-preview"
+                        id="postImagePreview">
+
+                        <img id="postPreviewImg">
+
+                        <button
+                            class="remove-preview"
+                            id="removePostImage">
+
+                            <i class="fa-solid fa-xmark"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="composer-bottom">
+
+                        <div class="composer-tools">
+
+                            <button
+                                class="tool-btn"
+                                id="addPostImage"
+                                title="Add photo">
+
+                                <i class="fa-solid fa-image"></i>
+
+                            </button>
+
+                            <button
+                                class="tool-btn"
+                                id="addFeeling"
+                                title="Add feeling">
+
+                                <i class="fa-solid fa-face-smile"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="btn btn-primary"
+                            id="publishPostBtn">
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                            Post
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- POSTS -->
+
+        <div
+            id="postsSection"
+            style="margin-top:20px;">
+
+            <div
+                class="posts-list"
+                id="postsList">
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ===================================================
+         SIDEBAR
+    =================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="card">
+
+            <div class="card-title">
+
+                Quick Actions
+
+            </div>
+
+
+            <div class="quick-list">
+
+                <button
+                    class="quick-action"
+                    id="quickPhoto">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    <span>
+                        Add Profile Photo
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="quick-action"
+                    id="quickCover">
+
+                    <i class="fa-solid fa-panorama"></i>
+
+                    <span>
+                        Add Cover Photo
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="quick-action"
+                    id="quickEdit">
+
+                    <i class="fa-solid fa-user-pen"></i>
+
+                    <span>
+                        Edit Profile
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="quick-action"
+                    id="quickPost">
+
+                    <i class="fa-solid fa-square-plus"></i>
+
+                    <span>
+                        Create First Post
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card progress-side">
+
+            <div class="card-title">
+
+                Profile Progress
+
+            </div>
+
+
+            <div
+                class="circle-progress"
+                id="circleProgress">
+
+                <span id="circleNumber">
+                    20%
+                </span>
+
+            </div>
+
+
+            <p
+                style="font-size:13px;color:var(--muted);line-height:1.6;">
+
+                Complete your profile to make
+                your Netra presence more personal.
+
+            </p>
+
+        </div>
+
+    </aside>
+
+</div>
+
+</main>
+
+
+<!-- =======================================================
+     MOBILE NAV
+======================================================= -->
+
+<nav class="mobile-nav">
+
+    <a
+        href="HomePage.html">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Home</span>
+
+    </a>
+
+    <a
+        href="Friendspage.html">
+
+        <i class="fa-solid fa-user-group"></i>
+
+        <span>Friends</span>
+
+    </a>
+
+    <a
+        href="#"
+        class="active"
+        id="mobileCreate">
+
+        <i class="fa-solid fa-plus"></i>
+
+        <span>Create</span>
+
+    </a>
+
+    <a
+        href="Messagner.html">
+
+        <i class="a-solid fa-Message"></i>
+
+        <span>Messages</span>
+
+    </a>
+
+    <a
+        href="Settings.html">
+
+        <i class="fa-solid fa-bars"></i>
+
+        <span>Menu</span>
+
+    </a>
+
+</nav>
+
+
+<!-- =======================================================
+     EDIT PROFILE MODAL
+======================================================= -->
+
+<div
+    class="modal"
+    id="profileModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                Edit Profile
+            </h3>
+
+            <button
+                class="close-modal"
+                data-close="profileModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="form-group">
+
+                <label>
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    id="editName"
+                    placeholder="Your name">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="editUsername"
+                    placeholder="@username">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Bio
+                </label>
+
+                <textarea
+                    id="editBio"
+                    placeholder="Tell people about yourself"></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="editLocation"
+                    placeholder="Where are you based?">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Work
+                </label>
+
+                <input
+                    type="text"
+                    id="editWork"
+                    placeholder="Where do you work?">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Education
+                </label>
+
+                <input
+                    type="text"
+                    id="editEducation"
+                    placeholder="Where do you study?">
+
+            </div>
+
+             <div class="form-group">
+
+                <label>
+                    Birthday
+                </label>
+
+                <input
+                    type="text"
+                    id="editBirthday"
+                    placeholder="When is Your Birthday?">
+
+            </div>
+
+           <div class="form-group">
+
+                <label>
+                    Gender
+                </label>
+
+                <input
+                    type="text"
+                    id="edit Gender"
+                    placeholder="Male or Female?">
+
+            </div>
+
+             <div class="form-group">
+
+                <label>
+                      Relationship Status
+                </label>
+
+                <input
+                    type="text"
+                    id="edit Relationship Status"
+                    placeholder="Relationship Status?">
+
+            </div>
+
+
+
+
+            <div class="modal-actions">
+
+                <button
+                    class="btn btn-light"
+                    data-close="profileModal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="saveProfileBtn">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Save Changes
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     PROFILE PHOTO MODAL
+======================================================= -->
+
+<div
+    class="modal"
+    id="avatarModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                Profile Photo
+            </h3>
+
+            <button
+                class="close-modal"
+                data-close="avatarModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div
+                class="profile-preview"
+                id="avatarPreview">
+
+                Y
+
+            </div>
+
+
+            <input
+                type="file"
+                id="avatarFileInput"
+                accept="image/*"
+                hidden>
+
+
+            <div
+                style="display:grid;gap:9px;">
+
+                <button
+                    class="btn btn-primary"
+                    id="chooseAvatarBtn">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    Choose Photo
+
+                </button>
+
+                <button
+                    class="btn btn-light"
+                    id="removeAvatarBtn">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Remove Photo
+
+                </button>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    class="btn btn-light"
+                    data-close="avatarModal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="saveAvatarBtn">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Save
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     COVER MODAL
+======================================================= -->
+
+<div
+    class="modal"
+    id="coverModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                Edit Cover Photo
+            </h3>
+
+            <button
+                class="close-modal"
+                data-close="coverModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div
+                class="cover-preview"
+                id="coverPreviewBox">
+
+                <img
+                    id="coverPreview">
+
+                <div
+                    class="cover-preview-empty"
+                    id="coverPreviewEmpty">
+
+                    <i class="fa-solid fa-panorama"></i>
+
+                    <div>
+                        Add a cover photo
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <input
+                type="file"
+                id="coverFileInput"
+                accept="image/*"
+                hidden>
+
+
+            <div
+                style="display:grid;gap:9px;">
+
+                <button
+                    class="btn btn-primary"
+                    id="chooseCoverBtn">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    Choose Cover Photo
+
+                </button>
+
+                <button
+                    class="btn btn-light"
+                    id="removeCoverBtn">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Remove Cover
+
+                </button>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    class="btn btn-light"
+                    data-close="coverModal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="saveCoverBtn">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Save Cover
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     TOAST
+======================================================= -->
+
+<div
+    class="toast"
+    id="toast">
+
+    Done.
+
+</div>
+
+
+<!-- =======================================================
+     HIDDEN FILE INPUT FOR POSTS
+======================================================= -->
+
+<input
+    type="file"
+    id="postFileInput"
+    accept="image/*"
+    hidden>
+
+
+<script>
+
+/* =========================================================
+   DEFAULT NEW USER
+========================================================= */
+
+const defaultUser = {
+
+    name:"Your Name",
+
+    username:"@username",
+
+    bio:"Complete your profile so people can get to know you.",
+
+    location:"",
+
+    work:"",
+
+    education:"",
+
+    Relationshipstatus:"",
+
+    Birthday:"",
+
+    profileImage:"",
+
+    coverImage:"",
+
+    followers:0,
+
+    following:0,
+
+    friends:0
+
+};
+
+
+/* =========================================================
+   LOAD USER
+========================================================= */
+
+let user = {};
+
+try{
+
+    user = {
+
+        ...defaultUser,
+
+        ...(JSON.parse(
+            localStorage.getItem("netraUser")
+        ) || {})
+
+    };
+
+}catch(error){
+
+    user = {...defaultUser};
+
+}
+
+
+/* =========================================================
+   LOAD POSTS
+========================================================= */
+
+let posts = [];
+
+try{
+
+    posts =
+        JSON.parse(
+            localStorage.getItem("netraPosts")
+        ) || [];
+
+}catch(error){
+
+    posts = [];
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveUser(){
+
+    localStorage.setItem(
+        "netraUser",
+        JSON.stringify(user)
+    );
+
+}
+
+
+function savePosts(){
+
+    localStorage.setItem(
+        "netraPosts",
+        JSON.stringify(posts)
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE USER CONTENT
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function toast(message){
+
+    const box =
+        document.getElementById("toast");
+
+    box.textContent = message;
+
+    box.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(()=>{
+
+        box.classList.remove("show");
+
+    },2500);
+
+}
+
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    loadTheme();
+
+    renderProfile();
+
+    renderPosts();
+
+    renderCompletion();
+
+});
+
+
+/* =========================================================
+   RENDER PROFILE
+========================================================= */
+
+function renderProfile(){
+
+    const initial =
+        (user.name || "Y")
+        .trim()
+        .charAt(0)
+        .toUpperCase() || "Y";
+
+
+    document.getElementById(
+        "profileName"
+    ).textContent = user.name;
+
+
+    document.getElementById(
+        "profileUsername"
+    ).textContent =
+        user.username.startsWith("@")
+        ? user.username
+        : "@" + user.username;
+
+
+    document.getElementById(
+        "profileBio"
+    ).textContent = user.bio;
+
+
+    document.getElementById(
+        "friendsCount"
+    ).textContent = user.friends || 0;
+
+
+    document.getElementById(
+        "followersCount"
+    ).textContent = user.followers || 0;
+
+
+    document.getElementById(
+        "followingCount"
+    ).textContent = user.following || 0;
+
+
+    /* PROFILE IMAGE */
+
+    const avatar =
+        document.getElementById("profileAvatar");
+
+    if(user.profileImage){
+
+        avatar.innerHTML =
+            `<img src="${user.profileImage}" alt="Profile photo">`;
+
+    }else{
+
+        avatar.textContent = initial;
+
+    }
+
+
+    /* NAV AVATAR */
+
+    const navAvatar =
+        document.getElementById("navAvatar");
+
+    if(user.profileImage){
+
+        navAvatar.innerHTML =
+            `<img src="${user.profileImage}" alt="">`;
+
+    }else{
+
+        navAvatar.textContent = initial;
+
+    }
+
+
+    /* COMPOSER AVATAR */
+
+    const composerAvatar =
+        document.getElementById("composerAvatar");
+
+    if(user.profileImage){
+
+        composerAvatar.innerHTML =
+            `<img src="${user.profileImage}" alt="">`;
+
+    }else{
+
+        composerAvatar.textContent = initial;
+
+    }
+
+
+    /* COVER */
+
+    const cover =
+        document.getElementById("cover");
+
+    if(user.coverImage){
+
+        cover.style.backgroundImage =
+            `url("${user.coverImage}")`;
+
+        cover.classList.add("has-image");
+
+    }else{
+
+        cover.style.backgroundImage = "";
+
+        cover.classList.remove("has-image");
+
+    }
+
+
+    /* META */
+
+    const meta =
+        document.getElementById("profileMeta");
+
+    let html = "";
+
+    if(user.location){
+
+        html += `
+            <span>
+                <i class="fa-solid fa-location-dot"></i>
+                ${escapeHTML(user.location)}
+            </span>
+        `;
+
+    }
+
+    if(user.work){
+
+        html += `
+            <span>
+                <i class="fa-solid fa-briefcase"></i>
+                ${escapeHTML(user.work)}
+            </span>
+        `;
+
+    }
+
+    if(user.education){
+
+        html += `
+            <span>
+                <i class="fa-solid fa-graduation-cap"></i>
+                ${escapeHTML(user.education)}
+            </span>
+        `;
+
+    }
+
+    if(!html){
+
+        html = `
+            <span>
+                <i class="fa-solid fa-circle-info"></i>
+                Add your location, work or education
+            </span>
+        `;
+
+    }
+
+    meta.innerHTML = html;
+
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   UPDATE STATS
+========================================================= */
+
+function updateStats(){
+
+    document.getElementById(
+        "postsCount"
+    ).textContent = posts.length;
+
+}
+
+
+/* =========================================================
+   PROFILE COMPLETION
+========================================================= */
+
+function calculateCompletion(){
+
+    let score = 20;
+
+    if(user.profileImage)
+        score += 20;
+
+    if(
+        user.bio &&
+        user.bio !== defaultUser.bio
+    )
+        score += 20;
+
+    if(user.location)
+        score += 10;
+
+    if(user.work || user.education)
+        score += 10;
+
+    if(posts.length > 0)
+        score += 20;
+
+    return Math.min(score,100);
+
+}
+
+
+function renderCompletion(){
+
+    const percent =
+        calculateCompletion();
+
+
+    document.getElementById(
+        "completionNumber"
+    ).textContent =
+        percent + "%";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percent + "%";
+
+
+    document.getElementById(
+        "circleNumber"
+    ).textContent =
+        percent + "%";
+
+
+    document.getElementById(
+        "circleProgress"
+    ).style.background =
+        `conic-gradient(
+            var(--blue) ${percent}%,
+            var(--soft) ${percent}%
+        )`;
+
+
+    const items = [
+
+        {
+            label:"Add a profile photo",
+            desc:"Help people recognize you",
+            done:!!user.profileImage,
+            icon:"fa-camera"
+        },
+
+        {
+            label:"Write your bio",
+            desc:"Tell people a little about yourself",
+            done:
+                user.bio &&
+                user.bio !== defaultUser.bio,
+            icon:"fa-pen"
+        },
+
+        {
+            label:"Add your location",
+            desc:"Let people know where you're based",
+            done:!!user.location,
+            icon:"fa-location-dot"
+        },
+
+        {
+            label:"Add work or education",
+            desc:"Add something about your background",
+            done:!!(user.work || user.education),
+            icon:"fa-briefcase"
+        },
+
+        {
+            label:"Create your first post",
+            desc:"Share something with Netra",
+            done:posts.length > 0,
+            icon:"fa-paper-plane"
+        }
+
+    ];
+
+
+    document.getElementById(
+        "checklist"
+    ).innerHTML = items.map(item=>`
+
+        <div class="check-item ${item.done ? "done" : ""}">
+
+            <div class="check-left">
+
+                <div class="check-icon">
+
+                    <i class="fa-solid ${item.icon}"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        ${item.label}
+                    </strong>
+
+                    <small>
+                        ${item.desc}
+                    </small>
+
+                </div>
+
+            </div>
+
+            <span class="check-status">
+
+                ${
+                    item.done
+                    ? "Completed"
+                    : "Not completed"
+                }
+
+            </span>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   PROFILE MODAL
+========================================================= */
+
+function openProfileModal(){
+
+    document.getElementById(
+        "editName"
+    ).value = user.name;
+
+    document.getElementById(
+        "editUsername"
+    ).value = user.username;
+
+    document.getElementById(
+        "editBio"
+    ).value = user.bio;
+
+    document.getElementById(
+        "editLocation"
+    ).value = user.location;
+
+    document.getElementById(
+        "editWork"
+    ).value = user.work;
+
+    document.getElementById(
+        "editEducation"
+    ).value = user.education;
+
+    document.getElementById(
+        "profileModal"
+    ).classList.add("open");
+
+}
+
+
+document.getElementById(
+    "editProfileBtn"
+).onclick = openProfileModal;
+
+
+document.getElementById(
+    "quickEdit"
+).onclick = openProfileModal;
+
+
+document.getElementById(
+    "saveProfileBtn"
+).onclick = ()=>{
+
+    const name =
+        document.getElementById("editName")
+        .value.trim();
+
+    const username =
+        document.getElementById("editUsername")
+        .value.trim();
+
+    const bio =
+        document.getElementById("editBio")
+        .value.trim();
+
+    if(!name){
+
+        toast("Please enter your name.");
+
+        return;
+
+    }
+
+
+    user.name = name;
+
+    user.username =
+        username
+        ? (
+            username.startsWith("@")
+            ? username
+            : "@" + username
+        )
+        : "@username";
+
+    user.bio =
+        bio ||
+        defaultUser.bio;
+
+    user.location =
+        document.getElementById(
+            "editLocation"
+        ).value.trim();
+
+    user.work =
+        document.getElementById(
+            "editWork"
+        ).value.trim();
+
+    user.education =
+        document.getElementById(
+            "editEducation"
+        ).value.trim();
+
+
+    saveUser();
+
+    renderProfile();
+
+    renderCompletion();
+
+    closeModal(
+        document.getElementById("profileModal")
+    );
+
+    toast("Profile updated successfully.");
+
+};
+
+
+/* =========================================================
+   PROFILE PHOTO
+========================================================= */
+
+let avatarPreviewData =
+    user.profileImage || "";
+
+
+function openAvatarModal(){
+
+    avatarPreviewData =
+        user.profileImage || "";
+
+    const preview =
+        document.getElementById("avatarPreview");
+
+    const initial =
+        (user.name || "Y")
+        .trim()
+        .charAt(0)
+        .toUpperCase() || "Y";
+
+
+    if(avatarPreviewData){
+
+        preview.innerHTML =
+            `<img src="${avatarPreviewData}" alt="Preview">`;
+
+    }else{
+
+        preview.innerHTML = initial;
+
+    }
+
+
+    document.getElementById(
+        "avatarModal"
+    ).classList.add("open");
+
+}
+
+
+document.getElementById(
+    "editAvatarBtn"
+).onclick = openAvatarModal;
+
+
+document.getElementById(
+    "quickPhoto"
+).onclick = openAvatarModal;
+
+
+document.getElementById(
+    "chooseAvatarBtn"
+).onclick = ()=>{
+
+    document.getElementById(
+        "avatarFileInput"
+    ).click();
+
+};
+
+
+document.getElementById(
+    "avatarFileInput"
+).addEventListener(
+    "change",
+    event=>{
+
+        const file =
+            event.target.files[0];
+
+        if(!file)
+            return;
+
+        if(!file.type.startsWith("image/")){
+
+            toast("Please choose an image.");
+
+            return;
+
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload = e=>{
+
+            avatarPreviewData =
+                e.target.result;
+
+            document.getElementById(
+                "avatarPreview"
+            ).innerHTML =
+                `<img src="${avatarPreviewData}" alt="Preview">`;
+
+        };
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+document.getElementById(
+    "removeAvatarBtn"
+).onclick = ()=>{
+
+    avatarPreviewData = "";
+
+    document.getElementById(
+        "avatarPreview"
+    ).textContent =
+        (
+            user.name ||
+            "Y"
+        )
+        .trim()
+        .charAt(0)
+        .toUpperCase();
+
+};
+
+
+document.getElementById(
+    "saveAvatarBtn"
+).onclick = ()=>{
+
+    user.profileImage =
+        avatarPreviewData;
+
+    saveUser();
+
+    renderProfile();
+
+    renderCompletion();
+
+    closeModal(
+        document.getElementById("avatarModal")
+    );
+
+    toast(
+        avatarPreviewData
+        ? "Profile photo updated."
+        : "Profile photo removed."
+    );
+
+};
+
+
+/* =========================================================
+   COVER
+========================================================= */
+
+let coverPreviewData =
+    user.coverImage || "";
+
+
+function openCoverModal(){
+
+    coverPreviewData =
+        user.coverImage || "";
+
+    const img =
+        document.getElementById("coverPreview");
+
+    const empty =
+        document.getElementById(
+            "coverPreviewEmpty"
+        );
+
+
+    if(coverPreviewData){
+
+        img.src =
+            coverPreviewData;
+
+        img.style.display =
+            "block";
+
+        empty.style.display =
+            "none";
+
+    }else{
+
+        img.style.display =
+            "none";
+
+        empty.style.display =
+            "block";
+
+    }
+
+
+    document.getElementById(
+        "coverModal"
+    ).classList.add("open");
+
+}
+
+
+document.getElementById(
+    "editCoverBtn"
+).onclick =
+    openCoverModal;
+
+
+document.getElementById(
+    "quickCover"
+).onclick =
+    openCoverModal;
+
+
+document.getElementById(
+    "chooseCoverBtn"
+).onclick = ()=>{
+
+    document.getElementById(
+        "coverFileInput"
+    ).click();
+
+};
+
+
+document.getElementById(
+    "coverFileInput"
+).addEventListener(
+    "change",
+    event=>{
+
+        const file =
+            event.target.files[0];
+
+        if(!file)
+            return;
+
+        if(!file.type.startsWith("image/")){
+
+            toast("Please choose an image.");
+
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+        reader.onload = e=>{
+
+            coverPreviewData =
+                e.target.result;
+
+            const img =
+                document.getElementById(
+                    "coverPreview"
+                );
+
+            img.src =
+                coverPreviewData;
+
+            img.style.display =
+                "block";
+
+            document.getElementById(
+                "coverPreviewEmpty"
+            ).style.display =
+                "none";
+
+        };
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+document.getElementById(
+    "saveCoverBtn"
+).onclick = ()=>{
+
+    if(!coverPreviewData){
+
+        toast("Choose a cover photo first.");
+
+        return;
+
+    }
+
+
+    user.coverImage =
+        coverPreviewData;
+
+    saveUser();
+
+    renderProfile();
+
+    renderCompletion();
+
+    closeModal(
+        document.getElementById("coverModal")
+    );
+
+    toast(
+        "Cover photo updated successfully."
+    );
+
+};
+
+
+document.getElementById(
+    "removeCoverBtn"
+).onclick = ()=>{
+
+    user.coverImage = "";
+
+    coverPreviewData = "";
+
+    document.getElementById(
+        "coverFileInput"
+    ).value = "";
+
+    saveUser();
+
+    renderProfile();
+
+    renderCompletion();
+
+    closeModal(
+        document.getElementById("coverModal")
+    );
+
+    toast(
+        "Cover removed. Netra gradient restored."
+    );
+
+};
+
+
+/* =========================================================
+   CREATE POST
+========================================================= */
+
+let postImageData = "";
+
+
+document.getElementById(
+    "addPostImage"
+).onclick = ()=>{
+
+    document.getElementById(
+        "postFileInput"
+    ).click();
+
+};
+
+
+document.getElementById(
+    "postFileInput"
+).addEventListener(
+    "change",
+    event=>{
+
+        const file =
+            event.target.files[0];
+
+        if(!file)
+            return;
+
+        if(!file.type.startsWith("image/")){
+
+            toast("Please choose an image.");
+
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+        reader.onload = e=>{
+
+            postImageData =
+                e.target.result;
+
+            document.getElementById(
+                "postPreviewImg"
+            ).src =
+                postImageData;
+
+            document.getElementById(
+                "postImagePreview"
+            ).style.display =
+                "block";
+
+        };
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+document.getElementById(
+    "removePostImage"
+).onclick = ()=>{
+
+    postImageData = "";
+
+    document.getElementById(
+        "postFileInput"
+    ).value = "";
+
+    document.getElementById(
+        "postImagePreview"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "postPreviewImg"
+    ).src = "";
+
+};
+
+
+document.getElementById(
+    "addFeeling"
+).onclick = ()=>{
+
+    const textarea =
+        document.getElementById(
+            "postText"
+        );
+
+    textarea.value +=
+        textarea.value
+        ? " 😊"
+        : "Feeling great 😊";
+
+    textarea.focus();
+
+};
+
+
+document.getElementById(
+    "publishPostBtn"
+).onclick = createPost;
+
+
+function createPost(){
+
+    const textarea =
+        document.getElementById(
+            "postText"
+        );
+
+    const text =
+        textarea.value.trim();
+
+
+    if(!text && !postImageData){
+
+        toast(
+            "Write something or add a photo first."
+        );
+
+        textarea.focus();
+
+        return;
+
+    }
+
+
+    const post = {
+
+        id:Date.now(),
+
+        text:text,
+
+        image:postImageData,
+
+        date:new Date().toISOString(),
+
+        likes:0,
+
+        liked:false,
+
+        comments:[],
+
+        reposts:0,
+
+        reposted:false,
+
+        saved:false
+
+    };
+
+
+    posts.unshift(post);
+
+    savePosts();
+
+
+    textarea.value = "";
+
+    postImageData = "";
+
+    document.getElementById(
+        "postFileInput"
+    ).value = "";
+
+    document.getElementById(
+        "postImagePreview"
+    ).style.display =
+        "none";
+
+
+    renderPosts();
+
+    renderCompletion();
+
+    updateStats();
+
+    toast(
+        "Your first Netra post is live!"
+    );
+
+}
+
+
+/* =========================================================
+   RENDER POSTS
+========================================================= */
+
+function formatDate(date){
+
+    const d =
+        new Date(date);
+
+    return d.toLocaleString(
+        undefined,
+        {
+            dateStyle:"medium",
+            timeStyle:"short"
+        }
+    );
+
+}
+
+
+function renderPosts(){
+
+    const list =
+        document.getElementById(
+            "postsList"
+        );
+
+
+    if(!posts.length){
+
+        list.innerHTML = `
+
+            <div class="card">
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+
+                        <i class="fa-regular fa-newspaper"></i>
+
+                    </div>
+
+                    <h3>
+                        No posts yet
+                    </h3>
+
+                    <p>
+                        This is your space on Netra.
+                        Create your first post above
+                        and it will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        posts.map(post=>{
+
+            const initial =
+                (user.name || "Y")
+                .trim()
+                .charAt(0)
+                .toUpperCase();
+
+
+            const avatar =
+                user.profileImage
+                ? `
+                    <img
+                        src="${user.profileImage}"
+                        alt="">
+                  `
+                : initial;
+
+
+            return `
+
+            <article
+                class="post"
+                data-post-id="${post.id}">
+
+                <div class="post-header">
+
+                    <div class="post-author">
+
+                        <div class="post-avatar">
+
+                            ${avatar}
+
+                        </div>
+
+                        <div>
+
+                            <div class="post-name">
+
+                                ${escapeHTML(user.name)}
+
+                            </div>
+
+                            <div class="post-time">
+
+                                ${formatDate(post.date)}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="post-menu">
+
+                        <button
+                            class="post-delete-btn"
+                            data-action="delete"
+                            data-id="${post.id}"
+                            title="Delete post"
+                            aria-label="Delete post">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                ${
+                    post.text
+                    ? `
+                        <div class="post-text">
+
+                            ${escapeHTML(post.text)}
+
+                        </div>
+                      `
+                    : ""
+                }
+
+
+                ${
+                    post.image
+                    ? `
+                        <img
+                            class="post-image"
+                            src="${post.image}"
+                            alt="Post image">
+                      `
+                    : ""
+                }
+
+
+                <div class="post-actions">
+
+                    <button
+                        class="post-action ${post.liked ? "active" : ""}"
+                        data-action="like"
+                        data-id="${post.id}">
+
+                        <i class="${
+                            post.liked
+                            ? "fa-solid"
+                            : "fa-regular"
+                        } fa-heart"></i>
+
+                        <span>
+                            Like ${post.likes || ""}
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="post-action"
+                        data-action="comment"
+                        data-id="${post.id}">
+
+                        <i class="fa-regular fa-comment"></i>
+
+                        <span>
+                            Comment
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="post-action ${post.reposted ? "active" : ""}"
+                        data-action="repost"
+                        data-id="${post.id}">
+
+                        <i class="fa-solid fa-retweet"></i>
+
+                        <span>
+                            Repost ${post.reposts || ""}
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="post-action"
+                        data-action="share"
+                        data-id="${post.id}">
+
+                        <i class="fa-solid fa-share"></i>
+
+                        <span>
+                            Share
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="post-action ${post.saved ? "active" : ""}"
+                        data-action="save"
+                        data-id="${post.id}">
+
+                        <i class="${
+                            post.saved
+                            ? "fa-solid"
+                            : "fa-regular"
+                        } fa-bookmark"></i>
+
+                        <span>
+                            Save
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="comments"
+                    id="comments-${post.id}">
+
+                    <div class="comment-form">
+
+                        <input
+                            type="text"
+                            placeholder="Write a comment..."
+                            id="commentInput-${post.id}">
+
+                        <button
+                            class="btn btn-primary"
+                            data-action="add-comment"
+                            data-id="${post.id}">
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="comment-list"
+                        id="commentList-${post.id}">
+
+                        ${
+                            (post.comments || [])
+                            .map(comment=>`
+
+                                <div class="comment">
+
+                                    ${escapeHTML(comment.text)}
+
+                                </div>
+
+                            `).join("")
+                        }
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+   POST ACTIONS
+========================================================= */
+
+document.addEventListener(
+    "click",
+    event=>{
+
+        const button =
+            event.target.closest(
+                "[data-action]"
+            );
+
+        if(!button)
+            return;
+
+
+        const action =
+            button.dataset.action;
+
+        const id =
+            Number(button.dataset.id);
+
+
+        const post =
+            posts.find(
+                p=>p.id === id
+            );
+
+
+        if(
+            action !== "delete" &&
+            action !== "add-comment" &&
+            !post
+        )
+            return;
+
+
+        if(action === "delete"){
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this post?"
+                );
+
+            if(!confirmed)
+                return;
+
+
+            posts =
+                posts.filter(
+                    p=>p.id !== id
+                );
+
+            savePosts();
+
+            renderPosts();
+
+            renderCompletion();
+
+            updateStats();
+
+            toast("Post deleted.");
+
+            return;
+
+        }
+
+
+        if(action === "like"){
+
+            post.liked =
+                !post.liked;
+
+            post.likes =
+                Math.max(
+                    0,
+                    (post.likes || 0) +
+                    (post.liked ? 1 : -1)
+                );
+
+        }
+
+
+        if(action === "repost"){
+
+            post.reposted =
+                !post.reposted;
+
+            post.reposts =
+                Math.max(
+                    0,
+                    (post.reposts || 0) +
+                    (post.reposted ? 1 : -1)
+                );
+
+        }
+
+
+        if(action === "save"){
+
+            post.saved =
+                !post.saved;
+
+        }
+
+
+        if(action === "comment"){
+
+            const box =
+                document.getElementById(
+                    `comments-${id}`
+                );
+
+            box.classList.toggle("open");
+
+            return;
+
+        }
+
+
+        if(action === "add-comment"){
+
+            const input =
+                document.getElementById(
+                    `commentInput-${id}`
+                );
+
+            const text =
+                input.value.trim();
+
+
+            if(!text){
+
+                toast("Write a comment first.");
+
+                return;
+
+            }
+
+
+            post.comments =
+                post.comments || [];
+
+
+            post.comments.push({
+
+                id:Date.now(),
+
+                text:text,
+
+                date:new Date().toISOString()
+
+            });
+
+
+            input.value = "";
+
+            savePosts();
+
+            renderPosts();
+
+            document.getElementById(
+                `comments-${id}`
+            ).classList.add("open");
+
+            return;
+
+        }
+
+
+        if(action === "share"){
+
+            sharePost(post);
+
+            return;
+
+        }
+
+
+        savePosts();
+
+        renderPosts();
+
+    }
+);
+
+
+/* =========================================================
+   SHARE POST
+========================================================= */
+
+async function sharePost(post){
+
+    const text =
+        post.text ||
+        "Check out my post on Netra.";
+
+    try{
+
+        if(navigator.share){
+
+            await navigator.share({
+
+                title:"Netra Post",
+
+                text:text,
+
+                url:location.href
+
+            });
+
+        }else{
+
+            await navigator.clipboard.writeText(
+                text + "\n\n" + location.href
+            );
+
+            toast(
+                "Post link copied."
+            );
+
+        }
+
+    }catch(error){
+
+        /* user cancelled */
+
+    }
+
+}
+
+
+/* =========================================================
+   SHARE PROFILE
+========================================================= */
+
+document.getElementById(
+    "shareProfileBtn"
+).onclick = async()=>{
+
+    const text =
+        `${user.name} is on Netra.`;
+
+    try{
+
+        if(navigator.share){
+
+            await navigator.share({
+
+                title:`${user.name} — Netra`,
+
+                text:text,
+
+                url:location.href
+
+            });
+
+        }else{
+
+            await navigator.clipboard.writeText(
+                location.href
+            );
+
+            toast(
+                "Profile link copied."
+            );
+
+        }
+
+    }catch(error){
+
+        /* cancelled */
+
+    }
+
+};
+
+
+/* =========================================================
+   QUICK CREATE
+========================================================= */
+
+function focusComposer(){
+
+    document.getElementById(
+        "postText"
+    ).focus();
+
+    document.getElementById(
+        "composerCard"
+    ).scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+document.getElementById(
+    "quickPost"
+).onclick =
+    focusComposer;
+
+
+document.getElementById(
+    "welcomePostBtn"
+).onclick =
+    focusComposer;
+
+
+document.getElementById(
+    "mobileCreate"
+).onclick =
+    event=>{
+
+        event.preventDefault();
+
+        focusComposer();
+
+    };
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+document.querySelectorAll(
+    ".tab"
+).forEach(tab=>{
+
+    tab.addEventListener(
+        "click",
+        ()=>{
+
+            document.querySelectorAll(
+                ".tab"
+            ).forEach(t=>
+                t.classList.remove("active")
+            );
+
+            tab.classList.add("active");
+
+            showTab(
+                tab.dataset.tab
+            );
+
+        }
+    );
+
+});
+
+
+function showTab(tab){
+
+    const main =
+        document.getElementById(
+            "mainContent"
+        );
+
+
+    if(tab === "posts"){
+
+        main.innerHTML = `
+
+            <div class="card welcome-card">
+
+                <div class="welcome-content">
+
+                    <div class="welcome-icon">
+
+                        <i class="fa-solid fa-hand-wave"></i>
+
+                    </div>
+
+                    <h2>
+                        Welcome to Netra 👋
+                    </h2>
+
+                    <p>
+                        Your profile is ready.
+                        Create your first post and
+                        start sharing.
+                    </p>
+
+                    <br>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="restoreComposer()">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Create Your First Post
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="card"
+                style="margin-top:20px;">
+
+                <div class="card-title">
+
+                    Complete your profile
+
+                    <span
+                        class="progress-number"
+                        id="completionNumber">
+
+                        20%
+
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        id="progressFill">
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="checklist"
+                    id="checklist">
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="card"
+                id="composerCard"
+                style="margin-top:20px;">
+
+                <div class="card-title">
+
+                    Create your first post
+
+                </div>
+
+                <div class="composer">
+
+                    <div
+                        class="composer-avatar"
+                        id="composerAvatar">
+
+                    </div>
+
+                    <div class="composer-main">
+
+                        <textarea
+                            id="postText"
+                            placeholder="What's on your mind? Share your first post on Netra..."></textarea>
+
+                        <div
+                            class="image-preview"
+                            id="postImagePreview">
+
+                            <img id="postPreviewImg">
+
+                            <button
+                                class="remove-preview"
+                                id="removePostImage">
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                            </button>
+
+                        </div>
+
+                        <div class="composer-bottom">
+
+                            <div class="composer-tools">
+
+                                <button
+                                    class="tool-btn"
+                                    id="addPostImage">
+
+                                    <i class="fa-solid fa-image"></i>
+
+                                </button>
+
+                                <button
+                                    class="tool-btn"
+                                    id="addFeeling">
+
+                                    <i class="fa-solid fa-face-smile"></i>
+
+                                </button>
+
+                            </div>
+
+                            <button
+                                class="btn btn-primary"
+                                id="publishPostBtn">
+
+                                <i class="fa-solid fa-paper-plane"></i>
+
+                                Post
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                style="margin-top:20px;"
+                id="postsSection">
+
+                <div
+                    class="posts-list"
+                    id="postsList">
+
+                </div>
+
+            </div>
+
+        `;
+
+        bindComposer();
+
+        renderProfile();
+
+        renderPosts();
+
+        renderCompletion();
+
+        return;
+
+    }
+
+
+    if(tab === "about"){
+
+        main.innerHTML = `
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    About ${escapeHTML(user.name)}
+
+                </div>
+
+                <div class="about-grid">
+
+                    <div class="about-row">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <div>
+
+                            <strong>Bio</strong>
+
+                            <span>
+                                ${escapeHTML(user.bio)}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="about-row">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <div>
+
+                            <strong>Location</strong>
+
+                            <span>
+                                ${
+                                    user.location
+                                    ? escapeHTML(user.location)
+                                    : "Not added yet"
+                                }
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="about-row">
+
+                        <i class="fa-solid fa-briefcase"></i>
+
+                        <div>
+
+                            <strong>Work</strong>
+
+                            <span>
+                                ${
+                                    user.work
+                                    ? escapeHTML(user.work)
+                                    : "Not added yet"
+                                }
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="about-row">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                        <div>
+
+                            <strong>Education</strong>
+
+                            <span>
+                                ${
+                                    user.education
+                                    ? escapeHTML(user.education)
+                                    : "Not added yet"
+                                }
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    if(tab === "photos"){
+
+        const photos =
+            posts.filter(
+                post=>post.image
+            );
+
+
+        main.innerHTML = `
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    Photos
+
+                </div>
+
+                ${
+                    photos.length
+                    ? `
+                        <div style="
+                            display:grid;
+                            grid-template-columns:
+                            repeat(auto-fill,minmax(180px,1fr));
+                            gap:10px;
+                        ">
+
+                            ${
+                                photos.map(
+                                    photo=>`
+                                        <img
+                                            src="${photo.image}"
+                                            style="
+                                                width:100%;
+                                                aspect-ratio:1;
+                                                object-fit:cover;
+                                                border-radius:14px;
+                                            "
+                                        >
+                                    `
+                                ).join("")
+                            }
+
+                        </div>
+                      `
+                    : `
+                        <div class="empty">
+
+                            <div class="empty-icon">
+
+                                <i class="fa-regular fa-image"></i>
+
+                            </div>
+
+                            <h3>
+                                No photos yet
+                            </h3>
+
+                            <p>
+                                Photos from your Netra posts
+                                will appear here.
+                            </p>
+
+                        </div>
+                      `
+                }
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    if(tab === "friends"){
+
+        main.innerHTML = `
+
+            <div class="card">
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+
+                        <i class="fa-solid fa-user-group"></i>
+
+                    </div>
+
+                    <h3>
+                        No friends yet
+                    </h3>
+
+                    <p>
+                        When you connect with people on Netra,
+                        your friends will appear here.
+                    </p>
+
+                    <br>
+
+                    <a
+                        href="Friendspage.html"
+                        class="btn btn-primary">
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        Find People
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    if(tab === "reels"){
+
+        main.innerHTML = `
+
+            <div class="card">
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+
+                        <i class="fa-solid fa-clapperboard"></i>
+
+                    </div>
+
+                    <h3>
+                        No reels yet
+                    </h3>
+
+                    <p>
+                        Your Netra Reels will appear here
+                        when you create them.
+                    </p>
+
+                    <br>
+
+                    <a
+                        href="Watch page.html"
+                        class="btn btn-primary">
+
+                        <i class="fa-solid fa-video"></i>
+
+                        Explore Reels
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESTORE POSTS TAB
+========================================================= */
+
+function restoreComposer(){
+
+    document.querySelector(
+        '[data-tab="posts"]'
+    ).click();
+
+    setTimeout(
+        focusComposer,
+        100
+    );
+
+}
+
+
+/* =========================================================
+   RE-BIND COMPOSER AFTER TAB CHANGE
+========================================================= */
+
+function bindComposer(){
+
+    const addImage =
+        document.getElementById(
+            "addPostImage"
+        );
+
+    const fileInput =
+        document.getElementById(
+            "postFileInput"
+        );
+
+
+    if(!addImage)
+        return;
+
+
+    addImage.onclick = ()=>{
+
+        fileInput.click();
+
+    };
+
+
+    fileInput.onchange =
+        event=>{
+
+            const file =
+                event.target.files[0];
+
+            if(!file)
+                return;
+
+
+            const reader =
+                new FileReader();
+
+            reader.onload =
+                e=>{
+
+                    postImageData =
+                        e.target.result;
+
+                    const preview =
+                        document.getElementById(
+                            "postImagePreview"
+                        );
+
+                    const image =
+                        document.getElementById(
+                            "postPreviewImg"
+                        );
+
+                    image.src =
+                        postImageData;
+
+                    preview.style.display =
+                        "block";
+
+                };
+
+            reader.readAsDataURL(file);
+
+        };
+
+
+    document.getElementById(
+        "publishPostBtn"
+    ).onclick =
+        createPost;
+
+
+    document.getElementById(
+        "addFeeling"
+    ).onclick = ()=>{
+
+        const textarea =
+            document.getElementById(
+                "postText"
+            );
+
+        textarea.value +=
+            textarea.value
+            ? " 😊"
+            : "Feeling great 😊";
+
+        textarea.focus();
+
+    };
+
+
+    document.getElementById(
+        "removePostImage"
+    ).onclick = ()=>{
+
+        postImageData = "";
+
+        fileInput.value = "";
+
+        document.getElementById(
+            "postImagePreview"
+        ).style.display =
+            "none";
+
+    };
+
+
+    renderProfile();
+
+}
+
+
+/* =========================================================
+   MODAL CLOSE
+========================================================= */
+
+function closeModal(modal){
+
+    modal.classList.remove("open");
+
+}
+
+
+document.querySelectorAll(
+    "[data-close]"
+).forEach(button=>{
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            closeModal(
+                document.getElementById(
+                    button.dataset.close
+                )
+            );
+
+        }
+    );
+
+});
+
+
+document.querySelectorAll(
+    ".modal"
+).forEach(modal=>{
+
+    modal.addEventListener(
+        "click",
+        event=>{
+
+            if(event.target === modal){
+
+                closeModal(modal);
+
+            }
+
+        }
+    );
+
+});
+
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key !== "Escape")
+            return;
+
+        document.querySelectorAll(
+            ".modal.open"
+        ).forEach(modal=>
+            closeModal(modal)
+        );
+
+    }
+);
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+function loadTheme(){
+
+    const dark =
+        localStorage.getItem(
+            "netraDarkMode"
+        ) === "true";
+
+    document.body.classList.toggle(
+        "dark",
+        dark
+    );
+
+    updateThemeIcon();
+
+}
+
+
+function updateThemeIcon(){
+
+    const button =
+        document.getElementById(
+            "themeBtn"
+        );
+
+    if(!button)
+        return;
+
+
+    button.innerHTML =
+        document.body.classList.contains("dark")
+        ? `<i class="fa-solid fa-sun"></i>`
+        : `<i class="fa-solid fa-moon"></i>`;
+
+}
+
+
+document.getElementById(
+    "themeBtn"
+).onclick = ()=>{
+
+    const dark =
+        document.body.classList.toggle(
+            "dark"
+        );
+
+    localStorage.setItem(
+        "netraDarkMode",
+        dark
+    );
+
+    updateThemeIcon();
+
+};
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+document.getElementById(
+    "searchInput"
+).addEventListener(
+    "input",
+    event=>{
+
+        const query =
+            event.target.value
+            .trim()
+            .toLowerCase();
+
+
+        if(!query){
+
+            renderPosts();
+
+            return;
+
+        }
+
+
+        const filtered =
+            posts.filter(
+                post=>
+                    post.text
+                    .toLowerCase()
+                    .includes(query)
+            );
+
+
+        const list =
+            document.getElementById(
+                "postsList"
+            );
+
+
+        if(!filtered.length){
+
+            list.innerHTML = `
+
+                <div class="card">
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                        </div>
+
+                        <h3>
+                            No matching posts
+                        </h3>
+
+                        <p>
+                            Nothing on your profile
+                            matches "${escapeHTML(query)}".
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        list.innerHTML =
+            filtered.map(
+                post=>{
+
+                    return `
+
+                    <article class="post">
+
+                        <div class="post-header">
+
+                            <div class="post-author">
+
+                                <div class="post-avatar">
+
+                                    ${
+                                        user.profileImage
+                                        ? `<img src="${user.profileImage}" alt="">`
+                                        : escapeHTML(
+                                            (
+                                                user.name ||
+                                                "Y"
+                                            )
+                                            .charAt(0)
+                                            .toUpperCase()
+                                        )
+                                    }
+
+                                </div>
+
+                                <div>
+
+                                    <div class="post-name">
+
+                                        ${escapeHTML(user.name)}
+
+                                    </div>
+
+                                    <div class="post-time">
+
+                                        ${formatDate(post.date)}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="post-text">
+
+                            ${escapeHTML(post.text)}
+
+                        </div>
+
+                        ${
+                            post.image
+                            ? `<img
+                                class="post-image"
+                                src="${post.image}"
+                                alt="">`
+                            : ""
+                        }
+
+                    </article>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+);
+
+</script>
+
+</body>
+</html>

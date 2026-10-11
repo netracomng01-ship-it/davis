@@ -1,0 +1,5113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Netra Reels — Watch. Create. Connect.</title>
+
+<meta name="description"
+      content="NetraTube — Watch, create and connect through short videos on Netra.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+      
+<link rel="stylesheet" href="HomePage.html">
+  <link rel="stylesheet" href="NewsPage.html">
+<link rel="stylesheet" href="Friendspage.html">
+<link rel="stylesheet" href="Videos.html">
+<link rel="stylesheet" href="Profile Page.html">
+<link rel="stylesheet" href="Messagner.html">
+<link rel="stylesheet" href="Group Page.html">
+<link rel="stylesheet" href="Find friendpage.html">
+<link rel="stylesheet" href="Settings.html">
+<link rel="stylesheet" href="Storepage.html">
+
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+    --primary:#635bff;
+    --primary-dark:#5148e8;
+    --secondary:#8b5cf6;
+
+    --bg:#f5f7fb;
+    --surface:#ffffff;
+    --surface-2:#f0f2f7;
+
+    --text:#101828;
+    --muted:#667085;
+
+    --border:#e4e7ec;
+
+    --danger:#ef4444;
+    --success:#12b76a;
+    --warning:#f59e0b;
+
+    --shadow:0 15px 45px rgba(16,24,40,.10);
+
+    --radius:18px;
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark{
+    --bg:#07090d;
+    --surface:#101319;
+    --surface-2:#181c24;
+
+    --text:#f8fafc;
+    --muted:#98a2b3;
+
+    --border:#292e39;
+
+    --shadow:0 15px 45px rgba(0,0,0,.4);
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow:hidden;
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+.auth-screen{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(99,91,255,.25),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(139,92,246,.20),
+            transparent 35%
+        ),
+        var(--bg);
+}
+
+.auth-card{
+    width:100%;
+    max-width:440px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:28px;
+
+    padding:32px;
+
+    box-shadow:var(--shadow);
+}
+
+.auth-logo{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:28px;
+    font-weight:800;
+}
+
+.logo-mark{
+    width:43px;
+    height:43px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:13px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+}
+
+.auth-subtitle{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:7px;
+}
+
+.auth-tabs{
+    display:flex;
+    gap:5px;
+
+    background:var(--surface-2);
+
+    padding:5px;
+
+    border-radius:13px;
+
+    margin-bottom:22px;
+}
+
+.auth-tab{
+    flex:1;
+
+    padding:11px;
+
+    border-radius:9px;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    font-weight:600;
+}
+
+.auth-tab.active{
+    background:var(--surface);
+    color:var(--primary);
+
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+}
+
+.auth-form{
+    display:none;
+}
+
+.auth-form.active{
+    display:block;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:7px;
+}
+
+.form-group input{
+    width:100%;
+
+    padding:13px 14px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    outline:none;
+}
+
+.form-group input:focus{
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(99,91,255,.12);
+}
+
+.auth-btn{
+    width:100%;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color:white;
+
+    font-weight:700;
+
+    margin-top:5px;
+}
+
+.auth-message{
+    min-height:20px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    margin-top:14px;
+
+    color:var(--danger);
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+    display:none;
+    height:100vh;
+}
+
+.app.active{
+    display:block;
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar{
+    height:70px;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:100;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 24px;
+
+    background:
+        rgba(255,255,255,.88);
+
+    border-bottom:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+}
+
+body.dark .topbar{
+    background:
+        rgba(7,9,13,.90);
+}
+
+.topbar-left{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+}
+
+.top-logo{
+    display:flex;
+    align-items:center;
+
+    gap:9px;
+
+    font-size:21px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+.top-logo .logo-mark{
+    width:35px;
+    height:35px;
+
+    border-radius:10px;
+
+    font-size:16px;
+}
+
+.tube-text{
+    color:var(--primary);
+}
+
+.search-box{
+    position:absolute;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(420px,40%);
+}
+
+.search-box input{
+    width:100%;
+
+    padding:11px 16px 11px 42px;
+
+    border:1px solid var(--border);
+
+    background:var(--surface-2);
+
+    color:var(--text);
+
+    border-radius:30px;
+
+    outline:none;
+}
+
+.search-box input:focus{
+    border-color:var(--primary);
+}
+
+.search-box i{
+    position:absolute;
+
+    left:16px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--muted);
+}
+
+.topbar-right{
+    margin-left:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.icon-btn{
+    width:40px;
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:transparent;
+
+    color:var(--text);
+
+    transition:.2s;
+}
+
+.icon-btn:hover{
+    background:var(--surface-2);
+}
+
+.avatar{
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color:white;
+
+    font-weight:800;
+
+    overflow:hidden;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+/* =========================================================
+   FEED
+========================================================= */
+
+.feed{
+    position:absolute;
+
+    top:70px;
+    bottom:0;
+
+    left:0;
+    right:0;
+
+    overflow-y:auto;
+
+    scroll-snap-type:y mandatory;
+
+    scrollbar-width:none;
+
+    background:#000;
+}
+
+.feed::-webkit-scrollbar{
+    display:none;
+}
+
+/* =========================================================
+   VIDEO CARD
+========================================================= */
+
+.video-card{
+    position:relative;
+
+    width:100%;
+
+    height:calc(100vh - 70px);
+
+    min-height:620px;
+
+    scroll-snap-align:start;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+    overflow:hidden;
+}
+
+.video{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    background:#000;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   VIDEO TOP CONTROLS
+========================================================= */
+
+.video-top{
+    position:absolute;
+
+    top:20px;
+    left:20px;
+    right:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    z-index:3;
+
+    pointer-events:none;
+}
+
+.video-label{
+    padding:7px 11px;
+
+    border-radius:20px;
+
+    background:rgba(0,0,0,.42);
+
+    backdrop-filter:blur(10px);
+
+    color:white;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.video-control{
+    width:40px;
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.45);
+
+    color:white;
+
+    backdrop-filter:blur(10px);
+
+    pointer-events:auto;
+}
+
+/* =========================================================
+   GRADIENT
+========================================================= */
+
+.video-gradient{
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.92),
+            rgba(0,0,0,.15) 45%,
+            transparent 70%
+        );
+}
+
+/* =========================================================
+   VIDEO INFO
+========================================================= */
+
+.video-info{
+    position:absolute;
+
+    left:35px;
+    bottom:45px;
+
+    width:min(600px,65%);
+
+    color:white;
+
+    z-index:2;
+}
+
+.creator-row{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:12px;
+}
+
+.creator-avatar{
+    width:46px;
+    height:46px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    font-weight:800;
+
+    overflow:hidden;
+
+    border:2px solid rgba(255,255,255,.8);
+}
+
+.creator-avatar img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.creator-name{
+    font-weight:800;
+}
+
+.username{
+    font-size:12px;
+    opacity:.7;
+
+    margin-top:2px;
+}
+
+.follow-btn{
+    margin-left:5px;
+
+    padding:7px 14px;
+
+    border:1px solid rgba(255,255,255,.6);
+
+    background:rgba(255,255,255,.10);
+
+    color:white;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:.2s;
+}
+
+.follow-btn:hover{
+    background:white;
+    color:#111;
+}
+
+.follow-btn.following{
+    background:white;
+
+    color:#111;
+}
+
+.video-caption{
+    font-size:15px;
+
+    line-height:1.55;
+
+    margin-bottom:9px;
+
+    max-width:650px;
+}
+
+.video-meta{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:12px;
+
+    opacity:.75;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.video-actions{
+    position:absolute;
+
+    right:28px;
+    bottom:40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:17px;
+
+    z-index:5;
+}
+
+.action{
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:5px;
+
+    color:white;
+
+    background:none;
+}
+
+.action-icon{
+    width:48px;
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        rgba(0,0,0,.45);
+
+    backdrop-filter:blur(10px);
+
+    font-size:20px;
+
+    transition:.2s;
+}
+
+.action:hover .action-icon{
+    transform:scale(1.08);
+
+    background:
+        rgba(0,0,0,.65);
+}
+
+.action.liked .action-icon{
+    color:#ff3b6b;
+}
+
+.action.saved .action-icon{
+    color:#facc15;
+}
+
+.action span{
+    font-size:11px;
+
+    font-weight:700;
+}
+
+/* =========================================================
+   PLAY OVERLAY
+========================================================= */
+
+.play-overlay{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.85);
+
+    width:76px;
+    height:76px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        rgba(0,0,0,.48);
+
+    color:white;
+
+    font-size:28px;
+
+    opacity:0;
+
+    transition:.2s;
+
+    pointer-events:none;
+
+    z-index:4;
+}
+
+.video-card.paused .play-overlay{
+    opacity:1;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+}
+
+/* =========================================================
+   DOUBLE TAP HEART
+========================================================= */
+
+.double-heart{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.4);
+
+    color:#ff3b6b;
+
+    font-size:110px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:10;
+}
+
+.double-heart.show{
+    animation:heartPop .75s ease;
+}
+
+@keyframes heartPop{
+
+    0%{
+        opacity:0;
+        transform:
+            translate(-50%,-50%)
+            scale(.3);
+    }
+
+    25%{
+        opacity:1;
+        transform:
+            translate(-50%,-50%)
+            scale(1.15);
+    }
+
+    55%{
+        opacity:1;
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+    }
+
+    100%{
+        opacity:0;
+        transform:
+            translate(-50%,-50%)
+            scale(1.3);
+    }
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.video-progress{
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    bottom:0;
+
+    height:4px;
+
+    background:rgba(255,255,255,.2);
+
+    z-index:6;
+}
+
+.video-progress-bar{
+    height:100%;
+
+    width:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
+}
+
+/* =========================================================
+   EMPTY FEED
+========================================================= */
+
+.empty-feed{
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:30px;
+
+    color:white;
+
+    text-align:center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(99,91,255,.15),
+            transparent 45%
+        ),
+        #050505;
+}
+
+.empty-content{
+    max-width:470px;
+}
+
+.empty-icon{
+    width:86px;
+    height:86px;
+
+    margin:0 auto 22px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    font-size:34px;
+
+    box-shadow:
+        0 15px 40px rgba(99,91,255,.35);
+}
+
+.empty-content h2{
+    font-size:28px;
+
+    margin-bottom:10px;
+}
+
+.empty-content p{
+    color:#aaa;
+
+    line-height:1.65;
+
+    margin-bottom:22px;
+}
+
+.primary-btn{
+    padding:13px 20px;
+
+    border-radius:12px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    font-weight:700;
+
+    transition:.2s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 10px 25px rgba(99,91,255,.3);
+}
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+.bottom-nav{
+    position:fixed;
+
+    left:50%;
+    bottom:18px;
+
+    transform:translateX(-50%);
+
+    z-index:200;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px;
+
+    background:
+        rgba(15,17,23,.88);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    border-radius:22px;
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.3);
+}
+
+.nav-item{
+    min-width:72px;
+
+    padding:9px 12px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:4px;
+
+    border-radius:15px;
+
+    color:#aaa;
+
+    background:transparent;
+
+    font-size:11px;
+}
+
+.nav-item i{
+    font-size:18px;
+}
+
+.nav-item:hover{
+    color:white;
+}
+
+.nav-item.active{
+    color:white;
+
+    background:var(--primary);
+}
+
+.upload-nav{
+    width:52px;
+    height:52px;
+
+    padding:0;
+
+    border-radius:16px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+}
+
+.upload-nav i{
+    font-size:21px;
+}
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+.panel-overlay{
+    position:fixed;
+
+    inset:0;
+
+    z-index:500;
+
+    display:none;
+
+    background:
+        rgba(0,0,0,.6);
+
+    backdrop-filter:blur(5px);
+}
+
+.panel-overlay.active{
+    display:block;
+}
+
+.panel{
+    position:absolute;
+
+    top:0;
+    right:0;
+
+    width:min(440px,100%);
+
+    height:100%;
+
+    background:var(--surface);
+
+    border-left:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+    overflow-y:auto;
+
+    animation:slideIn .25s ease;
+}
+
+@keyframes slideIn{
+
+    from{
+        transform:translateX(100%);
+    }
+
+    to{
+        transform:translateX(0);
+    }
+
+}
+
+.panel-header{
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 22px;
+
+    border-bottom:1px solid var(--border);
+
+    position:sticky;
+
+    top:0;
+
+    background:var(--surface);
+
+    z-index:5;
+}
+
+.panel-header h2{
+    font-size:18px;
+}
+
+.close-btn{
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:var(--surface-2);
+
+    color:var(--text);
+}
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.upload-area{
+    padding:24px;
+}
+
+.drop-zone{
+    display:block;
+
+    border:
+        2px dashed var(--border);
+
+    border-radius:20px;
+
+    padding:45px 20px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.drop-zone:hover{
+    border-color:var(--primary);
+
+    background:
+        rgba(99,91,255,.05);
+}
+
+.drop-zone i{
+    font-size:40px;
+
+    color:var(--primary);
+
+    margin-bottom:15px;
+}
+
+.drop-zone h3{
+    margin-bottom:7px;
+}
+
+.drop-zone p{
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+#videoFile{
+    display:none;
+}
+
+.preview{
+    display:none;
+
+    margin-top:20px;
+}
+
+.preview video{
+    width:100%;
+
+    max-height:320px;
+
+    object-fit:contain;
+
+    background:#000;
+
+    border-radius:16px;
+}
+
+.upload-fields{
+    display:none;
+
+    margin-top:18px;
+}
+
+.upload-fields textarea{
+    width:100%;
+
+    resize:none;
+
+    min-height:100px;
+
+    padding:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:13px;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    outline:none;
+}
+
+.publish-btn{
+    width:100%;
+
+    padding:14px;
+
+    margin-top:12px;
+
+    border-radius:12px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-weight:700;
+}
+
+/* =========================================================
+   FRIENDS
+========================================================= */
+
+.panel-search{
+    padding:18px;
+}
+
+.panel-search input{
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    background:var(--surface-2);
+
+    color:var(--text);
+
+    outline:none;
+}
+
+.friend-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 20px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.friend-info{
+    flex:1;
+}
+
+.friend-info strong{
+    display:block;
+}
+
+.friend-info span{
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+.friend-action{
+    padding:8px 12px;
+
+    border-radius:9px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+/* =========================================================
+   EMPTY PANEL
+========================================================= */
+
+.empty-panel{
+    min-height:400px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:30px;
+}
+
+.empty-panel i{
+    font-size:42px;
+
+    color:var(--primary);
+
+    margin-bottom:18px;
+}
+
+.empty-panel h3{
+    margin-bottom:8px;
+}
+
+.empty-panel p{
+    color:var(--muted);
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    max-width:300px;
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-cover{
+    height:160px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+}
+
+.profile-body{
+    padding:0 24px 25px;
+}
+
+.profile-avatar{
+    width:92px;
+    height:92px;
+
+    margin-top:-46px;
+
+    border:
+        5px solid var(--surface);
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:800;
+}
+
+.profile-body h2{
+    margin-top:12px;
+}
+
+.profile-username{
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-top:4px;
+}
+
+.profile-stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin-top:22px;
+}
+
+.stat{
+    padding:14px;
+
+    border-radius:13px;
+
+    text-align:center;
+
+    background:var(--surface-2);
+}
+
+.stat strong{
+    display:block;
+
+    font-size:18px;
+}
+
+.stat span{
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+/* =========================================================
+   COMMENTS
+========================================================= */
+
+.comments-panel{
+    position:fixed;
+
+    top:0;
+    right:0;
+
+    width:min(420px,100%);
+
+    height:100%;
+
+    z-index:700;
+
+    display:none;
+
+    flex-direction:column;
+
+    background:var(--surface);
+
+    border-left:1px solid var(--border);
+
+    animation:slideIn .25s ease;
+}
+
+.comments-panel.active{
+    display:flex;
+}
+
+.comments-header{
+    height:70px;
+
+    padding:0 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-bottom:1px solid var(--border);
+}
+
+.comments-list{
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:15px;
+}
+
+.comment{
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:18px;
+}
+
+.comment-avatar{
+    width:34px;
+    height:34px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:var(--surface-2);
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.comment-body{
+    flex:1;
+
+    background:var(--surface-2);
+
+    padding:10px 12px;
+
+    border-radius:13px;
+}
+
+.comment-body strong{
+    display:block;
+
+    font-size:12px;
+
+    margin-bottom:3px;
+}
+
+.comment-body p{
+    font-size:13px;
+
+    line-height:1.4;
+}
+
+.comment-form{
+    padding:14px;
+
+    display:flex;
+
+    gap:8px;
+
+    border-top:1px solid var(--border);
+}
+
+.comment-form input{
+    flex:1;
+
+    padding:11px 13px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    background:var(--surface-2);
+
+    color:var(--text);
+
+    outline:none;
+}
+
+.comment-form button{
+    width:42px;
+
+    border-radius:12px;
+
+    background:var(--primary);
+
+    color:white;
+}
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+.share-modal{
+    position:fixed;
+
+    inset:0;
+
+    z-index:900;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.65);
+}
+
+.share-modal.active{
+    display:flex;
+}
+
+.share-card{
+    width:min(400px,100%);
+
+    background:var(--surface);
+
+    border-radius:22px;
+
+    padding:24px;
+
+    box-shadow:var(--shadow);
+}
+
+.share-card h3{
+    margin-bottom:18px;
+}
+
+.share-options{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:10px;
+}
+
+.share-option{
+    padding:15px;
+
+    border-radius:13px;
+
+    background:var(--surface-2);
+
+    color:var(--text);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+
+    bottom:100px;
+
+    transform:
+        translate(-50%,20px);
+
+    z-index:2000;
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    background:#111;
+
+    color:white;
+
+    font-size:13px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:800px){
+
+    .topbar{
+        height:60px;
+
+        padding:0 12px;
+    }
+
+    .top-logo{
+        font-size:18px;
+    }
+
+    .top-logo .logo-mark{
+        width:32px;
+        height:32px;
+    }
+
+    .search-box{
+        position:static;
+
+        transform:none;
+
+        flex:1;
+
+        width:auto;
+
+        margin:0 8px;
+    }
+
+    .search-box input{
+        padding:
+            10px 12px 10px 36px;
+    }
+
+    .search-box i{
+        left:12px;
+    }
+
+    .topbar-right .theme-btn{
+        display:none;
+    }
+
+    .feed{
+        top:60px;
+
+        bottom:72px;
+    }
+
+    .video-card{
+        height:
+            calc(100vh - 132px);
+
+        min-height:500px;
+    }
+
+    .video-info{
+        left:16px;
+
+        bottom:24px;
+
+        width:73%;
+    }
+
+    .video-actions{
+        right:10px;
+
+        bottom:23px;
+
+        gap:13px;
+    }
+
+    .action-icon{
+        width:43px;
+        height:43px;
+
+        font-size:18px;
+    }
+
+    .bottom-nav{
+        left:8px;
+        right:8px;
+
+        bottom:7px;
+
+        transform:none;
+
+        justify-content:space-around;
+
+        border-radius:18px;
+    }
+
+    .nav-item{
+        min-width:55px;
+
+        padding:8px 5px;
+    }
+
+    .upload-nav{
+        width:48px;
+        height:48px;
+    }
+
+    .auth-card{
+        padding:25px;
+    }
+
+    .video-top{
+        top:12px;
+
+        left:12px;
+        right:12px;
+    }
+
+    .video-label{
+        font-size:10px;
+    }
+}
+
+@media(max-width:480px){
+
+    .top-logo span:not(.logo-mark){
+        display:none;
+    }
+
+    .search-box{
+        margin-left:3px;
+    }
+
+    .avatar{
+        width:34px;
+        height:34px;
+    }
+
+    .video-caption{
+        font-size:13px;
+    }
+
+    .creator-avatar{
+        width:38px;
+        height:38px;
+    }
+
+    .follow-btn{
+        padding:6px 10px;
+    }
+
+    .video-info{
+        width:76%;
+    }
+
+    .video-actions{
+        right:7px;
+    }
+
+    .action span{
+        font-size:10px;
+    }
+
+    .action-icon{
+        width:40px;
+        height:40px;
+    }
+
+    .double-heart{
+        font-size:85px;
+    }
+
+    .share-options{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     AUTH SCREEN
+========================================================= -->
+
+<section class="auth-screen" id="authScreen">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+
+            <div class="logo">
+
+                <span class="logo-mark">
+                   <i class="fa-solid fa-n"></i> 
+                </span>
+
+                <span>
+                    Netra<span style="color:var(--primary)">
+                        Reels
+                    </span>
+                </span>
+
+            </div>
+
+            <div class="auth-subtitle">
+                Watch. Create. Connect.
+            </div>
+
+        </div>
+
+
+        <div class="auth-tabs">
+
+            <button
+                class="auth-tab active"
+                onclick="switchAuth('login')"
+                id="loginTab">
+
+                Sign in
+
+            </button>
+
+            <button
+                class="auth-tab"
+                onclick="switchAuth('register')"
+                id="registerTab">
+
+                Create account
+
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <form
+            class="auth-form active"
+            id="loginForm"
+            onsubmit="loginUser(event)">
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="you@example.com"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    required>
+
+            </div>
+
+            <button class="auth-btn">
+                Sign in
+            </button>
+
+        </form>
+
+
+        <!-- REGISTER -->
+
+        <form
+            class="auth-form"
+            id="registerForm"
+            onsubmit="registerUser(event)">
+
+            <div class="form-group">
+
+                <label>Full name</label>
+
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Your full name"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Username</label>
+
+                <input
+                    type="text"
+                    id="registerUsername"
+                    placeholder="@username"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="you@example.com"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Create a password"
+                    minlength="6"
+                    required>
+
+            </div>
+
+            <button class="auth-btn">
+                Create account
+            </button>
+
+        </form>
+
+
+        <div
+            class="auth-message"
+            id="authMessage">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     APPLICATION
+========================================================= -->
+
+<div class="app" id="app">
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <div class="top-logo">
+
+                <span class="logo-mark">
+                    <i class="fa-solid fa-n"></i>
+                    
+                </span>
+
+                <span>
+                    Netra<span class="tube-text">Reels</span>
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search videos, creators...">
+
+        </div>
+
+
+        <div class="topbar-right">
+
+            <button
+                class="icon-btn theme-btn"
+                onclick="toggleTheme()"
+                title="Toggle theme">
+
+                <i
+                    class="fa-solid fa-moon"
+                    id="themeIcon">
+                </i>
+
+            </button>
+
+
+            <button
+                class="icon-btn"
+                onclick="openPanel('inbox')"
+                title="Inbox">
+
+                <i class="fa-regular fa-message"></i>
+
+            </button>
+
+
+            <button
+                class="avatar"
+                id="topAvatar"
+                onclick="openPanel('profile')">
+
+                N
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- VIDEO FEED -->
+
+    <main
+        class="feed"
+        id="feed">
+    </main>
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav class="bottom-nav">
+
+        <button
+            class="nav-item active"
+            onclick="goHome(this)">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Home</span>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="openPanel('friends',this)">
+
+            <i class="fa-solid fa-user-group"></i>
+
+            <span>Friends</span>
+
+        </button>
+
+
+        <button
+            class="nav-item upload-nav"
+            onclick="openPanel('upload',this)">
+
+            <i class="fa-solid fa-plus"></i>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="openPanel('inbox',this)">
+
+            <i class="fa-solid fa-inbox"></i>
+
+            <span>Inbox</span>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="openPanel('profile',this)">
+
+            <i class="fa-regular fa-user"></i>
+
+            <span>Profile</span>
+
+        </button>
+
+    </nav>
+
+</div>
+
+
+<!-- =========================================================
+     PANELS
+========================================================= -->
+
+<div
+    class="panel-overlay"
+    id="panelOverlay"
+    onclick="closePanels()">
+
+
+    <!-- UPLOAD -->
+
+    <aside
+        class="panel"
+        id="uploadPanel"
+        onclick="event.stopPropagation()">
+
+        <div class="panel-header">
+
+            <h2>Create a video</h2>
+
+            <button
+                class="close-btn"
+                onclick="closePanels()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="upload-area">
+
+            <label
+                class="drop-zone"
+                for="videoFile">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                <h3>
+                    Upload your video
+                </h3>
+
+                <p>
+                    MP4, WebM or MOV
+                </p>
+
+            </label>
+
+
+            <input
+                type="file"
+                id="videoFile"
+                accept="video/*">
+
+
+            <div
+                class="preview"
+                id="preview">
+
+                <video
+                    id="previewVideo"
+                    controls>
+                </video>
+
+            </div>
+
+
+            <div
+                class="upload-fields"
+                id="uploadFields">
+
+                <textarea
+                    id="videoCaption"
+                    maxlength="500"
+                    placeholder="Write a caption...">
+                </textarea>
+
+                <button
+                    class="publish-btn"
+                    onclick="publishVideo()">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Publish video
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- FRIENDS -->
+
+    <aside
+        class="panel"
+        id="friendsPanel"
+        onclick="event.stopPropagation()">
+
+        <div class="panel-header">
+
+            <h2>Friends</h2>
+
+            <button
+                class="close-btn"
+                onclick="closePanels()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="panel-search">
+
+            <input
+                type="search"
+                placeholder="Search friends..."
+                id="friendSearch">
+
+        </div>
+
+
+        <div id="friendsList">
+
+            <div class="empty-panel">
+
+                <i class="fa-solid fa-user-group"></i>
+
+                <h3>
+                    Build your circle
+                </h3>
+
+                <p>
+                    Your Netra friends will appear
+                    here when you start connecting.
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- INBOX -->
+
+    <aside
+        class="panel"
+        id="inboxPanel"
+        onclick="event.stopPropagation()">
+
+        <div class="panel-header">
+
+            <h2>Inbox</h2>
+
+            <button
+                class="close-btn"
+                onclick="closePanels()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="empty-panel">
+
+            <i class="fa-regular fa-message"></i>
+
+            <h3>
+                Your inbox is empty
+            </h3>
+
+            <p>
+                Messages and conversations will appear
+                here when you connect with people on Netra.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- PROFILE -->
+
+    <aside
+        class="panel"
+        id="profilePanel"
+        onclick="event.stopPropagation()">
+
+        <div class="panel-header">
+
+            <h2>Profile</h2>
+
+            <button
+                class="close-btn"
+                onclick="closePanels()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="profile-cover"></div>
+
+
+        <div class="profile-body">
+
+            <div
+                class="profile-avatar"
+                id="profileAvatar">
+
+                N
+
+            </div>
+
+
+            <h2 id="profileName">
+                Netra User
+            </h2>
+
+
+            <div
+                class="profile-username"
+                id="profileUsername">
+
+                @user
+
+            </div>
+
+
+            <div class="profile-stats">
+
+                <div class="stat">
+
+                    <strong id="profileVideos">
+                        0
+                    </strong>
+
+                    <span>
+                        Videos
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong id="profileLikes">
+                        0
+                    </strong>
+
+                    <span>
+                        Likes
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong id="profileSaved">
+                        0
+                    </strong>
+
+                    <span>
+                        Saved
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                style="width:100%;margin-top:20px"
+                onclick="logoutUser()">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Sign out
+
+            </button>
+
+        </div>
+
+    </aside>
+
+</div>
+
+
+<!-- =========================================================
+     COMMENTS
+========================================================= -->
+
+<section
+    class="comments-panel"
+    id="commentsPanel">
+
+    <div class="comments-header">
+
+        <strong>
+            Comments
+        </strong>
+
+        <button
+            class="close-btn"
+            onclick="closeComments()">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="comments-list"
+        id="commentsList">
+    </div>
+
+
+    <form
+        class="comment-form"
+        onsubmit="addComment(event)">
+
+        <input
+            type="text"
+            id="commentInput"
+            placeholder="Write a comment..."
+            autocomplete="off"
+            required>
+
+        <button>
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+        </button>
+
+    </form>
+
+</section>
+
+
+<!-- =========================================================
+     SHARE MODAL
+========================================================= -->
+
+<div
+    class="share-modal"
+    id="shareModal"
+    onclick="closeShare(event)">
+
+    <div
+        class="share-card"
+        onclick="event.stopPropagation()">
+
+        <h3>
+            Share video
+        </h3>
+
+
+        <div class="share-options">
+
+            <button
+                class="share-option"
+                onclick="copyVideoLink()">
+
+                <i class="fa-solid fa-link"></i>
+
+                Copy link
+
+            </button>
+
+
+            <button
+                class="share-option"
+                onclick="nativeShare()">
+
+                <i class="fa-solid fa-share-nodes"></i>
+
+                Share
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script>
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const USERS_KEY =
+    "netra_users";
+
+const CURRENT_USER_KEY =
+    "netra_current_user";
+
+const VIDEOS_KEY =
+    "netra_videos";
+
+const THEME_KEY =
+    "netra-theme";
+
+
+let currentUser = null;
+
+let selectedVideoId = null;
+
+let selectedFileURL = null;
+
+let selectedFile = null;
+
+let lastTap = 0;
+
+
+/* =========================================================
+   DEMO VIDEOS
+========================================================= */
+
+const DEMO_VIDEOS = [];
+
+
+/* =========================================================
+   STORAGE HELPERS
+========================================================= */
+
+function getUsers(){
+
+    return JSON.parse(
+        localStorage.getItem(USERS_KEY) || "[]"
+    );
+
+}
+
+
+function saveUsers(users){
+
+    localStorage.setItem(
+        USERS_KEY,
+        JSON.stringify(users)
+    );
+
+}
+
+
+function getVideos(){
+
+    return JSON.parse(
+        localStorage.getItem(VIDEOS_KEY) || "[]"
+    );
+
+}
+
+
+function saveVideos(videos){
+
+    localStorage.setItem(
+        VIDEOS_KEY,
+        JSON.stringify(videos)
+    );
+
+}
+
+
+function userKey(prefix){
+
+    return prefix + "_" +
+        (currentUser?.email || "guest");
+
+}
+
+
+function getUserLikes(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            userKey("netra_likes")
+        ) || "[]"
+    );
+
+}
+
+
+function saveUserLikes(data){
+
+    localStorage.setItem(
+        userKey("netra_likes"),
+        JSON.stringify(data)
+    );
+
+}
+
+
+function getSavedVideos(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            userKey("netra_saved")
+        ) || "[]"
+    );
+
+}
+
+
+function saveSavedVideos(data){
+
+    localStorage.setItem(
+        userKey("netra_saved"),
+        JSON.stringify(data)
+    );
+
+}
+
+
+function getComments(videoId){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "netra_comments_" + videoId
+        ) || "[]"
+    );
+
+}
+
+
+function saveComments(videoId,comments){
+
+    localStorage.setItem(
+        "netra_comments_" + videoId,
+        JSON.stringify(comments)
+    );
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+function switchAuth(type){
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const registerForm =
+        document.getElementById("registerForm");
+
+    const loginTab =
+        document.getElementById("loginTab");
+
+    const registerTab =
+        document.getElementById("registerTab");
+
+    const message =
+        document.getElementById("authMessage");
+
+    message.textContent = "";
+
+    if(type === "login"){
+
+        loginForm.classList.add("active");
+
+        registerForm.classList.remove("active");
+
+        loginTab.classList.add("active");
+
+        registerTab.classList.remove("active");
+
+    }else{
+
+        loginForm.classList.remove("active");
+
+        registerForm.classList.add("active");
+
+        loginTab.classList.remove("active");
+
+        registerTab.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+function registerUser(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+            .getElementById("registerName")
+            .value
+            .trim();
+
+    const username =
+        document
+            .getElementById("registerUsername")
+            .value
+            .trim()
+            .replace(/^@/,"");
+
+    const email =
+        document
+            .getElementById("registerEmail")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const password =
+        document
+            .getElementById("registerPassword")
+            .value;
+
+    const message =
+        document.getElementById("authMessage");
+
+    const users =
+        getUsers();
+
+
+    if(
+        users.some(
+            user =>
+                user.email === email
+        )
+    ){
+
+        message.textContent =
+            "An account with this email already exists.";
+
+        return;
+
+    }
+
+
+    if(
+        !/^[a-zA-Z0-9._]+$/.test(username)
+    ){
+
+        message.textContent =
+            "Username can only contain letters, numbers, dots and underscores.";
+
+        return;
+
+    }
+
+
+    if(
+        users.some(
+            user =>
+                user.username.toLowerCase() ===
+                username.toLowerCase()
+        )
+    ){
+
+        message.textContent =
+            "That username is already taken.";
+
+        return;
+
+    }
+
+
+    const newUser = {
+
+        id:
+            Date.now().toString(),
+
+        name,
+
+        username,
+
+        email,
+
+        password,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    users.push(newUser);
+
+    saveUsers(users);
+
+
+    localStorage.setItem(
+        CURRENT_USER_KEY,
+        email
+    );
+
+
+    currentUser =
+        newUser;
+
+
+    startApp();
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function loginUser(event){
+
+    event.preventDefault();
+
+    const email =
+        document
+            .getElementById("loginEmail")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const password =
+        document
+            .getElementById("loginPassword")
+            .value;
+
+    const message =
+        document.getElementById("authMessage");
+
+    const users =
+        getUsers();
+
+
+    const user =
+        users.find(
+            item =>
+                item.email === email &&
+                item.password === password
+        );
+
+
+    if(!user){
+
+        message.textContent =
+            "Incorrect email or password.";
+
+        return;
+
+    }
+
+
+    currentUser =
+        user;
+
+
+    localStorage.setItem(
+        CURRENT_USER_KEY,
+        email
+    );
+
+
+    startApp();
+
+}
+
+
+/* =========================================================
+   LOGIN CHECK
+========================================================= */
+
+function checkLogin(){
+
+    const email =
+        localStorage.getItem(
+            CURRENT_USER_KEY
+        );
+
+
+    if(!email){
+
+        return false;
+
+    }
+
+
+    const users =
+        getUsers();
+
+
+    const user =
+        users.find(
+            item =>
+                item.email === email
+        );
+
+
+    if(!user){
+
+        localStorage.removeItem(
+            CURRENT_USER_KEY
+        );
+
+        return false;
+
+    }
+
+
+    currentUser =
+        user;
+
+    return true;
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+function startApp(){
+
+    document
+        .getElementById("authScreen")
+        .style.display = "none";
+
+
+    document
+        .getElementById("app")
+        .classList.add("active");
+
+
+    updateUserUI();
+
+    loadTheme();
+
+    renderFeed();
+
+}
+
+
+/* =========================================================
+   USER UI
+========================================================= */
+
+function updateUserUI(){
+
+    if(!currentUser)
+        return;
+
+
+    const letter =
+        currentUser.name
+            .charAt(0)
+            .toUpperCase();
+
+
+    document
+        .getElementById("topAvatar")
+        .textContent =
+            letter;
+
+
+    document
+        .getElementById("profileAvatar")
+        .textContent =
+            letter;
+
+
+    document
+        .getElementById("profileName")
+        .textContent =
+            currentUser.name;
+
+
+    document
+        .getElementById("profileUsername")
+        .textContent =
+            "@" + currentUser.username;
+
+
+    updateProfileStats();
+
+}
+
+
+/* =========================================================
+   PROFILE STATS
+========================================================= */
+
+function updateProfileStats(){
+
+    if(!currentUser)
+        return;
+
+
+    const videos =
+        getVideos().filter(
+            video =>
+                video.ownerEmail ===
+                currentUser.email
+        );
+
+
+    const likes =
+        getUserLikes();
+
+
+    const saved =
+        getSavedVideos();
+
+
+    document
+        .getElementById("profileVideos")
+        .textContent =
+            videos.length;
+
+
+    document
+        .getElementById("profileLikes")
+        .textContent =
+            likes.length;
+
+
+    document
+        .getElementById("profileSaved")
+        .textContent =
+            saved.length;
+
+}
+
+
+/* =========================================================
+   ALL VIDEOS
+========================================================= */
+
+function allVideos(){
+
+    return [
+        ...getVideos(),
+        ...DEMO_VIDEOS
+    ];
+
+}
+
+
+/* =========================================================
+   RENDER FEED
+========================================================= */
+
+function renderFeed(){
+
+    const feed =
+        document.getElementById("feed");
+
+    const videos =
+        allVideos();
+
+
+    if(!videos.length){
+
+        feed.innerHTML = `
+
+            <div class="empty-feed">
+
+                <div class="empty-content">
+
+                    <div class="empty-icon">
+
+                        <i class="fa-solid fa-play"></i>
+
+                    </div>
+
+                    <h2>
+                        Welcome to NetraTube
+                    </h2>
+
+                    <p>
+                        Your video feed is waiting for
+                        its first creator. Upload your
+                        first video and start building
+                        your audience.
+                    </p>
+
+                    <button
+                        class="primary-btn"
+                        onclick="openPanel('upload')">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Upload your first video
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    feed.innerHTML =
+        videos
+            .map(createVideoCard)
+            .join("");
+
+
+    setupVideoObserver();
+
+    setupVideoEvents();
+
+}
+
+
+/* =========================================================
+   CREATE VIDEO CARD
+========================================================= */
+
+function createVideoCard(video){
+
+    const likes =
+        video.likes || 0;
+
+    const comments =
+        getComments(video.id).length;
+
+    const liked =
+        getUserLikes()
+            .includes(video.id);
+
+    const saved =
+        getSavedVideos()
+            .includes(video.id);
+
+
+    const creatorName =
+        video.creatorName ||
+        "Netra Creator";
+
+    const username =
+        video.username ||
+        "creator";
+
+
+    const initial =
+        creatorName
+            .charAt(0)
+            .toUpperCase();
+
+
+    return `
+
+        <article
+            class="video-card"
+            data-video-id="${video.id}">
+
+
+            <video
+                class="video"
+                src="${escapeHTML(video.url)}"
+                loop
+                muted
+                playsinline
+                preload="metadata">
+
+            </video>
+
+
+            <div class="video-gradient"></div>
+
+
+            <div class="video-top">
+
+                <div class="video-label">
+
+                    <i class="fa-solid fa-circle-play"></i>
+
+                    NetraTube
+
+                </div>
+
+
+                <button
+                    class="video-control"
+                    onclick="toggleMute(this)"
+                    title="Mute or unmute">
+
+                    <i class="fa-solid fa-volume-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="play-overlay">
+
+                <i class="fa-solid fa-play"></i>
+
+            </div>
+
+
+            <div class="double-heart">
+
+                <i class="fa-solid fa-heart"></i>
+
+            </div>
+
+
+            <div class="video-info">
+
+                <div class="creator-row">
+
+                    <div class="creator-avatar">
+
+                        ${escapeHTML(initial)}
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="creator-name">
+
+                            ${escapeHTML(creatorName)}
+
+                        </div>
+
+                        <div class="username">
+
+                            @${escapeHTML(username)}
+
+                        </div>
+
+                    </div>
+
+
+                    ${
+                        video.ownerEmail !==
+                        currentUser.email
+                        ?
+                        `
+                        <button
+                            class="follow-btn"
+                            onclick="
+                                followCreator(
+                                    '${escapeHTML(username)}',
+                                    this
+                                )
+                            ">
+
+                            Follow
+
+                        </button>
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+
+                <div class="video-caption">
+
+                    ${escapeHTML(
+                        video.caption ||
+                        "Welcome to NetraTube."
+                    )}
+
+                </div>
+
+
+                <div class="video-meta">
+
+                    <i class="fa-solid fa-music"></i>
+
+                    Original sound
+
+                </div>
+
+            </div>
+
+
+            <div class="video-actions">
+
+
+                <button
+                    class="
+                        action
+                        ${liked ? "liked" : ""}
+                    "
+                    onclick="
+                        likeVideo(
+                            '${video.id}',
+                            this
+                        )
+                    ">
+
+                    <div class="action-icon">
+
+                        <i class="
+                            ${
+                                liked
+                                ? "fa-solid"
+                                : "fa-regular"
+                            }
+                            fa-heart
+                        "></i>
+
+                    </div>
+
+                    <span>
+                        ${likes}
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="action"
+                    onclick="
+                        openComments(
+                            '${video.id}'
+                        )
+                    ">
+
+                    <div class="action-icon">
+
+                        <i class="fa-regular fa-comment"></i>
+
+                    </div>
+
+                    <span>
+                        ${comments}
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="action"
+                    onclick="
+                        openShare(
+                            '${video.id}'
+                        )
+                    ">
+
+                    <div class="action-icon">
+
+                        <i class="fa-solid fa-share"></i>
+
+                    </div>
+
+                    <span>
+                        Share
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="
+                        action
+                        ${saved ? "saved" : ""}
+                    "
+                    onclick="
+                        saveVideo(
+                            '${video.id}',
+                            this
+                        )
+                    ">
+
+                    <div class="action-icon">
+
+                        <i class="
+                            ${
+                                saved
+                                ? "fa-solid"
+                                : "fa-regular"
+                            }
+                            fa-bookmark
+                        "></i>
+
+                    </div>
+
+                    <span>
+                        Save
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <div class="video-progress">
+
+                <div class="video-progress-bar"></div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   VIDEO EVENTS
+========================================================= */
+
+function setupVideoEvents(){
+
+    document
+        .querySelectorAll(".video-card")
+        .forEach(card => {
+
+            const video =
+                card.querySelector(".video");
+
+            const progress =
+                card.querySelector(
+                    ".video-progress-bar"
+                );
+
+
+            video.addEventListener(
+                "timeupdate",
+                () => {
+
+                    if(!video.duration)
+                        return;
+
+                    const percentage =
+                        (video.currentTime /
+                        video.duration) * 100;
+
+                    progress.style.width =
+                        percentage + "%";
+
+                }
+            );
+
+
+            video.addEventListener(
+                "click",
+                () => {
+
+                    const now =
+                        Date.now();
+
+                    const difference =
+                        now - lastTap;
+
+
+                    if(difference < 300){
+
+                        doubleTapLike(card);
+
+                    }else{
+
+                        toggleVideo(video);
+
+                    }
+
+
+                    lastTap = now;
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   DOUBLE TAP LIKE
+========================================================= */
+
+function doubleTapLike(card){
+
+    const videoId =
+        card.dataset.videoId;
+
+
+    const button =
+        card.querySelector(".action");
+
+
+    const liked =
+        getUserLikes();
+
+
+    if(!liked.includes(videoId)){
+
+        likeVideo(
+            videoId,
+            button
+        );
+
+    }
+
+
+    const heart =
+        card.querySelector(".double-heart");
+
+
+    heart.classList.remove("show");
+
+    void heart.offsetWidth;
+
+    heart.classList.add("show");
+
+}
+
+
+/* =========================================================
+   PLAY / PAUSE
+========================================================= */
+
+function toggleVideo(video){
+
+    const card =
+        video.closest(".video-card");
+
+
+    if(video.paused){
+
+        video.play()
+            .catch(() => {});
+
+        card.classList.remove(
+            "paused"
+        );
+
+    }else{
+
+        video.pause();
+
+        card.classList.add(
+            "paused"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MUTE
+========================================================= */
+
+function toggleMute(button){
+
+    const card =
+        button.closest(".video-card");
+
+    const video =
+        card.querySelector(".video");
+
+    video.muted =
+        !video.muted;
+
+
+    const icon =
+        button.querySelector("i");
+
+
+    icon.className =
+        video.muted
+        ?
+        "fa-solid fa-volume-xmark"
+        :
+        "fa-solid fa-volume-high";
+
+}
+
+
+/* =========================================================
+   VIDEO OBSERVER
+========================================================= */
+
+function setupVideoObserver(){
+
+    const videos =
+        document.querySelectorAll(
+            ".video"
+        );
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        const video =
+                            entry.target;
+
+                        const card =
+                            video.closest(
+                                ".video-card"
+                            );
+
+
+                        if(
+                            entry.isIntersecting &&
+                            entry.intersectionRatio > .65
+                        ){
+
+                            document
+                                .querySelectorAll(
+                                    ".video"
+                                )
+                                .forEach(
+                                    other => {
+
+                                        if(
+                                            other !== video
+                                        ){
+
+                                            other.pause();
+
+                                        }
+
+                                    }
+                                );
+
+
+                            video.play()
+                                .catch(
+                                    () => {}
+                                );
+
+
+                            card.classList.remove(
+                                "paused"
+                            );
+
+                        }else{
+
+                            video.pause();
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold:[.65]
+            }
+        );
+
+
+    videos.forEach(
+        video =>
+            observer.observe(video)
+    );
+
+}
+
+
+/* =========================================================
+   LIKE
+========================================================= */
+
+function likeVideo(
+    videoId,
+    button
+){
+
+    const liked =
+        getUserLikes();
+
+    const videos =
+        getVideos();
+
+
+    const index =
+        liked.indexOf(videoId);
+
+
+    const video =
+        videos.find(
+            item =>
+                item.id === videoId
+        );
+
+
+    if(index === -1){
+
+        liked.push(videoId);
+
+        if(video){
+
+            video.likes =
+                (video.likes || 0) + 1;
+
+        }
+
+    }else{
+
+        liked.splice(
+            index,
+            1
+        );
+
+        if(video){
+
+            video.likes =
+                Math.max(
+                    0,
+                    (video.likes || 0) - 1
+                );
+
+        }
+
+    }
+
+
+    saveUserLikes(liked);
+
+    saveVideos(videos);
+
+    updateProfileStats();
+
+
+    const icon =
+        button.querySelector("i");
+
+    const count =
+        button.querySelector("span");
+
+
+    const isLiked =
+        liked.includes(videoId);
+
+
+    button.classList.toggle(
+        "liked",
+        isLiked
+    );
+
+
+    icon.className =
+        isLiked
+        ?
+        "fa-solid fa-heart"
+        :
+        "fa-regular fa-heart";
+
+
+    if(video){
+
+        count.textContent =
+            video.likes;
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveVideo(
+    videoId,
+    button
+){
+
+    const saved =
+        getSavedVideos();
+
+
+    const index =
+        saved.indexOf(videoId);
+
+
+    if(index === -1){
+
+        saved.push(videoId);
+
+        showToast(
+            "Video saved"
+        );
+
+    }else{
+
+        saved.splice(
+            index,
+            1
+        );
+
+        showToast(
+            "Removed from saved"
+        );
+
+    }
+
+
+    saveSavedVideos(saved);
+
+    updateProfileStats();
+
+
+    const icon =
+        button.querySelector("i");
+
+
+    const isSaved =
+        saved.includes(videoId);
+
+
+    button.classList.toggle(
+        "saved",
+        isSaved
+    );
+
+
+    icon.className =
+        isSaved
+        ?
+        "fa-solid fa-bookmark"
+        :
+        "fa-regular fa-bookmark";
+
+}
+
+
+/* =========================================================
+   COMMENTS
+========================================================= */
+
+function openComments(videoId){
+
+    selectedVideoId =
+        videoId;
+
+
+    document
+        .getElementById(
+            "commentsPanel"
+        )
+        .classList.add(
+            "active"
+        );
+
+
+    renderComments();
+
+
+    setTimeout(
+        () => {
+
+            document
+                .getElementById(
+                    "commentInput"
+                )
+                .focus();
+
+        },
+        150
+    );
+
+}
+
+
+function closeComments(){
+
+    document
+        .getElementById(
+            "commentsPanel"
+        )
+        .classList.remove(
+            "active"
+        );
+
+}
+
+
+function renderComments(){
+
+    const list =
+        document.getElementById(
+            "commentsList"
+        );
+
+
+    const comments =
+        getComments(
+            selectedVideoId
+        );
+
+
+    if(!comments.length){
+
+        list.innerHTML = `
+
+            <div class="empty-panel">
+
+                <i class="fa-regular fa-comment"></i>
+
+                <h3>
+                    No comments yet
+                </h3>
+
+                <p>
+                    Be the first person to
+                    start the conversation.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        comments
+            .map(
+                comment => `
+
+                    <div class="comment">
+
+                        <div class="comment-avatar">
+
+                            ${escapeHTML(
+                                comment.name
+                                    .charAt(0)
+                                    .toUpperCase()
+                            )}
+
+                        </div>
+
+
+                        <div class="comment-body">
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    comment.name
+                                )}
+
+                            </strong>
+
+                            <p>
+
+                                ${escapeHTML(
+                                    comment.text
+                                )}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+function addComment(event){
+
+    event.preventDefault();
+
+
+    if(!selectedVideoId)
+        return;
+
+
+    const input =
+        document.getElementById(
+            "commentInput"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if(!text)
+        return;
+
+
+    const comments =
+        getComments(
+            selectedVideoId
+        );
+
+
+    comments.push({
+
+        id:
+            Date.now().toString(),
+
+        name:
+            currentUser.name,
+
+        username:
+            currentUser.username,
+
+        text,
+
+        createdAt:
+            new Date().toISOString()
+
+    });
+
+
+    saveComments(
+        selectedVideoId,
+        comments
+    );
+
+
+    input.value = "";
+
+
+    renderComments();
+
+    renderFeed();
+
+    showToast(
+        "Comment added"
+    );
+
+}
+
+
+/* =========================================================
+   FOLLOW
+========================================================= */
+
+function followCreator(
+    username,
+    button
+){
+
+    const key =
+        userKey(
+            "netra_following"
+        );
+
+
+    const following =
+        JSON.parse(
+            localStorage.getItem(
+                key
+            ) || "[]"
+        );
+
+
+    if(
+        following.includes(username)
+    ){
+
+        const index =
+            following.indexOf(
+                username
+            );
+
+
+        following.splice(
+            index,
+            1
+        );
+
+
+        button.textContent =
+            "Follow";
+
+
+        button.classList.remove(
+            "following"
+        );
+
+
+        showToast(
+            "Unfollowed @" +
+            username
+        );
+
+    }else{
+
+        following.push(
+            username
+        );
+
+
+        button.textContent =
+            "Following";
+
+
+        button.classList.add(
+            "following"
+        );
+
+
+        showToast(
+            "Following @" +
+            username
+        );
+
+    }
+
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(following)
+    );
+
+}
+
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+function openShare(videoId){
+
+    selectedVideoId =
+        videoId;
+
+
+    document
+        .getElementById(
+            "shareModal"
+        )
+        .classList.add(
+            "active"
+        );
+
+}
+
+
+function closeShare(event){
+
+    if(
+        event &&
+        event.target !==
+        document.getElementById(
+            "shareModal"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "shareModal"
+        )
+        .classList.remove(
+            "active"
+        );
+
+}
+
+
+function getVideoLink(){
+
+    return (
+        window.location.href.split("#")[0] +
+        "#video-" +
+        selectedVideoId
+    );
+
+}
+
+
+async function copyVideoLink(){
+
+    const link =
+        getVideoLink();
+
+
+    try{
+
+        await navigator.clipboard
+            .writeText(link);
+
+        showToast(
+            "Video link copied"
+        );
+
+    }catch{
+
+        showToast(
+            "Unable to copy link"
+        );
+
+    }
+
+
+    document
+        .getElementById(
+            "shareModal"
+        )
+        .classList.remove(
+            "active"
+        );
+
+}
+
+
+async function nativeShare(){
+
+    const link =
+        getVideoLink();
+
+
+    if(navigator.share){
+
+        try{
+
+            await navigator.share({
+
+                title:
+                    "Watch this on NetraTube",
+
+                text:
+                    "Check out this video on NetraTube.",
+
+                url:
+                    link
+
+            });
+
+        }catch{}
+
+    }else{
+
+        await copyVideoLink();
+
+    }
+
+}
+
+
+/* =========================================================
+   UPLOAD PREVIEW
+========================================================= */
+
+document
+    .getElementById(
+        "videoFile"
+    )
+    .addEventListener(
+        "change",
+        previewVideo
+    );
+
+
+function previewVideo(event){
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file)
+        return;
+
+
+    if(
+        !file.type.startsWith(
+            "video/"
+        )
+    ){
+
+        showToast(
+            "Please select a video file."
+        );
+
+        return;
+
+    }
+
+
+    if(selectedFileURL){
+
+        URL.revokeObjectURL(
+            selectedFileURL
+        );
+
+    }
+
+
+    selectedFile =
+        file;
+
+
+    selectedFileURL =
+        URL.createObjectURL(
+            file
+        );
+
+
+    const preview =
+        document.getElementById(
+            "preview"
+        );
+
+
+    const previewVideo =
+        document.getElementById(
+            "previewVideo"
+        );
+
+
+    previewVideo.src =
+        selectedFileURL;
+
+
+    preview.style.display =
+        "block";
+
+
+    document
+        .getElementById(
+            "uploadFields"
+        )
+        .style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   PUBLISH
+========================================================= */
+
+function publishVideo(){
+
+    const file =
+        selectedFile;
+
+
+    if(!file){
+
+        showToast(
+            "Choose a video first."
+        );
+
+        return;
+
+    }
+
+
+    const caption =
+        document
+            .getElementById(
+                "videoCaption"
+            )
+            .value
+            .trim();
+
+
+    const video = {
+
+        id:
+            "video_" +
+            Date.now(),
+
+        ownerEmail:
+            currentUser.email,
+
+        creatorName:
+            currentUser.name,
+
+        username:
+            currentUser.username,
+
+        url:
+            selectedFileURL,
+
+        caption:
+            caption ||
+            "My first NetraTube video 🎬",
+
+        likes:0,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    const videos =
+        getVideos();
+
+
+    videos.unshift(
+        video
+    );
+
+
+    saveVideos(
+        videos
+    );
+
+
+    document
+        .getElementById(
+            "videoFile"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "videoCaption"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "preview"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "uploadFields"
+        )
+        .style.display =
+        "none";
+
+
+    selectedFile =
+        null;
+
+
+    closePanels();
+
+
+    renderFeed();
+
+
+    updateProfileStats();
+
+
+    showToast(
+        "Your video is now on NetraTube!"
+    );
+
+}
+
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+function openPanel(
+    name,
+    button
+){
+
+    const overlay =
+        document.getElementById(
+            "panelOverlay"
+        );
+
+
+    overlay.classList.add(
+        "active"
+    );
+
+
+    document
+        .querySelectorAll(
+            ".panel"
+        )
+        .forEach(
+            panel =>
+                panel.style.display =
+                    "none"
+        );
+
+
+    const panel =
+        document.getElementById(
+            name + "Panel"
+        );
+
+
+    if(panel){
+
+        panel.style.display =
+            "block";
+
+    }
+
+
+    if(button){
+
+        document
+            .querySelectorAll(
+                ".nav-item"
+            )
+            .forEach(
+                item =>
+                    item.classList.remove(
+                        "active"
+                    )
+            );
+
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+function closePanels(){
+
+    document
+        .getElementById(
+            "panelOverlay"
+        )
+        .classList.remove(
+            "active"
+        );
+
+
+    document
+        .querySelectorAll(
+            ".panel"
+        )
+        .forEach(
+            panel =>
+                panel.style.display =
+                    "none"
+        );
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function goHome(button){
+
+    closePanels();
+
+
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "active"
+                )
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    document
+        .getElementById(
+            "feed"
+        )
+        .scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "input",
+        function(){
+
+            const query =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            document
+                .querySelectorAll(
+                    ".video-card"
+                )
+                .forEach(
+                    card => {
+
+                        const matches =
+                            card.textContent
+                                .toLowerCase()
+                                .includes(
+                                    query
+                                );
+
+
+                        card.style.display =
+                            matches
+                            ?
+                            "flex"
+                            :
+                            "none";
+
+                    }
+                );
+
+        }
+    );
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function loadTheme(){
+
+    const theme =
+        localStorage.getItem(
+            THEME_KEY
+        );
+
+
+    if(theme === "dark"){
+
+        document
+            .body
+            .classList
+            .add("dark");
+
+    }else{
+
+        document
+            .body
+            .classList
+            .remove("dark");
+
+    }
+
+
+    updateThemeIcon();
+
+}
+
+
+function toggleTheme(){
+
+    document
+        .body
+        .classList
+        .toggle("dark");
+
+
+    const dark =
+        document
+            .body
+            .classList
+            .contains("dark");
+
+
+    localStorage.setItem(
+        THEME_KEY,
+        dark
+        ?
+        "dark"
+        :
+        "light"
+    );
+
+
+    updateThemeIcon();
+
+}
+
+
+function updateThemeIcon(){
+
+    const icon =
+        document.getElementById(
+            "themeIcon"
+        );
+
+
+    if(
+        document
+            .body
+            .classList
+            .contains("dark")
+    ){
+
+        icon.className =
+            "fa-solid fa-sun";
+
+    }else{
+
+        icon.className =
+            "fa-solid fa-moon";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logoutUser(){
+
+    localStorage.removeItem(
+        CURRENT_USER_KEY
+    );
+
+
+    currentUser =
+        null;
+
+
+    location.reload();
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closePanels();
+
+            closeComments();
+
+            document
+                .getElementById(
+                    "shareModal"
+                )
+                .classList.remove(
+                    "active"
+                );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+if(checkLogin()){
+
+    startApp();
+
+}else{
+
+    document
+        .getElementById(
+            "authScreen"
+        )
+        .style.display =
+        "flex";
+
+}
+
+</script>
+
+</body>
+</html>

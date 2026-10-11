@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1769ff">
+<title>Menu & Settings | Netra</title>
+
+<!-- Icons and font -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* =========================
+   NETRA THEME VARIABLES
+========================= */
+:root {
+    --blue: #1769ff;
+    --blue-dark: #1053d5;
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --text: #172033;
+    --muted: #7b8498;
+    --border: #e7eaf1;
+    --soft: #edf3ff;
+    --hover: #f3f6fc;
+    --shadow: 0 8px 30px rgba(25,45,85,.045);
+}
+
+body.dark {
+    color-scheme: dark;
+    --bg: #101522;
+    --surface: #191f2e;
+    --text: #f1f4fb;
+    --muted: #9ca8bd;
+    --border: #2b3345;
+    --soft: #202f50;
+    --hover: #222a3c;
+    --shadow: 0 8px 30px rgba(0,0,0,.15);
+}
+
+/* =========================
+   GENERAL
+========================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: background .25s, color .25s;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+}
+
+svg {
+    flex-shrink: 0;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+.topbar {
+    height: 72px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 max(4%, calc((100% - 1400px)/2));
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo {
+    width: 41px;
+    height: 41px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #4190ff, #1455e8);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    transition: .2s;
+}
+
+.icon-btn:hover {
+    background: var(--hover);
+    color: var(--blue);
+}
+
+.icon-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+.layout {
+    width: min(1300px, 94%);
+    margin: 30px auto 50px;
+    display: grid;
+    grid-template-columns: 255px minmax(0, 1fr);
+    gap: 27px;
+}
+
+.sidebar, .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.sidebar {
+    padding: 19px;
+    height: fit-content;
+    position: sticky;
+    top: 95px;
+}
+
+.side-label {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    margin: 10px 11px 12px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    border-radius: 12px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 650;
+    margin-bottom: 4px;
+    transition: .18s;
+}
+
+.nav-item svg {
+    width: 19px;
+    height: 19px;
+    stroke-width: 1.8;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: var(--soft);
+    color: var(--blue);
+}
+
+.nav-item .arrow {
+    margin-left: auto;
+    width: 15px;
+}
+
+.sidebar-divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 18px 0;
+}
+
+.sidebar-note {
+    padding: 12px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+main {
+    min-width: 0;
+}
+
+.page-heading {
+    margin: 5px 0 24px;
+}
+
+.eyebrow {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: clamp(28px, 4vw, 36px);
+    letter-spacing: -1.3px;
+    margin-bottom: 9px;
+}
+
+.page-heading p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+/* =========================
+   SEARCH
+========================= */
+.search {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 15px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 23px;
+}
+
+.search svg {
+    width: 19px;
+    height: 19px;
+    color: var(--muted);
+}
+
+.search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.search:focus-within {
+    border-color: var(--blue);
+}
+
+/* =========================
+   SECTIONS AND PANELS
+========================= */
+.section {
+    scroll-margin-top: 95px;
+    margin-bottom: 22px;
+}
+
+.panel {
+    padding: 23px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.section-symbol {
+    width: 45px;
+    height: 45px;
+    border-radius: 14px;
+    background: var(--soft);
+    color: var(--blue);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.section-symbol svg {
+    width: 22px;
+    height: 22px;
+}
+
+.section-heading h2 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.section-heading p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* =========================
+   MENU TILES
+========================= */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.menu-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 11px;
+    min-width: 0;
+    padding: 16px 14px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: var(--surface);
+    color: var(--text);
+    text-align: left;
+    transition: transform .2s, border-color .2s, background .2s;
+}
+
+.menu-tile:hover {
+    transform: translateY(-2px);
+    border-color: #8db5ff;
+    background: var(--hover);
+}
+
+.tile-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: var(--soft);
+    color: var(--blue);
+    display: grid;
+    place-items: center;
+}
+
+.tile-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.tile-title {
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.tile-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* =========================
+   SETTING ROWS
+========================= */
+.setting-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.setting-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.setting-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    background: var(--hover);
+    color: var(--blue);
+    display: grid;
+    place-items: center;
+}
+
+.setting-icon svg {
+    width: 19px;
+    height: 19px;
+}
+
+.setting-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.setting-info h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.setting-info p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.row-action {
+    flex-shrink: 0;
+}
+
+.action-btn {
+    background: var(--soft);
+    color: var(--blue);
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 13px;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.action-btn:hover {
+    background: #dce8ff;
+}
+
+body.dark .action-btn:hover {
+    background: #2a3d61;
+}
+
+/* =========================
+   TOGGLE SWITCHES
+========================= */
+.toggle {
+    appearance: none;
+    width: 42px;
+    height: 24px;
+    border-radius: 20px;
+    background: #c6ccd7;
+    position: relative;
+    cursor: pointer;
+    transition: .2s;
+    flex-shrink: 0;
+}
+
+.toggle::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: .2s;
+    box-shadow: 0 1px 4px #0002;
+}
+
+.toggle:checked {
+    background: var(--blue);
+}
+
+.toggle:checked::after {
+    left: 21px;
+}
+
+.select-control {
+    max-width: 140px;
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 11px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.empty-search {
+    display: none;
+    text-align: center;
+    padding: 25px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.footer {
+    text-align: center;
+    padding: 8px 0 25px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* =========================
+   TOAST MESSAGE
+========================= */
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%, 15px);
+    background: #172033;
+    color: #fff;
+    padding: 13px 19px;
+    border-radius: 12px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .2s;
+    z-index: 100;
+    text-align: center;
+    max-width: 90%;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* =========================
+   RESET CONFIRMATION
+========================= */
+.confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: #10152288;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 80;
+}
+
+.confirm-overlay.open {
+    display: flex;
+}
+
+.confirm-box {
+    background: var(--surface);
+    color: var(--text);
+    width: min(400px, 100%);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+
+.confirm-box h2 {
+    font-size: 19px;
+    margin-bottom: 10px;
+}
+
+.confirm-box p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cancel-btn {
+    background: var(--hover);
+    color: var(--text);
+}
+
+/* =========================
+   MOBILE NAVIGATION
+========================= */
+.mobile-nav {
+    display: none;
+}
+
+@media(max-width:900px) {
+    .layout {
+        grid-template-columns: 1fr;
+        width: 92%;
+        margin-top: 23px;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media(max-width:550px) {
+    .topbar {
+        height: 62px;
+        padding: 0 4%;
+    }
+
+    .brand {
+        font-size: 22px;
+    }
+
+    .logo {
+        width: 36px;
+        height: 36px;
+        font-size: 25px;
+    }
+
+    .icon-btn {
+        width: 37px;
+        height: 37px;
+    }
+
+    .layout {
+        width: 94%;
+        margin: 20px auto 95px;
+    }
+
+    .panel {
+        padding: 16px;
+        border-radius: 17px;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .menu-tile {
+        padding: 13px 11px;
+        gap: 10px;
+    }
+
+    .tile-title {
+        font-size: 12px;
+    }
+
+    .setting-row {
+        gap: 10px;
+        padding: 14px 0;
+    }
+
+    .setting-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .setting-info h3 {
+        font-size: 12px;
+    }
+
+    .setting-info p {
+        font-size: 10px;
+    }
+
+    .select-control {
+        max-width: 105px;
+        font-size: 10px;
+        padding: 8px 5px;
+    }
+
+    .action-btn {
+        padding: 9px;
+        font-size: 10px;
+    }
+
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 30;
+        justify-content: space-around;
+        padding: 10px 4px calc(9px + env(safe-area-inset-bottom));
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+    }
+
+    .mobile-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: var(--muted);
+        font-size: 10px;
+        min-width: 45px;
+    }
+
+    .mobile-nav svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mobile-nav a.active {
+        color: var(--blue);
+        font-weight: 750;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     TOP BAR
+========================= -->
+<header class="topbar">
+    <a href="Homepage.html" class="brand">
+        <span class="logo">N</span>
+        <span>NETRA</span>
+    </a>
+
+    <div class="top-actions">
+        <button class="icon-btn" id="themeButton"
+                aria-label="Toggle dark mode" title="Toggle dark mode">
+            <i data-lucide="moon"></i>
+        </button>
+
+        <button class="icon-btn" id="searchButton"
+                aria-label="Search settings" title="Search">
+            <i data-lucide="search"></i>
+        </button>
+    </div>
+</header>
+
+<div class="layout">
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+<aside class="sidebar">
+    <div class="side-label">Workspace</div>
+
+    <a class="nav-item" href="Homepage.html">
+        <i data-lucide="house"></i> Home
+    </a>
+
+    <a class="nav-item" href="Friendspage.html">
+        <i data-lucide="users"></i> Friends
+    </a>
+
+    <a class="nav-item" href="Group page.html">
+        <i data-lucide="users-round"></i> Groups
+    </a>
+
+    <a class="nav-item" href="Messagner.html">
+        <i data-lucide="messages-square"></i> Messenger
+    </a>
+
+    <a class="nav-item" href="Newspage.html">
+        <i data-lucide="newspaper"></i> News Page
+    </a>
+
+    <a class="nav-item" href="Watch page.html">
+        <i data-lucide="play-square"></i> Netra Reels
+    </a>
+
+    <a class="nav-item" href="Storepage.html">
+        <i data-lucide="shopping-bag"></i> Netra Store
+    </a>
+
+    <a class="nav-item" href="Notification.html">
+        <i data-lucide="bell"></i> Notifications
+    </a>
+
+    <hr class="sidebar-divider">
+
+    <div class="side-label">Preferences</div>
+
+    <button class="nav-item active" data-target="menuSection">
+        <i data-lucide="layout-grid"></i> Menu
+        <i data-lucide="chevron-right" class="arrow"></i>
+    </button>
+
+    <button class="nav-item" data-target="accountSection">
+        <i data-lucide="user-round"></i> Account
+    </button>
+
+    <button class="nav-item" data-target="privacySection">
+        <i data-lucide="shield-check"></i> Privacy & Security
+    </button>
+
+    <button class="nav-item" data-target="notificationSection">
+        <i data-lucide="bell-ring"></i> Notifications
+    </button>
+
+    <button class="nav-item" data-target="appearanceSection">
+        <i data-lucide="palette"></i> Appearance
+    </button>
+
+    <button class="nav-item" data-target="mediaSection">
+        <i data-lucide="image"></i> Media
+    </button>
+
+    <button class="nav-item" data-target="languageSection">
+        <i data-lucide="languages"></i> Language
+    </button>
+
+    <hr class="sidebar-divider">
+
+    <a class="nav-item" href="profile page.html">
+        <i data-lucide="circle-user-round"></i> My Profile
+    </a>
+
+    <div class="sidebar-note">
+        Make Netra yours. Manage your account, privacy, notifications and appearance from one place.
+    </div>
+</aside>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<main>
+
+    <div class="page-heading">
+        <div class="eyebrow">Your Netra workspace</div>
+        <h1>Menu & Settings</h1>
+        <p>Manage your experience, personalize your account, and control how you use Netra.</p>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search" id="searchBox">
+        <i data-lucide="search"></i>
+        <input id="settingsSearch" type="search"
+               placeholder="Search settings, privacy, appearance..."
+               aria-label="Search settings">
+    </div>
+
+    <!-- =========================
+         MENU
+    ========================= -->
+    <section class="section" id="menuSection">
+        <div class="panel">
+            <div class="section-heading">
+                <div class="section-symbol">
+                    <i data-lucide="layout-grid"></i>
+                </div>
+                <div>
+                    <h2>Explore Netra</h2>
+                    <p>Your favorite places, all in one menu.</p>
+                </div>
+            </div>
+
+            <div class="menu-grid">
+                <a class="menu-tile" href="profile page.html" data-search="profile account">
+                    <span class="tile-icon"><i data-lucide="user-round"></i></span>
+                    <span class="tile-title">My Profile</span>
+                    <span class="tile-desc">View your profile and personal information.</span>
+                </a>
+
+                <a class="menu-tile" href="Friendspage.html" data-search="friends connections">
+                    <span class="tile-icon"><i data-lucide="users"></i></span>
+                    <span class="tile-title">Friends</span>
+                    <span class="tile-desc">Discover people and build connections.</span>
+                </a>
+
+                <a class="menu-tile" href="Group page.html" data-search="groups community">
+                    <span class="tile-icon"><i data-lucide="users-round"></i></span>
+                    <span class="tile-title">Groups</span>
+                    <span class="tile-desc">Find communities around your interests.</span>
+                </a>
+
+                <a class="menu-tile" href="Messagner.html" data-search="messages messenger chats">
+                    <span class="tile-icon"><i data-lucide="messages-square"></i></span>
+                    <span class="tile-title">Messenger</span>
+                    <span class="tile-desc">Connect through conversations.</span>
+                </a>
+
+                <a class="menu-tile" href="Newspage.html" data-search="news feed posts">
+                    <span class="tile-icon"><i data-lucide="newspaper"></i></span>
+                    <span class="tile-title">News Page</span>
+                    <span class="tile-desc">See posts and updates.</span>
+                </a>
+
+                <a class="menu-tile" href="Watch page.html" data-search="videos watch reels">
+                    <span class="tile-icon"><i data-lucide="play-square"></i></span>
+                    <span class="tile-title">Netra Reels</span>
+                    <span class="tile-desc">Discover video content and creators.</span>
+                </a>
+
+                <a class="menu-tile" href="Storepage.html" data-search="store shopping products">
+                    <span class="tile-icon"><i data-lucide="shopping-bag"></i></span>
+                    <span class="tile-title">Netra Store</span>
+                    <span class="tile-desc">Explore products and shopping links.</span>
+                </a>
+
+                <a class="menu-tile" href="Notification.html" data-search="notifications alerts">
+                    <span class="tile-icon"><i data-lucide="bell"></i></span>
+                    <span class="tile-title">Notifications</span>
+                    <span class="tile-desc">Manage your activity updates.</span>
+                </a>
+
+                <a class="menu-tile" href="Netra AI.html" data-search="ai assistant chatbot">
+                    <span class="tile-icon"><i data-lucide="bot"></i></span>
+                    <span class="tile-title">Netra AI</span>
+                    <span class="tile-desc">Explore your AI assistant.</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         ACCOUNT
+    ========================= -->
+    <section class="section" id="accountSection">
+        <div class="panel">
+            <div class="section-heading">
+                <div class="section-symbol"><i data-lucide="user-round"></i></div>
+                <div>
+                    <h2>Account</h2>
+                    <p>Manage your account preferences.</p>
+                </div>
+            </div>
+
+            <div class="setting-row" data-search="profile personal information">
+                <div class="setting-icon"><i data-lucide="contact-round"></i></div>
+                <div class="setting-info">
+                    <h3>Profile information</h3>
+                    <p>View and update your public profile.</p>
+                </div>
+                <a class="action-btn row-action" href="profile page.html">View</a>
+            </div>
+
+            <div class="setting-row" data-search="private profile account visibility">
+                <div class="setting-icon"><i data-lucide="lock-keyhole"></i></div>
+                <div class="setting-info">
+                    <h3>Private profile</h3>
+                    <p>Save your preference for a more private profile.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="privateProfile" aria-label="Private profile">
+            </div>
+
+            <div class="setting-row" data-search="activity status online active">
+                <div class="setting-icon"><i data-lucide="circle-dot"></i></div>
+                <div class="setting-info">
+                    <h3>Activity status</h3>
+                    <p>Save whether you prefer to show your activity status.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="activityStatus" checked aria-label="Activity status">
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         PRIVACY AND SECURITY
+    ========================= -->
+    <section class="section" id="privacySection">
+        <div class="panel">
+            <div class="section-heading">
+                <div class="section-symbol"><i data-lucide="shield-check"></i></div>
+                <div>
+                    <h2>Privacy & Security</h2>
+                    <p>Choose your preferences for your Netra experience.</p>
+                </div>
+            </div>
+
+            <div class="setting-row" data-search="recommendations suggested content">
+                <div class="setting-icon"><i data-lucide="sparkles"></i></div>
+                <div class="setting-info">
+                    <h3>Personalized recommendations</h3>
+                    <p>Save your preference for personalized suggestions.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="recommendations" checked aria-label="Recommendations">
+            </div>
+
+            <div class="setting-row" data-search="password security">
+                <div class="setting-icon"><i data-lucide="key-round"></i></div>
+                <div class="setting-info">
+                    <h3>Password and security</h3>
+                    <p>Account security controls require a connected authentication system.</p>
+                </div>
+                <button class="action-btn row-action"
+                        data-notice="Connect your authentication system to manage password and security settings.">
+                    Manage
+                </button>
+            </div>
+
+            <div class="setting-row" data-search="terms privacy policy legal">
+                <div class="setting-icon"><i data-lucide="file-text"></i></div>
+                <div class="setting-info">
+                    <h3>Terms & Privacy Policy</h3>
+                    <p>Connect your published terms and privacy policy.</p>
+                </div>
+                <button class="action-btn row-action"
+                        data-notice="Add your published Terms of Service and Privacy Policy pages here.">
+                    Read
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         NOTIFICATIONS
+    ========================= -->
+    <section class="section" id="notificationSection">
+        <div class="panel">
+            <div class="section-heading">
+                <div class="section-symbol"><i data-lucide="bell-ring"></i></div>
+                <div>
+                    <h2>Notifications</h2>
+                    <p>Choose which updates you prefer.</p>
+                </div>
+            </div>
+
+            <div class="setting-row" data-search="push notifications alerts">
+                <div class="setting-icon"><i data-lucide="bell"></i></div>
+                <div class="setting-info">
+                    <h3>Push notifications</h3>
+                    <p>Save your preference for notification alerts.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="pushNotifications" checked aria-label="Push notifications">
+            </div>
+
+            <div class="setting-row" data-search="likes comments posts">
+                <div class="setting-icon"><i data-lucide="heart"></i></div>
+                <div class="setting-info">
+                    <h3>Likes and comments</h3>
+                    <p>Updates about interactions with your posts.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="socialNotifications" checked aria-label="Likes and comments">
+            </div>
+
+            <div class="setting-row" data-search="friend requests connections">
+                <div class="setting-icon"><i data-lucide="user-plus"></i></div>
+                <div class="setting-info">
+                    <h3>Friend requests</h3>
+                    <p>Updates about new connection requests.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="friendNotifications" checked aria-label="Friend requests">
+            </div>
+
+            <div class="setting-row" data-search="messages messenger chat">
+                <div class="setting-icon"><i data-lucide="message-circle"></i></div>
+                <div class="setting-info">
+                    <h3>Messages</h3>
+                    <p>Alerts when someone sends you a message.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="messageNotifications" checked aria-label="Message notifications">
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         APPEARANCE
+    ========================= -->
+    <section class="section" id="appearanceSection">
+        <div class="panel">
+            <div class="section-heading">
+                <div class="section-symbol"><i data-lucide="palette"></i></div>
+                <div>
+                    <h2>Appearance</h2>
+                    <p>Make Netra feel right for you.</p>
+                </div>
+            </div>
+
+            <div class="setting-row" data-search="dark mode light mode theme">
+                <div class="setting-icon"><i data-lucide="moon-star"></i></div>
+                <div class="setting-info">
+                    <h3>Dark Mode</h3>
+                    <p>Switch between light and dark themes across supported Netra pages.</p>
+                </div>
+                <input class="toggle" type="checkbox" id="darkMode"
+                       aria-label="Dark mode">
+            </div>
+
+            <div class="setting-row" data-search="display text size font">
+                <div class="setting-icon"><i data-lucide="case-sensitive"></i></div>
+                <div class="setting-info">
+                    <h3>Text size</h3>
+                    <p>Adjust the base text size on this page.</p>
+                </div>
+                <select class="select-control persist-select" id="textSize">
+                    <option value="small">Small</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </div>
+
+            <div class="setting-row" data-search="reduced motion animation">
+                <div class="setting-icon"><i data-lucide="accessibility"></i></div>
+                <div class="setting-info">
+                    <h3>Reduce motion</h3>
+                    <p>Reduce animations and transitions on this page.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="reducedMotion" aria-label="Reduce motion">
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         MEDIA
+    ========================= -->
+    <section class="section" id="mediaSection">
+        <div class="panel">
+            <div class="section-heading">
+                <div class="section-symbol"><i data-lucide="image"></i></div>
+                <div>
+                    <h2>Media</h2>
+                    <p>Choose your media playback preferences.</p>
+                </div>
+            </div>
+
+            <div class="setting-row" data-search="autoplay videos playback">
+                <div class="setting-icon"><i data-lucide="play-circle"></i></div>
+                <div class="setting-info">
+                    <h3>Video autoplay</h3>
+                    <p>Choose when videos should autoplay where supported.</p>
+                </div>
+                <select class="select-control persist-select" id="autoplay">
+                    <option value="always">Always</option>
+                    <option value="wifi">Wi-Fi only</option>
+                    <option value="never" selected>Never</option>
+                </select>
+            </div>
+
+            <div class="setting-row" data-search="data saver mobile data">
+                <div class="setting-icon"><i data-lucide="gauge"></i></div>
+                <div class="setting-info">
+                    <h3>Data saver</h3>
+                    <p>Save your preference to reduce media data use where supported.</p>
+                </div>
+                <input class="toggle persist-toggle" type="checkbox"
+                       id="dataSaver" aria-label="Data saver">
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         LANGUAGE
+    ========================= -->
+    <section class="section" id="languageSection">
+        <div class="panel">
+            <div class="section-heading">
+                <div class="section-symbol"><i data-lucide="languages"></i></div>
+                <div>
+                    <h2>Language</h2>
+                    <p>Choose your preferred display language.</p>
+                </div>
+            </div>
+
+            <div class="setting-row" data-search="language English">
+                <div class="setting-icon"><i data-lucide="globe"></i></div>
+                <div class="setting-info">
+                    <h3>App language</h3>
+                    <p>This saves your preference; translating all page text requires language support.</p>
+                </div>
+                <select class="select-control persist-select" id="language">
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                    <option value="pt">Português</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         RESET SETTINGS
+    ========================= -->
+    <section class="section" id="resetSection">
+        <div class="panel">
+            <div class="section-heading">
+                <div class="section-symbol"><i data-lucide="settings-2"></i></div>
+                <div>
+                    <h2>More settings</h2>
+                    <p>Manage and reset your saved preferences.</p>
+                </div>
+            </div>
+
+            <div class="setting-row" data-search="clear reset preferences">
+                <div class="setting-icon"><i data-lucide="rotate-ccw"></i></div>
+                <div class="setting-info">
+                    <h3>Reset preferences</h3>
+                    <p>Restore default settings on this device.</p>
+                </div>
+                <button class="action-btn row-action" id="resetButton">Reset</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="empty-search" id="emptySearch">
+        <i data-lucide="search-x"></i>
+        <p>No matching settings found. Try another search.</p>
+    </div>
+
+    <footer class="footer">
+        NETRA · Connect. Discover. Belong.<br>
+        © 2027 Netra. All rights reserved.
+    </footer>
+
+</main>
+</div>
+
+<!-- MOBILE NAVIGATION -->
+<nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="Homepage.html"><i data-lucide="house"></i><span>Home</span></a>
+    <a href="Friendspage.html"><i data-lucide="users"></i><span>Friends</span></a>
+    <a href="Messagner.html"><i data-lucide="messages-square"></i><span>Messages</span></a>
+    <a href="Notification.html"><i data-lucide="bell"></i><span>Alerts</span></a>
+    <a href="Settings.html" class="active"><i data-lucide="menu"></i><span>Settings</span></a>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- RESET CONFIRMATION -->
+<div class="confirm-overlay" id="confirmOverlay"
+     role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="confirm-box">
+        <h2 id="confirmTitle">Reset preferences?</h2>
+        <p>This will restore the settings on this device to their default values. Your account and content will not be deleted.</p>
+        <div class="confirm-actions">
+            <button class="action-btn cancel-btn" id="cancelReset">Cancel</button>
+            <button class="action-btn" id="confirmReset">Reset settings</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(() => {
+    "use strict";
+
+    const $ = id => document.getElementById(id);
+    const toast = $("toast");
+    let toastTimer;
+
+    /* =========================
+       TOAST MESSAGE
+    ========================= */
+    function notify(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+
+        toastTimer = setTimeout(() => {
+            toast.classList.remove("show");
+        }, 2600);
+    }
+
+    /* =========================
+       SAVE AND READ PREFERENCES
+    ========================= */
+    function save(key, value) {
+        try {
+            localStorage.setItem("netra_settings_" + key, String(value));
+        } catch (error) {
+            notify("Unable to save this preference in your browser.");
+        }
+    }
+
+    function read(key) {
+        try {
+            return localStorage.getItem("netra_settings_" + key);
+        } catch (error) {
+            return null;
+        }
+    }
+
+    /* =========================
+       SHARED NETRA THEME
+       All pages should use the
+       same "netra-theme" key.
+    ========================= */
+    function applyTheme(dark, persist = true) {
+        document.body.classList.toggle("dark", dark);
+
+        $("darkMode").checked = dark;
+
+        $("themeButton").innerHTML = dark
+            ? '<i data-lucide="sun"></i>'
+            : '<i data-lucide="moon"></i>';
+
+        if (persist) {
+            const theme = dark ? "dark" : "light";
+
+            try {
+                localStorage.setItem("netra-theme", theme);
+                localStorage.setItem("netra_settings_darkMode", String(dark));
+            } catch (error) {
+                notify("Unable to save this preference in your browser.");
+            }
+        }
+
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+
+    function readSharedTheme() {
+        try {
+            const theme = localStorage.getItem("netra-theme");
+
+            if (theme === "dark" || theme === "light") {
+                return theme === "dark";
+            }
+        } catch (error) {}
+
+        const legacy = read("darkMode");
+
+        if (legacy !== null) {
+            return legacy === "true";
+        }
+
+        return window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+
+    /* Load saved theme on page open */
+    applyTheme(readSharedTheme(), false);
+
+    /* Sync theme across other open Netra tabs */
+    window.addEventListener("storage", event => {
+        if (
+            event.key === "netra-theme" &&
+            (event.newValue === "dark" || event.newValue === "light")
+        ) {
+            applyTheme(event.newValue === "dark", false);
+        }
+    });
+
+    $("darkMode").addEventListener("change", () => {
+        applyTheme($("darkMode").checked);
+        notify("Appearance updated.");
+    });
+
+    $("themeButton").addEventListener("click", () => {
+        applyTheme(!document.body.classList.contains("dark"));
+        notify("Appearance updated.");
+    });
+
+    /* =========================
+       SAVE TOGGLE PREFERENCES
+    ========================= */
+    document.querySelectorAll(".persist-toggle").forEach(input => {
+        const value = read(input.id);
+
+        if (value !== null) {
+            input.checked = value === "true";
+        }
+
+        input.addEventListener("change", () => {
+            save(input.id, input.checked);
+            notify("Preference saved on this device.");
+        });
+    });
+
+    /* =========================
+       SAVE SELECT PREFERENCES
+    ========================= */
+    document.querySelectorAll(".persist-select").forEach(select => {
+        const value = read(select.id);
+
+        if (
+            value !== null &&
+            [...select.options].some(option => option.value === value)
+        ) {
+            select.value = value;
+        }
+
+        select.addEventListener("change", () => {
+            save(select.id, select.value);
+
+            if (select.id === "textSize") {
+                applyTextSize(select.value);
+            }
+
+            notify("Preference saved on this device.");
+        });
+    });
+
+    /* =========================
+       SETTINGS NAVIGATION
+    ========================= */
+    document.querySelectorAll("[data-target]").forEach(button => {
+        button.addEventListener("click", () => {
+            const section = $(button.dataset.target);
+
+            if (!section) return;
+
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            document.querySelectorAll(".sidebar .nav-item").forEach(item => {
+                item.classList.toggle("active", item === button);
+            });
+        });
+    });
+
+    /* =========================
+       SEARCH SETTINGS
+    ========================= */
+    $("settingsSearch").addEventListener("input", () => {
+        const query = $("settingsSearch").value.trim().toLowerCase();
+        let total = 0;
+
+        document.querySelectorAll(".section").forEach(section => {
+            let sectionCount = 0;
+
+            section.querySelectorAll("[data-search]").forEach(item => {
+                const text = (
+                    item.innerText + " " + (item.dataset.search || "")
+                ).toLowerCase();
+
+                const match = !query || text.includes(query);
+                item.classList.toggle("hidden", !match);
+
+                if (match) sectionCount++;
+            });
+
+            section.classList.toggle(
+                "hidden",
+                Boolean(query) && sectionCount === 0
+            );
+
+            total += sectionCount;
+        });
+
+        $("emptySearch").style.display =
+            query && total === 0 ? "block" : "none";
+
+        if (query) {
+            $("emptySearch").querySelector("p").textContent =
+                total === 0
+                    ? "No matching settings found. Try another search."
+                    : total + " matching item(s) found.";
+        }
+    });
+
+    $("searchButton").addEventListener("click", () => {
+        $("searchBox").scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        $("settingsSearch").focus();
+    });
+
+    /* =========================
+       TEXT SIZE
+    ========================= */
+    function applyTextSize(size) {
+        document.documentElement.style.fontSize =
+            size === "small" ? "14px" :
+            size === "large" ? "18px" : "16px";
+    }
+
+    applyTextSize($("textSize").value);
+
+    /* =========================
+       REDUCED MOTION
+    ========================= */
+    function applyMotion() {
+        let style = $("motionStyle");
+
+        if (!style) {
+            style = document.createElement("style");
+            style.id = "motionStyle";
+            document.head.appendChild(style);
+        }
+
+        style.textContent = $("reducedMotion").checked
+            ? "*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}"
+            : "";
+    }
+
+    applyMotion();
+
+    $("reducedMotion").addEventListener("change", () => {
+        applyMotion();
+        notify("Motion preference updated.");
+    });
+
+    /* =========================
+       PLACEHOLDER ACTIONS
+    ========================= */
+    document.querySelectorAll("[data-notice]").forEach(button => {
+        button.addEventListener("click", () => {
+            notify(button.dataset.notice);
+        });
+    });
+
+    /* =========================
+       RESET CONFIRMATION
+    ========================= */
+    $("resetButton").addEventListener("click", () => {
+        $("confirmOverlay").classList.add("open");
+        $("cancelReset").focus();
+    });
+
+    function closeReset() {
+        $("confirmOverlay").classList.remove("open");
+        $("resetButton").focus();
+    }
+
+    $("cancelReset").addEventListener("click", closeReset);
+
+    $("confirmOverlay").addEventListener("click", event => {
+        if (event.target === $("confirmOverlay")) {
+            closeReset();
+        }
+    });
+
+    document.addEventListener("keydown", event => {
+        if (
+            event.key === "Escape" &&
+            $("confirmOverlay").classList.contains("open")
+        ) {
+            closeReset();
+        }
+    });
+
+    $("confirmReset").addEventListener("click", () => {
+        const defaults = {
+            privateProfile: false,
+            activityStatus: true,
+            recommendations: true,
+            pushNotifications: true,
+            socialNotifications: true,
+            friendNotifications: true,
+            messageNotifications: true,
+            dataSaver: false,
+            reducedMotion: false
+        };
+
+        Object.entries(defaults).forEach(([id, value]) => {
+            $(id).checked = value;
+            save(id, value);
+        });
+
+        $("autoplay").value = "never";
+        $("language").value = "en";
+        $("textSize").value = "medium";
+
+        save("autoplay", "never");
+        save("language", "en");
+        save("textSize", "medium");
+
+        applyTheme(false);
+        applyTextSize("medium");
+        applyMotion();
+
+        closeReset();
+        notify("Your preferences have been reset.");
+    });
+
+    /* Render icons */
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+})();
+</script>
+
+</body>
+</html>

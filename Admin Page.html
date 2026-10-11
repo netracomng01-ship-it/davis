@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Netra Admin Login</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="admin-dashboard.html">
+<style>
+
+:root{
+
+    --primary:#635bff;
+    --secondary:#8b5cf6;
+
+    --bg:#f5f7fb;
+    --card:#ffffff;
+
+    --text:#172033;
+    --muted:#7b8498;
+
+    --border:#e8ebf2;
+
+}
+
+
+*{
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    font-family:"Inter",sans-serif;
+
+    background:
+    radial-gradient(
+        circle at top left,
+        rgba(99,91,255,.15),
+        transparent 35%
+    ),
+    var(--bg);
+
+    color:var(--text);
+
+}
+
+
+.login-container{
+
+    width:min(430px,100%);
+
+}
+
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+
+.logo-mark{
+
+    width:60px;
+    height:60px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:19px;
+
+    color:white;
+
+    font-size:28px;
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    box-shadow:
+    0 15px 35px
+    rgba(99,91,255,.25);
+
+}
+
+
+.logo h1{
+
+    margin-top:12px;
+
+    font-size:28px;
+
+    letter-spacing:-1px;
+
+}
+
+
+.logo p{
+
+    margin-top:5px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+
+.login-card{
+
+    padding:30px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:25px;
+
+    box-shadow:
+    0 20px 60px
+    rgba(30,41,59,.10);
+
+}
+
+
+.login-card h2{
+
+    font-size:20px;
+
+    margin-bottom:6px;
+
+}
+
+
+.login-card .subtitle{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-bottom:25px;
+
+}
+
+
+.form-group{
+
+    margin-bottom:17px;
+
+}
+
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+.input-wrapper{
+
+    position:relative;
+
+}
+
+
+.input-wrapper i{
+
+    position:absolute;
+
+    left:14px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--muted);
+
+}
+
+
+.input-wrapper input{
+
+    width:100%;
+
+    height:48px;
+
+    padding:
+    0 45px;
+
+    border:1px solid var(--border);
+
+    border-radius:13px;
+
+    outline:none;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:inherit;
+
+    transition:.2s;
+
+}
+
+
+.input-wrapper input:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+    0 0 0 4px
+    rgba(99,91,255,.08);
+
+}
+
+
+.password-toggle{
+
+    position:absolute;
+
+    right:13px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--muted);
+
+    background:none;
+
+}
+
+
+.login-button{
+
+    width:100%;
+
+    height:50px;
+
+    margin-top:5px;
+
+    border:0;
+
+    border-radius:14px;
+
+    color:white;
+
+    font-weight:800;
+
+    font-size:13px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    box-shadow:
+    0 10px 25px
+    rgba(99,91,255,.22);
+
+    cursor:pointer;
+
+}
+
+
+.login-button:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+}
+
+
+.error{
+
+    display:none;
+
+    padding:12px;
+
+    margin-bottom:15px;
+
+    border-radius:12px;
+
+    background:rgba(239,68,68,.08);
+
+    color:#dc2626;
+
+    font-size:11px;
+
+    line-height:1.5;
+
+}
+
+
+.error.show{
+
+    display:block;
+
+}
+
+
+.security{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:6px;
+
+    margin-top:18px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+}
+
+
+.security i{
+
+    color:#16a34a;
+
+}
+
+
+.footer{
+
+    text-align:center;
+
+    margin-top:18px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-container">
+
+
+    <div class="logo">
+
+        <div class="logo-mark">
+
+            N
+
+        </div>
+
+        <h1>Netra</h1>
+
+        <p>Admin Control Center</p>
+
+    </div>
+
+
+    <div class="login-card">
+
+        <h2>Welcome back</h2>
+
+        <p class="subtitle">
+
+            Sign in to manage your Netra platform.
+
+        </p>
+
+
+        <div
+        class="error"
+        id="errorMessage">
+        </div>
+
+
+        <form id="adminLoginForm">
+
+
+            <div class="form-group">
+
+                <label for="email">
+
+                    Admin Email
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                    type="email"
+                    id="email"
+                    placeholder="admin@netra.com"
+                    required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+
+                    Password
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required>
+
+
+                    <button
+                    type="button"
+                    class="password-toggle"
+                    id="passwordToggle">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button
+            type="submit"
+            class="login-button"
+            id="loginButton">
+
+                Sign in to Admin Center
+
+            </button>
+
+
+        </form>
+
+
+        <div class="security">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            Secure Firebase authentication
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        © 2027 Netra · Administrator Access
+
+    </div>
+
+
+</div>
+
+
+<script type="module">
+
+import {
+    auth
+} from "./js/firebase-config.js";
+
+
+import {
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+const form =
+document.getElementById("adminLoginForm");
+
+
+const emailInput =
+document.getElementById("email");
+
+
+const passwordInput =
+document.getElementById("password");
+
+
+const loginButton =
+document.getElementById("loginButton");
+
+
+const errorMessage =
+document.getElementById("errorMessage");
+
+
+const passwordToggle =
+document.getElementById("passwordToggle");
+
+
+/*
+========================================
+PASSWORD VISIBILITY
+========================================
+*/
+
+passwordToggle.addEventListener(
+    "click",
+    () => {
+
+        const icon =
+        passwordToggle.querySelector("i");
+
+
+        if(passwordInput.type === "password"){
+
+            passwordInput.type = "text";
+
+            icon.className =
+            "fa-solid fa-eye-slash";
+
+        }else{
+
+            passwordInput.type = "password";
+
+            icon.className =
+            "fa-solid fa-eye";
+
+        }
+
+    }
+);
+
+
+/*
+========================================
+LOGIN
+========================================
+*/
+
+form.addEventListener(
+    "submit",
+    async (event) => {
+
+        event.preventDefault();
+
+
+        const email =
+        emailInput.value.trim();
+
+
+        const password =
+        passwordInput.value;
+
+
+        errorMessage.classList.remove("show");
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+        "Signing in...";
+
+
+        try{
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            window.location.href =
+            "admin-dashboard.html";
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            let message =
+            "Unable to sign in. Please check your details.";
+
+
+            if(error.code ===
+            "auth/invalid-credential"){
+
+                message =
+                "Incorrect email or password.";
+
+            }
+
+            else if(error.code ===
+            "auth/too-many-requests"){
+
+                message =
+                "Too many attempts. Please try again later.";
+
+            }
+
+            else if(error.code ===
+            "auth/network-request-failed"){
+
+                message =
+                "Network error. Check your internet connection.";
+
+            }
+
+
+            errorMessage.textContent =
+            message;
+
+
+            errorMessage.classList.add("show");
+
+
+            loginButton.disabled = false;
+
+            loginButton.textContent =
+            "Sign in to Admin Center";
+
+        }
+
+    }
+);
+
+
+/*
+========================================
+IF ALREADY LOGGED IN
+========================================
+*/
+
+onAuthStateChanged(
+    auth,
+    (user) => {
+
+        if(user){
+
+            console.log(
+                "Authenticated:",
+                user.email
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

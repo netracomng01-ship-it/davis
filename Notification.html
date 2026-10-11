@@ -1,0 +1,1354 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<title>Notifications | Netra</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root {
+  --blue: #1769ff;
+  --blue-dark: #0d47c9;
+  --purple: #7055ff;
+  --bg: #f4f7fc;
+  --surface: #ffffff;
+  --text: #172238;
+  --muted: #77849a;
+  --border: #e8edf5;
+  --hover: #f0f5ff;
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.topbar {
+  height: 76px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  gap: 22px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -1.3px;
+  color: var(--text);
+}
+
+.brand-mark {
+  width: 39px;
+  height: 39px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1769ff, #7955ff);
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.search {
+  width: min(390px, 35vw);
+  height: 43px;
+  border-radius: 25px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 17px;
+  color: var(--muted);
+}
+
+.search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: var(--text);
+  min-width: 0;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.icon-btn {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 13px;
+  color: #52637c;
+  background: transparent;
+  font-size: 18px;
+  position: relative;
+}
+
+.icon-btn:hover {
+  background: var(--hover);
+  color: var(--blue);
+}
+
+.icon-btn.active {
+  background: #eaf1ff;
+  color: var(--blue);
+}
+
+.unread-dot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  background: #ff4f70;
+  width: 9px;
+  height: 9px;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.avatar {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #dce8ff, #b6caff);
+  color: #2556b8;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 285px;
+  gap: 22px;
+  max-width: 1600px;
+  margin: auto;
+  padding: 25px 28px;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 99px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 15px;
+  border-radius: 12px;
+  margin-bottom: 5px;
+  color: #526078;
+  font-size: 14px;
+  font-weight: 500;
+  transition: .2s;
+}
+
+.nav-link i {
+  width: 21px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  background: var(--hover);
+  color: var(--blue);
+}
+
+.nav-link.selected {
+  background: linear-gradient(110deg, var(--blue), #5146e8);
+  color: white;
+  box-shadow: 0 7px 18px #1769ff25;
+}
+
+.nav-count {
+  margin-left: auto;
+  font-size: 11px;
+  background: #ffffff32;
+  padding: 4px 7px;
+  border-radius: 20px;
+}
+
+.sidebar-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 27px;
+  padding: 20px 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.sidebar-footer strong {
+  color: var(--text);
+  font-size: 16px;
+}
+
+.main {
+  min-width: 0;
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 21px;
+}
+
+.page-heading h1 {
+  font-size: clamp(24px, 3vw, 30px);
+  letter-spacing: -1px;
+  margin-bottom: 7px;
+}
+
+.page-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.text-btn {
+  border: none;
+  background: transparent;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.text-btn:hover {
+  text-decoration: underline;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 18px #132b4c04;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 15px 17px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  color: #63718a;
+  background: transparent;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tab:hover {
+  background: var(--hover);
+}
+
+.tab.active {
+  color: var(--blue);
+  background: #eaf1ff;
+  border-color: #dce8ff;
+}
+
+.tab-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  margin-left: 5px;
+  border-radius: 20px;
+  background: #dce8ff;
+  font-size: 10px;
+}
+
+.notification-list {
+  padding: 0 18px;
+}
+
+.notification {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 20px 2px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  animation: appear .25s ease;
+}
+
+.notification:last-child {
+  border-bottom: none;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.notification.unread {
+  background: linear-gradient(90deg, #eef4ff90, transparent);
+}
+
+.notice-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  color: white;
+}
+
+.notice-icon.blue { background: linear-gradient(135deg,#3187ff,#1554db); }
+.notice-icon.purple { background: linear-gradient(135deg,#a16aff,#6545e9); }
+.notice-icon.pink { background: linear-gradient(135deg,#ff7792,#e63e69); }
+.notice-icon.green { background: linear-gradient(135deg,#19c9a2,#009b82); }
+.notice-icon.orange { background: linear-gradient(135deg,#ffb55d,#f07831); }
+
+.notice-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notice-title {
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.notice-title strong {
+  font-weight: 700;
+}
+
+.notice-message {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.notice-time {
+  font-size: 11px;
+  color: #8794a9;
+  margin-top: 8px;
+}
+
+.notice-actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: white;
+  color: #4b5a70;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.btn.primary {
+  color: white;
+  border-color: var(--blue);
+  background: var(--blue);
+}
+
+.btn:hover {
+  filter: brightness(.96);
+}
+
+.notice-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.notice-tool {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #8794a9;
+}
+
+.notice-tool:hover {
+  background: var(--hover);
+  color: var(--blue);
+}
+
+.unread-mark {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+.empty-state {
+  padding: 58px 20px 65px;
+  text-align: center;
+}
+
+.empty-art {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 22px;
+  border-radius: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--blue);
+  background: linear-gradient(145deg, #e9f1ff, #f1edff);
+  font-size: 40px;
+  position: relative;
+}
+
+.empty-art::after {
+  content: "✓";
+  position: absolute;
+  right: -5px;
+  bottom: -4px;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: #19bd91;
+  border: 4px solid white;
+  font-size: 15px;
+}
+
+.empty-state h2 {
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  color: var(--muted);
+  max-width: 310px;
+  margin: 0 auto 21px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.side-column {
+  display: grid;
+  gap: 17px;
+  padding-top: 4px;
+}
+
+.side-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 19px;
+}
+
+.side-heading {
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.side-heading i {
+  color: var(--blue);
+  font-size: 17px;
+}
+
+.side-card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.side-main-btn {
+  margin-top: 15px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px;
+  border: none;
+  border-radius: 11px;
+  color: white;
+  background: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.quick-link:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.quick-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: #edf3ff;
+  color: var(--blue);
+  font-size: 16px;
+}
+
+.quick-link strong {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.quick-link span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.tip-list {
+  list-style: none;
+  display: grid;
+  gap: 13px;
+  margin-top: 14px;
+}
+
+.tip-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: #66748b;
+}
+
+.tip-list i {
+  color: #10b991;
+  margin-top: 3px;
+}
+
+.brand-card {
+  text-align: center;
+  padding: 25px 17px;
+  border-radius: var(--radius);
+  color: white;
+  background: radial-gradient(circle at top right, #5345de, transparent 55%),
+              linear-gradient(145deg,#071b48,#0b3b91);
+}
+
+.brand-card .brand-mark {
+  margin: 0 auto 13px;
+  background: linear-gradient(135deg,#238bff,#8864ff);
+}
+
+.brand-card h3 {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.brand-card p {
+  color: #c4d7ff;
+  font-size: 11px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  background: #172238;
+  color: white;
+  padding: 13px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px #0002;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  z-index: 100;
+  max-width: calc(100% - 30px);
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 1120px) {
+  .layout {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+
+  .side-column {
+    display: none;
+  }
+
+  .search {
+    width: min(330px, 35vw);
+  }
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    height: 64px;
+    padding: 0 15px;
+    gap: 10px;
+  }
+
+  .brand {
+    font-size: 22px;
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 23px;
+  }
+
+  .search {
+    flex: 1;
+    width: auto;
+    min-width: 40px;
+    height: 39px;
+    padding: 0 12px;
+  }
+
+  .search input {
+    font-size: 12px;
+  }
+
+  .top-actions .desktop-shortcut,
+  .profile span,
+  .profile .fa-chevron-down {
+    display: none;
+  }
+
+  .top-actions {
+    gap: 1px;
+  }
+
+  .icon-btn {
+    width: 35px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .profile {
+    margin-left: 0;
+  }
+
+  .profile .avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  .layout {
+    display: block;
+    padding: 20px 12px 90px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .page-heading {
+    align-items: flex-start;
+    margin-bottom: 17px;
+  }
+
+  .page-heading h1 {
+    font-size: 25px;
+  }
+
+  .page-heading p {
+    font-size: 12px;
+  }
+
+  .panel {
+    border-radius: 15px;
+  }
+
+  .tabs {
+    padding: 11px;
+    gap: 3px;
+  }
+
+  .tab {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+
+  .notification-list {
+    padding: 0 12px;
+  }
+
+  .notification {
+    gap: 10px;
+    padding: 17px 0;
+  }
+
+  .notice-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 13px;
+    font-size: 15px;
+  }
+
+  .notice-title {
+    font-size: 12px;
+  }
+
+  .notice-message {
+    font-size: 11px;
+  }
+
+  .notice-tools {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .empty-state {
+    padding: 45px 17px;
+  }
+
+  .mobile-nav {
+    position: fixed;
+    z-index: 30;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 67px;
+    background: white;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .mobile-nav a {
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+    color: #7c8aa0;
+    font-size: 10px;
+  }
+
+  .mobile-nav a i {
+    font-size: 19px;
+  }
+
+  .mobile-nav a.active {
+    color: var(--blue);
+  }
+
+  .toast {
+    bottom: 80px;
+  }
+}
+
+body.dark {
+  --bg: #07111f;
+  --surface: #0c192b;
+  --text: #e9f0ff;
+  --muted: #94a6c2;
+  --border: #1b2c45;
+  --hover: #152844;
+}
+
+body.dark .search {
+  background: #13223a;
+}
+
+body.dark .icon-btn {
+  color: #b8c9e5;
+}
+
+body.dark .icon-btn.active,
+body.dark .tab.active {
+  background: #172e55;
+  color: #8bb4ff;
+}
+
+body.dark .tab {
+  color: #a9bad4;
+}
+
+body.dark .tab-count {
+  background: #203a61;
+  color: #dbe8ff;
+}
+
+body.dark .btn {
+  background: #13223a;
+  color: #dce7fa;
+  border-color: var(--border);
+}
+
+body.dark .btn.primary,
+body.dark .side-main-btn {
+  background: var(--blue);
+  color: white;
+}
+
+body.dark .notice-icon {
+  color: white;
+}
+
+body.dark .notification.unread {
+  background: linear-gradient(90deg, #14284990, transparent);
+}
+
+body.dark .empty-art {
+  background: linear-gradient(145deg, #142849, #252044);
+}
+
+body.dark .mobile-nav {
+  background: #0c192b;
+  border-color: var(--border);
+}
+
+body.dark .brand-mark {
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <a class="brand" href="Homepage.html" aria-label="Netra home">
+    <span class="brand-mark">N</span>
+    Netra
+  </a>
+
+  <label class="search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input id="searchInput" type="search" placeholder="Search notifications..." aria-label="Search notifications">
+  </label>
+
+  <div class="top-actions">
+    <a class="icon-btn desktop-shortcut" href="Homepage.html" title="Home"><i class="fa-solid fa-house"></i></a>
+    <a class="icon-btn desktop-shortcut" href="Friendspage.html" title="Friends"><i class="fa-solid fa-user-group"></i></a>
+    <a class="icon-btn desktop-shortcut" href="Watch page.html" title="Watch"><i class="fa-solid fa-circle-play"></i></a>
+    <button class="icon-btn active" title="Notifications" aria-label="Notifications">
+      <i class="fa-regular fa-bell"></i>
+      <span class="unread-dot" id="headerDot" hidden></span>
+    </button>
+    <a class="profile" href="profile page.html" title="Your profile">
+      <span class="avatar">Y</span>
+      <span>My profile</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:10px"></i>
+    </a>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav>
+      <a class="nav-link" href="Homepage.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a class="nav-link" href="Friendspage.html"><i class="fa-solid fa-user-group"></i> Friends</a>
+      <a class="nav-link" href="Group page.html"><i class="fa-solid fa-people-group"></i> Groups</a>
+      <a class="nav-link" href="Storepage.html"><i class="fa-solid fa-store"></i> Store</a>
+      <a class="nav-link" href="Watch page.html"><i class="fa-solid fa-circle-play"></i> Watch</a>
+      <a class="nav-link" href="Messagner.html"><i class="fa-regular fa-comment-dots"></i> Messenger</a>
+      <a class="nav-link selected" href="Notification.html">
+        <i class="fa-regular fa-bell"></i> Notifications
+        <span class="nav-count" id="sidebarCount" hidden>0</span>
+      </a>
+      <a class="nav-link" href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <strong>Netra</strong><br>
+      Connect. Discover.<br>
+      © 2027 Netra
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-heading">
+      <div>
+        <h1>Notifications</h1>
+        <p>Stay connected with what's happening on Netra.</p>
+      </div>
+      <button class="text-btn" id="markAllBtn">
+        <i class="fa-solid fa-check-double"></i> Mark all as read
+      </button>
+    </div>
+
+    <section class="panel">
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-filter="all">All <span class="tab-count" id="allCount" hidden>0</span></button>
+        <button class="tab" data-filter="likes">Likes</button>
+        <button class="tab" data-filter="comments">Comments</button>
+        <button class="tab" data-filter="follows">Follows</button>
+        <button class="tab" data-filter="messages">Messages</button>
+        <button class="tab" data-filter="groups">Groups</button>
+        <button class="tab" data-filter="other">Other</button>
+      </div>
+
+      <div class="notification-list" id="notificationList"></div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-art"><i class="fa-regular fa-bell"></i></div>
+        <h2 id="emptyTitle">You're all caught up!</h2>
+        <p id="emptyMessage">When someone likes your posts, sends you a message, or connects with you, you'll find it here.</p>
+        <button class="btn primary" id="emptyAction">
+          <i class="fa-solid fa-user-group"></i> &nbsp; Find people
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <aside class="side-column">
+
+    <section class="side-card">
+      <h3 class="side-heading"><i class="fa-solid fa-sliders"></i> Notification settings</h3>
+      <p>Choose how you want to stay updated about activity on Netra.</p>
+      <a class="side-main-btn" href="settings.html">
+        Manage settings <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </section>
+
+    <section class="side-card">
+      <h3 class="side-heading"><i class="fa-solid fa-bolt"></i> Quick actions</h3>
+
+      <a class="quick-link" href="Friendspage.html">
+        <div class="quick-icon"><i class="fa-solid fa-user-plus"></i></div>
+        <div><strong>Find Friends</strong><span>Connect with people</span></div>
+      </a>
+
+      <a class="quick-link" href="Homepage.html">
+        <div class="quick-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+        <div><strong>Create a Post</strong><span>Share what's on your mind</span></div>
+      </a>
+
+      <a class="quick-link" href="Group page.html">
+        <div class="quick-icon"><i class="fa-solid fa-people-group"></i></div>
+        <div><strong>Explore Groups</strong><span>Discover communities</span></div>
+      </a>
+
+      <a class="quick-link" href="Storepage.html">
+        <div class="quick-icon"><i class="fa-solid fa-store"></i></div>
+        <div><strong>Visit the Store</strong><span>Discover products</span></div>
+      </a>
+    </section>
+
+    <section class="side-card">
+      <h3 class="side-heading"><i class="fa-solid fa-lightbulb"></i> Stay connected</h3>
+      <p>Make the most of your Netra experience.</p>
+      <ul class="tip-list">
+        <li><i class="fa-solid fa-check"></i> Keep up with your conversations.</li>
+        <li><i class="fa-solid fa-check"></i> Discover new people and communities.</li>
+        <li><i class="fa-solid fa-check"></i> Check your notification settings.</li>
+        <li><i class="fa-solid fa-check"></i> Never miss important updates.</li>
+      </ul>
+    </section>
+
+    <section class="brand-card">
+      <div class="brand-mark">N</div>
+      <h3>More connections.<br>More opportunities.</h3>
+      <p>Netra · Connect. Discover.</p>
+    </section>
+
+  </aside>
+</div>
+
+<nav class="mobile-nav" aria-label="Mobile navigation">
+  <a href="Homepage.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+  <a href="Friendspage.html"><i class="fa-solid fa-user-group"></i><span>Friends</span></a>
+  <a href="Watch page.html"><i class="fa-solid fa-circle-play"></i><span>Watch</span></a>
+  <a href="Messager page.html"><i class="fa-regular fa-comment-dots"></i><span>Messages</span></a>
+  <a href="Notification.html" class="active"><i class="fa-regular fa-bell"></i><span>Alerts</span></a>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "netra_notifications_v1";
+  const THEME_KEY = "netra-theme";
+
+  const list = document.getElementById("notificationList");
+  const emptyState = document.getElementById("emptyState");
+  const emptyTitle = document.getElementById("emptyTitle");
+  const emptyMessage = document.getElementById("emptyMessage");
+  const emptyAction = document.getElementById("emptyAction");
+  const searchInput = document.getElementById("searchInput");
+  const toast = document.getElementById("toast");
+
+  let activeFilter = "all";
+  let searchText = "";
+  let toastTimer;
+
+  // New accounts start with an empty inbox.
+  // Notifications are populated by your real backend when connected.
+  let notifications = loadNotifications();
+
+  function loadNotifications() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const parsed = saved ? JSON.parse(saved) : [];
+      return Array.isArray(parsed) ? parsed.filter(item =>
+        item && typeof item.id === "string" &&
+        typeof item.title === "string" &&
+        typeof item.type === "string"
+      ) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveNotifications() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
+    } catch {
+      showToast("Could not save changes on this device.");
+    }
+  }
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[char]);
+  }
+
+  function iconFor(type) {
+    const icons = {
+      likes: ["fa-heart", "pink"],
+      comments: ["fa-comment-dots", "blue"],
+      follows: ["fa-user-plus", "purple"],
+      messages: ["fa-envelope", "blue"],
+      groups: ["fa-people-group", "purple"],
+      other: ["fa-bell", "green"],
+      friendRequests: ["fa-user-plus", "blue"]
+    };
+    return icons[type] || icons.other;
+  }
+
+  function timeLabel(timestamp) {
+    if (!timestamp) return "";
+    const date = new Date(timestamp);
+    if (Number.isNaN(date.getTime())) return "";
+    const seconds = Math.max(0, (Date.now() - date.getTime()) / 1000);
+    if (seconds < 60) return "Just now";
+    if (seconds < 3600) return Math.floor(seconds / 60) + "m ago";
+    if (seconds < 86400) return Math.floor(seconds / 3600) + "h ago";
+    if (seconds < 604800) return Math.floor(seconds / 86400) + "d ago";
+    return date.toLocaleDateString();
+  }
+
+  function visibleNotifications() {
+    return notifications.filter(item => {
+      const matchesFilter = activeFilter === "all" ||
+        (activeFilter === "follows" && item.type === "friendRequests") ||
+        item.type === activeFilter;
+
+      const haystack = `${item.title} ${item.message || ""}`.toLowerCase();
+      const matchesSearch = haystack.includes(searchText);
+
+      return matchesFilter && matchesSearch;
+    }).sort((a, b) => {
+      return (b.createdAt || 0) - (a.createdAt || 0);
+    });
+  }
+
+  function render() {
+    const visible = visibleNotifications();
+    const unread = notifications.filter(item => !item.read).length;
+
+    document.getElementById("sidebarCount").textContent = unread;
+    document.getElementById("sidebarCount").hidden = unread === 0;
+
+    document.getElementById("headerDot").hidden = unread === 0;
+
+    document.getElementById("allCount").textContent = unread;
+    document.getElementById("allCount").hidden = unread === 0;
+
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.classList.toggle("active", tab.dataset.filter === activeFilter);
+    });
+
+    list.innerHTML = "";
+
+    visible.forEach(item => {
+      const [icon, color] = iconFor(item.type);
+      const article = document.createElement("article");
+      article.className = "notification" + (item.read ? "" : " unread");
+
+      const safeTitle = escapeHTML(item.title);
+      const safeMessage = escapeHTML(item.message || "");
+      const safeTime = escapeHTML(timeLabel(item.createdAt));
+
+      let actions = "";
+
+      if (item.type === "friendRequests" && item.status === "pending") {
+        actions = `
+          <div class="notice-actions">
+            <button class="btn primary" data-action="accept" data-id="${escapeHTML(item.id)}">Accept</button>
+            <button class="btn" data-action="remove-request" data-id="${escapeHTML(item.id)}">Decline</button>
+          </div>`;
+      }
+
+      article.innerHTML = `
+        <div class="notice-icon ${color}">
+          <i class="fa-solid ${icon}"></i>
+        </div>
+        <div class="notice-content">
+          <div class="notice-title">${safeTitle}</div>
+          <div class="notice-message">${safeMessage}</div>
+          <div class="notice-time">${safeTime}</div>
+          ${actions}
+        </div>
+        <div class="notice-tools">
+          ${!item.read ? `<button class="notice-tool" title="Mark as read" aria-label="Mark as read" data-action="read" data-id="${escapeHTML(item.id)}"><i class="fa-solid fa-check"></i></button>` : ""}
+          <button class="notice-tool" title="Remove notification" aria-label="Remove notification" data-action="delete" data-id="${escapeHTML(item.id)}"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        ${!item.read ? '<span class="unread-mark" aria-label="Unread"></span>' : ""}
+      `;
+
+      list.appendChild(article);
+    });
+
+    emptyState.hidden = visible.length !== 0;
+    list.hidden = visible.length === 0;
+
+    if (visible.length === 0) {
+      if (searchText) {
+        emptyTitle.textContent = "No matching notifications";
+        emptyMessage.textContent = "Try a different search term to find what you're looking for.";
+        emptyAction.innerHTML = '<i class="fa-solid fa-rotate-left"></i> &nbsp; Clear search';
+      } else if (notifications.length > 0 && activeFilter !== "all") {
+        emptyTitle.textContent = "Nothing here yet";
+        emptyMessage.textContent = "There are no notifications in this category right now.";
+        emptyAction.innerHTML = '<i class="fa-solid fa-bell"></i> &nbsp; View all notifications';
+      } else {
+        emptyTitle.textContent = "You're all caught up!";
+        emptyMessage.textContent = "When someone likes your posts, sends you a message, or connects with you, you'll find it here.";
+        emptyAction.innerHTML = '<i class="fa-solid fa-user-group"></i> &nbsp; Find people';
+      }
+    }
+  }
+
+  document.getElementById("tabs").addEventListener("click", event => {
+    const tab = event.target.closest("[data-filter]");
+    if (!tab) return;
+    activeFilter = tab.dataset.filter;
+    render();
+  });
+
+  searchInput.addEventListener("input", () => {
+    searchText = searchInput.value.trim().toLowerCase();
+    render();
+  });
+
+  list.addEventListener("click", event => {
+    const button = event.target.closest("[data-action]");
+    if (!button) return;
+
+    const { action, id } = button.dataset;
+    const item = notifications.find(entry => entry.id === id);
+    if (!item) return;
+
+    if (action === "read") {
+      item.read = true;
+      showToast("Notification marked as read.");
+    } else if (action === "delete") {
+      notifications = notifications.filter(entry => entry.id !== id);
+      showToast("Notification removed.");
+    } else if (action === "accept") {
+      item.status = "accepted";
+      item.read = true;
+      item.title = item.title.replace(/friend request/i, "friend request accepted");
+      item.message = "You're now connected. (Connect your backend to notify the other person.)";
+      showToast("Request updated locally.");
+    } else if (action === "remove-request") {
+      notifications = notifications.filter(entry => entry.id !== id);
+      showToast("Request removed.");
+    }
+
+    saveNotifications();
+    render();
+  });
+
+  document.getElementById("markAllBtn").addEventListener("click", () => {
+    if (!notifications.some(item => !item.read)) {
+      showToast("You're already all caught up.");
+      return;
+    }
+
+    notifications.forEach(item => item.read = true);
+    saveNotifications();
+    render();
+    showToast("All notifications marked as read.");
+  });
+
+  emptyAction.addEventListener("click", () => {
+    if (searchText) {
+      searchInput.value = "";
+      searchText = "";
+      render();
+    } else if (activeFilter !== "all") {
+      activeFilter = "all";
+      render();
+    } else {
+      window.location.href = "Friendspage.html";
+    }
+  });
+
+  // Follow Netra's saved appearance preference, if one exists.
+  try {
+    const theme = localStorage.getItem(THEME_KEY);
+    if (theme === "dark" || theme === "dark-mode") {
+      document.body.classList.add("dark");
+    }
+  } catch {}
+
+  // Other Netra pages can call this function after receiving
+  // a real notification from an authenticated user session.
+  window.NetraNotifications = {
+    add(notification) {
+      if (!notification || !notification.title || !notification.type) {
+        throw new Error("A notification title and type are required.");
+      }
+
+      const validTypes = [
+        "likes", "comments", "follows", "messages",
+        "groups", "other", "friendRequests"
+      ];
+
+      if (!validTypes.includes(notification.type)) {
+        throw new Error("Unsupported notification type.");
+      }
+
+      notifications.push({
+        id: crypto.randomUUID ? crypto.randomUUID() :
+          Date.now().toString(36) + Math.random().toString(36).slice(2),
+        title: notification.title,
+        message: notification.message || "",
+        type: notification.type,
+        createdAt: Date.now(),
+        read: false,
+        status: notification.status || "pending"
+      });
+
+      saveNotifications();
+      render();
+    },
+
+    refresh: render,
+
+    getUnreadCount() {
+      return notifications.filter(item => !item.read).length;
+    }
+  };
+
+  render();
+})();
+</script>
+
+</body>
+</html>

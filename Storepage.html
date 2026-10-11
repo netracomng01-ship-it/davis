@@ -1,0 +1,1641 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1769ff">
+<meta name="description" content="Shop smarter with Netra Marketplace. Discover products, explore deals and connect with trusted stores.">
+<title>Netra Marketplace | Shop Smarter</title>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root {
+  --blue: #1769ff;
+  --blue-dark: #0d47c9;
+  --navy: #07111f;
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --soft: #eef5ff;
+  --text: #182230;
+  --muted: #778196;
+  --border: #e6eaf1;
+  --green: #119b64;
+  --red: #e5484d;
+  --radius: 16px;
+  --shadow: 0 5px 24px rgba(20, 40, 80, .06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .25s, color .25s;
+}
+
+body.dark {
+  --bg: #0b1220;
+  --surface: #121c2c;
+  --soft: #172943;
+  --text: #edf3ff;
+  --muted: #a0aec0;
+  --border: #273449;
+  --shadow: 0 5px 24px rgba(0, 0, 0, .16);
+}
+
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.top-announcement {
+  background: var(--navy);
+  color: white;
+  padding: 10px 4%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.top-announcement i { color: #77aaff; }
+
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-main {
+  max-width: 1440px;
+  margin: auto;
+  min-height: 78px;
+  padding: 14px 4%;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 43px;
+  height: 43px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3988ff, #0849d5);
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.logo-name { font-size: 25px; font-weight: 850; letter-spacing: -1px; }
+.logo-name span { color: var(--blue); }
+.logo small { display: block; color: var(--muted); font-size: 10px; letter-spacing: 1.3px; }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 600px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.search-box i { color: var(--muted); padding-left: 15px; }
+
+.search-box input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  padding: 14px 12px;
+  color: var(--text);
+}
+
+.search-box button {
+  background: var(--blue);
+  color: white;
+  border: 0;
+  padding: 14px 21px;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;
+}
+
+.header-action {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  position: relative;
+}
+
+.header-action > i { font-size: 20px; }
+.header-action span { font-size: 12px; color: var(--muted); display: block; }
+.header-action strong { font-size: 13px; display: block; }
+
+.cart-count {
+  position: absolute;
+  top: -9px;
+  left: 12px;
+  background: var(--red);
+  color: white !important;
+  border-radius: 50%;
+  width: 19px;
+  height: 19px;
+  display: grid !important;
+  place-items: center;
+  font-size: 10px !important;
+}
+
+.header-lower {
+  border-top: 1px solid var(--border);
+  padding: 0 4%;
+}
+
+.nav-inner {
+  max-width: 1440px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  gap: 20px;
+}
+
+.nav-links { display: flex; gap: 25px; align-items: center; }
+
+.nav-links a, .nav-links button {
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.nav-links a:hover, .nav-links button:hover { color: var(--blue); }
+
+.nav-links .active { color: var(--blue); }
+
+.nav-promo { font-size: 12px; color: var(--green); font-weight: 750; }
+
+.page {
+  max-width: 1440px;
+  margin: auto;
+  padding: 24px 4% 55px;
+}
+
+.breadcrumb { font-size: 12px; color: var(--muted); margin-bottom: 22px; }
+.breadcrumb span { color: var(--blue); }
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.4fr .8fr;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.hero-main {
+  min-height: 330px;
+  border-radius: 22px;
+  padding: 42px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: white;
+  background: linear-gradient(115deg, #0a3fa9, #1769ff 58%, #70a9ff);
+}
+
+.hero-main::after {
+  content: "";
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 55px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  right: -80px;
+  bottom: -140px;
+}
+
+.hero-copy { position: relative; z-index: 2; max-width: 430px; }
+
+.eyebrow {
+  display: inline-block;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.25);
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 750;
+  margin-bottom: 18px;
+}
+
+.hero h1 { font-size: clamp(30px, 4vw, 48px); line-height: 1.12; letter-spacing: -1.6px; }
+.hero p { margin: 15px 0 25px; line-height: 1.7; font-size: 14px; color: #e4edff; }
+
+.primary-button, .secondary-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.primary-button { background: var(--blue); color: white; }
+.primary-button:hover { background: var(--blue-dark); }
+.hero .primary-button { background: white; color: #1456d9; }
+
+.secondary-button { background: var(--soft); color: var(--blue); }
+
+.hero-side { display: grid; grid-template-rows: 1fr 1fr; gap: 18px; }
+
+.hero-mini {
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.hero-mini h3 { font-size: 20px; margin: 9px 0; }
+.hero-mini p { color: var(--muted); font-size: 12px; margin-bottom: 13px; }
+.hero-mini i.big { font-size: 54px; color: #77a6ff; opacity: .8; }
+
+.mini-label { color: var(--blue); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+
+.section { margin-top: 36px; }
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.section-heading h2 { font-size: 21px; letter-spacing: -.5px; }
+.section-heading p { color: var(--muted); font-size: 12px; margin-top: 5px; }
+
+.text-link {
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0,1fr));
+  gap: 13px;
+}
+
+.category-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 20px 8px;
+  text-align: center;
+  transition: .2s;
+  color: var(--text);
+}
+
+.category-card:hover, .category-card.selected {
+  border-color: var(--blue);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.category-card.selected { background: var(--soft); }
+
+.category-icon {
+  width: 49px;
+  height: 49px;
+  border-radius: 15px;
+  background: var(--soft);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 12px;
+  color: var(--blue);
+  font-size: 21px;
+}
+
+.category-card strong { font-size: 12px; display: block; }
+.category-card small { font-size: 10px; color: var(--muted); display: block; margin-top: 5px; }
+
+.service-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.service-item {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+.service-item > i { font-size: 22px; color: var(--blue); }
+.service-item strong { display: block; font-size: 12px; }
+.service-item small { display: block; margin-top: 5px; font-size: 11px; color: var(--muted); }
+
+.deal-banner {
+  background: linear-gradient(100deg, #071b43, #153b80);
+  color: white;
+  border-radius: 18px;
+  padding: 23px 27px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.deal-banner h3 { font-size: 20px; }
+.deal-banner p { color: #cfdbf5; font-size: 12px; margin-top: 7px; }
+.deal-banner .primary-button { white-space: nowrap; }
+
+.product-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-chip {
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 9px 15px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.filter-chip.active, .filter-chip:hover {
+  color: var(--blue);
+  background: var(--soft);
+  border-color: var(--blue);
+}
+
+.sort-select {
+  margin-left: auto;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: 16px;
+}
+
+.product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+  min-width: 0;
+}
+
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+.product-image {
+  height: 185px;
+  background: var(--soft);
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 13px;
+  mix-blend-mode: multiply;
+}
+
+body.dark .product-image img { mix-blend-mode: normal; }
+
+.product-image .fallback-icon { font-size: 58px; color: #86aefb; }
+
+.product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #e9f9ef;
+  color: #12804c;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 6px 8px;
+}
+
+.product-badge.hot { background: #fff0ed; color: #db453b; }
+
+.wishlist {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--surface);
+  border: 0;
+  border-radius: 50%;
+  width: 33px;
+  height: 33px;
+  color: var(--muted);
+}
+
+.wishlist.liked { color: #e5484d; }
+
+.product-info { padding: 14px; }
+.product-category { font-size: 10px; color: var(--muted); }
+.product-name { font-size: 13px; line-height: 1.5; margin: 7px 0; min-height: 39px; }
+.rating { color: #f4a623; font-size: 11px; }
+.rating span { color: var(--muted); margin-left: 4px; }
+.product-price { font-size: 17px; font-weight: 850; margin-top: 12px; }
+.old-price { color: var(--muted); text-decoration: line-through; font-size: 11px; margin-left: 5px; font-weight: 400; }
+.stock { font-size: 10px; color: var(--green); margin-top: 8px; }
+
+.product-actions { display: flex; gap: 8px; margin-top: 13px; }
+.product-actions button { flex: 1; padding: 10px 6px; font-size: 11px; border-radius: 8px; }
+.add-cart { background: var(--blue); border: 1px solid var(--blue); color: white; }
+.view-product { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+
+.empty-state {
+  display: none;
+  text-align: center;
+  padding: 55px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  grid-column: 1 / -1;
+}
+.empty-state i { font-size: 38px; color: var(--muted); margin-bottom: 15px; }
+.empty-state p { color: var(--muted); margin-top: 8px; font-size: 13px; }
+
+.promo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+
+.promo-card {
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  min-height: 160px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.promo-card h3 { font-size: 18px; margin: 10px 0; }
+.promo-card p { font-size: 12px; color: var(--muted); margin-bottom: 13px; }
+.promo-card > i { font-size: 43px; color: #80aaff; }
+
+.newsletter {
+  margin-top: 38px;
+  background: var(--soft);
+  border-radius: 20px;
+  padding: 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.newsletter h3 { font-size: 22px; }
+.newsletter p { color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+.newsletter-form { display: flex; gap: 8px; width: 45%; }
+.newsletter-form input {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 13px;
+}
+
+footer { background: var(--navy); color: white; padding: 45px 4% 20px; }
+
+.footer-inner {
+  max-width: 1440px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 35px;
+}
+
+.footer-brand p { max-width: 310px; color: #a9b8d0; font-size: 12px; line-height: 1.8; margin-top: 17px; }
+footer h4 { font-size: 13px; margin-bottom: 16px; }
+footer ul { list-style: none; }
+footer li { margin: 12px 0; }
+footer li a { color: #a9b8d0; font-size: 12px; }
+footer li a:hover { color: white; }
+.footer-bottom { max-width: 1440px; margin: 30px auto 0; border-top: 1px solid #26364c; padding-top: 20px; display: flex; justify-content: space-between; gap: 15px; color: #a9b8d0; font-size: 11px; }
+
+/* Dropdowns and overlays */
+.dropdown-wrap { position: relative; }
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  width: 235px;
+  padding: 10px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.14);
+  z-index: 100;
+}
+
+.dropdown.open { display: block; }
+.dropdown-heading { padding: 12px; border-bottom: 1px solid var(--border); margin-bottom: 5px; }
+.dropdown-heading strong { display: block; font-size: 13px; }
+.dropdown-heading small { display: block; color: var(--muted); font-size: 11px; margin-top: 5px; }
+
+.dropdown button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  padding: 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.dropdown button:hover { background: var(--soft); color: var(--blue); }
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(3,10,25,.62);
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.overlay.open { display: flex; }
+
+.modal {
+  width: 100%;
+  max-width: 530px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 25px 80px rgba(0,0,0,.25);
+}
+
+.modal-wide { max-width: 850px; }
+
+.modal-header { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 22px; }
+.modal-header h2 { font-size: 21px; }
+.close-button { background: var(--bg); color: var(--text); border: 0; width: 36px; height: 36px; border-radius: 50%; }
+
+.auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 22px; }
+.auth-tab { border: 1px solid var(--border); padding: 12px; background: var(--bg); color: var(--muted); border-radius: 9px; }
+.auth-tab.active { color: var(--blue); background: var(--soft); border-color: var(--blue); }
+
+.form-field { margin-bottom: 15px; }
+.form-field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+.form-field input, .form-field select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 13px;
+}
+.form-note { color: var(--muted); font-size: 11px; line-height: 1.6; margin-top: 12px; }
+.full-button { width: 100%; }
+
+.settings-list { display: grid; gap: 10px; }
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.setting-row strong { font-size: 13px; display: block; }
+.setting-row p { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.5; }
+
+.toggle { width: 45px; height: 25px; position: relative; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle span { position: absolute; inset: 0; border-radius: 20px; background: #b7c0ce; transition: .2s; cursor: pointer; }
+.toggle span::before { content: ""; position: absolute; width: 19px; height: 19px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: .2s; }
+.toggle input:checked + span { background: var(--blue); }
+.toggle input:checked + span::before { transform: translateX(20px); }
+
+.cart-list { display: grid; gap: 14px; }
+.cart-item { display: grid; grid-template-columns: 75px 1fr auto; gap: 14px; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.cart-thumb { width: 75px; height: 75px; background: var(--soft); border-radius: 10px; display: grid; place-items: center; font-size: 30px; color: var(--blue); }
+.cart-item h4 { font-size: 13px; margin-bottom: 6px; }
+.cart-item p { font-size: 12px; color: var(--muted); }
+.quantity-controls { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.quantity-controls button { width: 27px; height: 27px; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 6px; }
+.remove-item { color: var(--red); border: 0; background: transparent; margin-top: 7px; font-size: 11px; }
+.cart-total { border-top: 1px solid var(--border); padding-top: 18px; margin-top: 20px; }
+.total-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; }
+.total-row.final { font-size: 19px; font-weight: 850; }
+
+.product-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+.detail-image { min-height: 270px; display: grid; place-items: center; background: var(--soft); border-radius: 15px; overflow: hidden; }
+.detail-image img { width: 100%; height: 270px; object-fit: contain; padding: 15px; }
+.detail-image i { font-size: 80px; color: var(--blue); }
+.detail-info h2 { font-size: 24px; margin: 12px 0; }
+.detail-info p { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 12px 0; }
+.detail-price { font-size: 27px; font-weight: 850; }
+.detail-buttons { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+
+.mobile-nav { display: none; }
+
+.toast {
+  position: fixed;
+  z-index: 400;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  background: #101c2d;
+  color: white;
+  border-radius: 10px;
+  padding: 13px 19px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  max-width: 90%;
+  text-align: center;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 1100px) {
+  .header-main { gap: 15px; }
+  .header-actions { gap: 14px; }
+  .header-action span { display: none; }
+  .product-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .category-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .service-strip { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 760px) {
+  .top-announcement { font-size: 10px; padding: 9px 12px; }
+  .header-main { padding: 12px 4%; flex-wrap: wrap; gap: 13px; }
+  .logo-name { font-size: 22px; }
+  .logo-mark { width: 38px; height: 38px; }
+  .search-box { order: 3; flex-basis: 100%; max-width: none; }
+  .header-actions { margin-left: auto; gap: 18px; }
+  .header-action > i { font-size: 19px; }
+  .header-lower { display: none; }
+  .page { padding: 19px 4% 95px; }
+  .breadcrumb { margin-bottom: 16px; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-main { min-height: 315px; padding: 27px; }
+  .hero-side { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .hero-mini { padding: 15px; min-height: 150px; }
+  .hero-mini h3 { font-size: 16px; }
+  .hero-mini i.big { font-size: 30px; }
+  .category-grid { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
+  .category-card { padding: 15px 4px; }
+  .category-icon { width: 40px; height: 40px; font-size: 17px; }
+  .category-card strong { font-size: 10px; }
+  .category-card small { font-size: 9px; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 11px; }
+  .product-image { height: 155px; }
+  .product-info { padding: 11px; }
+  .product-name { font-size: 12px; }
+  .product-price { font-size: 15px; }
+  .product-actions { gap: 5px; }
+  .product-actions button { font-size: 10px; padding: 10px 3px; }
+  .service-strip { gap: 8px; }
+  .service-item { padding: 12px; gap: 9px; }
+  .service-item > i { font-size: 18px; }
+  .service-item strong { font-size: 11px; }
+  .service-item small { font-size: 10px; }
+  .promo-grid { grid-template-columns: 1fr; }
+  .promo-card { min-height: 130px; }
+  .newsletter { padding: 23px; flex-direction: column; align-items: stretch; }
+  .newsletter-form { width: 100%; }
+  .newsletter h3 { font-size: 19px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 27px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-bottom { flex-direction: column; }
+  .deal-banner { padding: 20px; }
+  .deal-banner h3 { font-size: 17px; }
+  .deal-banner .primary-button { padding: 11px; font-size: 11px; }
+  .product-detail { grid-template-columns: 1fr; }
+  .detail-image { min-height: 200px; }
+  .detail-image img { height: 230px; }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    z-index: 60;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    justify-content: space-around;
+    padding: 10px 5px calc(10px + env(safe-area-inset-bottom));
+  }
+  .mobile-nav button {
+    display: grid;
+    gap: 5px;
+    justify-items: center;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 10px;
+  }
+  .mobile-nav button i { font-size: 19px; }
+  .mobile-nav button.active { color: var(--blue); }
+  .sort-select { margin-left: 0; }
+}
+
+@media (max-width: 380px) {
+  .category-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .hero-side { grid-template-columns: 1fr; }
+  .header-actions { gap: 13px; }
+  .product-image { height: 135px; }
+  .deal-banner { align-items: flex-start; flex-direction: column; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-announcement">
+  <i class="fa-solid fa-bolt"></i>
+  <span>Welcome to Netra Marketplace — discover products, deals and new possibilities.</span>
+</div>
+
+<header>
+  <div class="header-main">
+    <a href="#" class="logo" aria-label="Netra Marketplace home" onclick="goHome();return false;">
+      <div class="logo-mark">n</div>
+      <div>
+        <div class="logo-name">ne<span>tra</span></div>
+        <small>MARKETPLACE</small>
+      </div>
+    </a>
+
+    <form class="search-box" id="searchForm">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="searchInput" type="search" placeholder="Search products, brands and categories..." aria-label="Search products">
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="header-actions">
+      <div class="dropdown-wrap">
+        <button class="header-action" onclick="toggleDropdown('accountDropdown')" aria-label="Account menu" aria-expanded="false">
+          <i class="fa-regular fa-user"></i>
+          <div><span>Welcome</span><strong id="accountLabel">Account</strong></div>
+        </button>
+        <div class="dropdown" id="accountDropdown">
+          <div class="dropdown-heading">
+            <strong id="dropdownAccountTitle">Welcome to Netra</strong>
+            <small id="dropdownAccountText">Sign in to manage your account.</small>
+          </div>
+          <button onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> Sign in</button>
+          <button onclick="openAuth('register')"><i class="fa-solid fa-user-plus"></i> Create account</button>
+          <button onclick="openSettings()"><i class="fa-solid fa-gear"></i> Settings</button>
+          <button id="logoutButton" onclick="logout()" hidden><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button>
+        </div>
+      </div>
+
+      <button class="header-action" onclick="openCart()" aria-label="Shopping cart">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-count" id="cartCount">0</span>
+        <div><span>Your</span><strong>Cart</strong></div>
+      </button>
+
+      <button class="header-action" onclick="openSettings()" aria-label="Settings">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="header-lower">
+    <div class="nav-inner">
+      <nav class="nav-links">
+        <a class="active" href="#" onclick="goHome();return false;">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#deals">Flash Deals</a>
+        <a href="#products">Shop Products</a>
+        <a href="#promotions">Promotions</a>
+      </nav>
+      <span class="nav-promo"><i class="fa-solid fa-truck-fast"></i> Discover more with Netra</span>
+    </div>
+  </div>
+</header>
+
+<main class="page" id="home">
+  <a href="Homepage.html">
+          <span class="nav-icon">⌂</span><span>Home</span>
+        </a>
+  <div class="breadcrumb">Home / <span>Marketplace</span></div>
+
+  <section class="hero">
+    <div class="hero-main">
+      <div class="hero-copy">
+        <span class="eyebrow"><i class="fa-solid fa-sparkles"></i> YOUR MARKETPLACE</span>
+        <h1>Discover more.<br>Shop smarter.</h1>
+        <p>Explore everyday essentials, technology, fashion and more in one convenient marketplace.</p>
+        <button class="primary-button" onclick="scrollToProducts()">Explore products <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="hero-side">
+      <div class="hero-mini">
+        <div>
+          <span class="mini-label">Technology</span>
+          <h3>Upgrade your setup</h3>
+          <p>Discover devices and accessories.</p>
+          <button class="text-link" onclick="filterCategory('Electronics')">Explore electronics <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <i class="fa-solid fa-laptop big"></i>
+      </div>
+
+      <div class="hero-mini">
+        <div>
+          <span class="mini-label">Everyday style</span>
+          <h3>Find your look</h3>
+          <p>Discover fashion for your lifestyle.</p>
+          <button class="text-link" onclick="filterCategory('Fashion')">Explore fashion <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <i class="fa-solid fa-shirt big"></i>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="categories">
+    <div class="section-heading">
+      <div><h2>Shop by category</h2><p>Explore products that match your needs.</p></div>
+      <button class="text-link" onclick="filterCategory('All')">View all <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <div class="category-grid" id="categoryGrid">
+      <button class="category-card selected" data-category="All" onclick="filterCategory('All')">
+        <div class="category-icon"><i class="fa-solid fa-border-all"></i></div>
+        <strong>All products</strong><small>Everything</small>
+      </button>
+      <button class="category-card" data-category="Electronics" onclick="filterCategory('Electronics')">
+        <div class="category-icon"><i class="fa-solid fa-laptop"></i></div>
+        <strong>Electronics</strong><small>Devices</small>
+      </button>
+      <button class="category-card" data-category="Fashion" onclick="filterCategory('Fashion')">
+        <div class="category-icon"><i class="fa-solid fa-shirt"></i></div>
+        <strong>Fashion</strong><small>Style</small>
+      </button>
+      <button class="category-card" data-category="Phones" onclick="filterCategory('Phones')">
+        <div class="category-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <strong>Phones</strong><small>Mobile</small>
+      </button>
+      <button class="category-card" data-category="Home" onclick="filterCategory('Home')">
+        <div class="category-icon"><i class="fa-solid fa-couch"></i></div>
+        <strong>Home</strong><small>Living</small>
+      </button>
+      <button class="category-card" data-category="Beauty" onclick="filterCategory('Beauty')">
+        <div class="category-icon"><i class="fa-solid fa-spa"></i></div>
+        <strong>Beauty</strong><small>Self-care</small>
+      </button>
+      <button class="category-card" data-category="Accessories" onclick="filterCategory('Accessories')">
+        <div class="category-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+        <strong>Accessories</strong><small>Everyday</small>
+      </button>
+      <button class="category-card" data-category="Sports" onclick="filterCategory('Sports')">
+        <div class="category-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <strong>Sports</strong><small>Active life</small>
+      </button>
+    </div>
+  </section>
+
+  <section class="service-strip">
+    <div class="service-item"><i class="fa-solid fa-shield-halved"></i><div><strong>Shop with confidence</strong><small>Review product details before buying</small></div></div>
+    <div class="service-item"><i class="fa-solid fa-tags"></i><div><strong>Discover great finds</strong><small>Explore products across categories</small></div></div>
+    <div class="service-item"><i class="fa-solid fa-heart"></i><div><strong>Save your favourites</strong><small>Keep track of products you like</small></div></div>
+    <div class="service-item"><i class="fa-solid fa-headset"></i><div><strong>Need help?</strong><small>Visit our help section below</small></div></div>
+  </section>
+
+  <section class="section" id="deals">
+    <div class="deal-banner">
+      <div>
+        <h3><i class="fa-solid fa-bolt"></i> Discover today's picks</h3>
+        <p>Explore our featured selection and find something you love.</p>
+      </div>
+      <button class="primary-button" onclick="scrollToProducts()">Explore deals <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="section-heading">
+      <div><h2 id="productsHeading">Featured products</h2><p id="productSubtitle">Explore products selected for your marketplace.</p></div>
+      <button class="text-link" onclick="resetFilters()">Reset filters <i class="fa-solid fa-rotate-left"></i></button>
+    </div>
+
+    <div class="product-toolbar">
+      <button class="filter-chip active" data-filter="All" onclick="filterCategory('All')">All products</button>
+      <button class="filter-chip" data-filter="Electronics" onclick="filterCategory('Electronics')">Electronics</button>
+      <button class="filter-chip" data-filter="Fashion" onclick="filterCategory('Fashion')">Fashion</button>
+      <button class="filter-chip" data-filter="Phones" onclick="filterCategory('Phones')">Phones</button>
+      <button class="filter-chip" data-filter="Home" onclick="filterCategory('Home')">Home & living</button>
+      <select class="sort-select" id="sortSelect" onchange="renderProducts()" aria-label="Sort products">
+        <option value="featured">Sort: Featured</option>
+        <option value="price-low">Price: Low to high</option>
+        <option value="price-high">Price: High to low</option>
+        <option value="name">Name: A to Z</option>
+      </select>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+      <div class="empty-state" style="display:block"><i class="fa-solid fa-spinner"></i><p>Loading products...</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="promotions">
+    <div class="section-heading">
+      <div><h2>Explore more on Netra</h2><p>Discover more ways to make the most of your marketplace.</p></div>
+    </div>
+    <div class="promo-grid">
+      <div class="promo-card">
+        <div><span class="mini-label">Your favourites</span><h3>Save what you love</h3><p>Keep track of products that interest you.</p><button class="text-link" onclick="showWishlist()">View favourites <i class="fa-solid fa-arrow-right"></i></button></div>
+        <i class="fa-regular fa-heart"></i>
+      </div>
+      <div class="promo-card">
+        <div><span class="mini-label">Your shopping</span><h3>Manage your cart</h3><p>Review your selected products in one place.</p><button class="text-link" onclick="openCart()">Open cart <i class="fa-solid fa-arrow-right"></i></button></div>
+        <i class="fa-solid fa-cart-shopping"></i>
+      </div>
+      <div class="promo-card">
+        <div><span class="mini-label">For businesses</span><h3>Grow with Netra</h3><p>Explore opportunities to feature your products.</p><button class="text-link" onclick="showToast('Seller registration will be available when the seller system is connected.')">Learn more <i class="fa-solid fa-arrow-right"></i></button></div>
+        <i class="fa-solid fa-store"></i>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div><h3>Stay connected with Netra</h3><p>Enter your email to register your interest in marketplace updates.</p></div>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" id="newsletterEmail" placeholder="Your email address" required aria-label="Email address">
+      <button class="primary-button" type="submit">Join us</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo" onclick="goHome();return false;">
+        <div class="logo-mark">n</div>
+        <div class="logo-name">ne<span>tra</span></div>
+      </a>
+      <p>Netra brings people, products and possibilities together. Discover the marketplace and explore what is available.</p>
+    </div>
+    <div><h4>Marketplace</h4><ul><li><a href="#products">Shop products</a></li><li><a href="#categories">Categories</a></li><li><a href="#deals">Featured picks</a></li></ul></div>
+    <div><h4>Your account</h4><ul><li><a href="#" onclick="openAuth('login');return false;">Sign in</a></li><li><a href="#" onclick="openAuth('register');return false;">Create account</a></li><li><a href="#" onclick="openSettings();return false;">Settings</a></li><li><a href="#" onclick="openCart();return false;">Shopping cart</a></li></ul></div>
+    <div><h4>Help & information</h4><ul><li><a href="#" onclick="showToast('Help centre integration is coming soon.');return false;">Help centre</a></li><li><a href="#" onclick="showToast('Contact support will be connected soon.');return false;">Contact us</a></li><li><a href="#" onclick="showToast('Privacy policy page will be added before launch.');return false;">Privacy policy</a></li><li><a href="#" onclick="showToast('Terms of service page will be added before launch.');return false;">Terms of service</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© <span id="currentYear"></span> Netra. All rights reserved.</span><span>Connect. Discover. Shop smarter.</span></div>
+</footer>
+
+<nav class="mobile-nav" aria-label="Mobile navigation">
+  <button class="active" onclick="goHome()"><i class="fa-solid fa-house"></i><span>Home</span></button>
+  <button onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-layer-group"></i><span>Categories</span></button>
+  <button onclick="scrollToProducts()"><i class="fa-solid fa-magnifying-glass"></i><span>Explore</span></button>
+  <button onclick="openCart()"><i class="fa-solid fa-bag-shopping"></i><span>Cart</span></button>
+  <button onclick="openSettings()"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+</nav>
+
+<!-- Authentication modal -->
+<div class="overlay" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle" onclick="overlayClick(event,'authOverlay')">
+  <div class="modal">
+    <div class="modal-header">
+      <div><h2 id="authTitle">Welcome back</h2><p class="form-note">Your Netra marketplace account.</p></div>
+      <button class="close-button" onclick="closeOverlay('authOverlay')" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="loginTab" onclick="setAuthMode('login')">Sign in</button>
+      <button class="auth-tab" id="registerTab" onclick="setAuthMode('register')">Create account</button>
+    </div>
+    <form id="authForm">
+      <div class="form-field" id="nameField" hidden>
+        <label for="authName">Full name</label>
+        <input id="authName" autocomplete="name" placeholder="Enter your full name">
+      </div>
+      <div class="form-field">
+        <label for="authEmail">Email address</label>
+        <input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com">
+      </div>
+      <div class="form-field">
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters">
+      </div>
+      <button class="primary-button full-button" type="submit" id="authSubmit">Sign in</button>
+      <p class="form-note">This starter interface does not authenticate users yet. Connect Firebase Authentication before using real accounts or collecting customer information.</p>
+    </form>
+  </div>
+</div>
+
+<!-- Settings modal -->
+<div class="overlay" id="settingsOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" onclick="overlayClick(event,'settingsOverlay')">
+  <div class="modal">
+    <div class="modal-header">
+      <div><h2 id="settingsTitle"><i class="fa-solid fa-gear"></i> Settings</h2><p class="form-note">Customise your Netra experience.</p></div>
+      <button class="close-button" onclick="closeOverlay('settingsOverlay')" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="settings-list">
+      <div class="setting-row">
+        <div><strong><i class="fa-solid fa-moon"></i> Dark mode</strong><p>Use a darker appearance across this marketplace.</p></div>
+        <label class="toggle"><input id="darkToggle" type="checkbox" onchange="setTheme(this.checked)"><span></span></label>
+      </div>
+      <div class="setting-row">
+        <div><strong><i class="fa-solid fa-bell"></i> Deal notifications</strong><p>Save your preference for future deal updates.</p></div>
+        <label class="toggle"><input id="notificationsToggle" type="checkbox" onchange="saveSetting('notifications',this.checked)"><span></span></label>
+      </div>
+      <div class="setting-row">
+        <div><strong><i class="fa-solid fa-shield-halved"></i> Privacy</strong><p>Manage preferences stored by this demo.</p></div>
+        <button class="secondary-button" onclick="showToast('Privacy controls will be expanded when accounts are connected.')">Manage</button>
+      </div>
+      <div class="setting-row">
+        <div><strong><i class="fa-solid fa-universal-access"></i> Accessibility</strong><p>Keep readable text and keyboard-friendly controls.</p></div>
+        <button class="secondary-button" onclick="showToast('Keyboard navigation and visible focus indicators are enabled.')">View</button>
+      </div>
+      <div class="setting-row">
+        <div><strong><i class="fa-solid fa-trash-can"></i> Reset preferences</strong><p>Restore default appearance and notification settings.</p></div>
+        <button class="secondary-button" onclick="resetSettings()">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Shopping cart modal -->
+<div class="overlay" id="cartOverlay" role="dialog" aria-modal="true" aria-labelledby="cartTitle" onclick="overlayClick(event,'cartOverlay')">
+  <div class="modal">
+    <div class="modal-header">
+      <div><h2 id="cartTitle"><i class="fa-solid fa-bag-shopping"></i> Your shopping cart</h2><p class="form-note">Review your selected products.</p></div>
+      <button class="close-button" onclick="closeOverlay('cartOverlay')" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-list" id="cartList"></div>
+    <div class="cart-total" id="cartTotal"></div>
+    <p class="form-note">Prices shown are demonstration prices, not live retailer quotes. Checkout and payments are not connected.</p>
+  </div>
+</div>
+
+<!-- Product details modal -->
+<div class="overlay" id="productOverlay" role="dialog" aria-modal="true" aria-labelledby="detailTitle" onclick="overlayClick(event,'productOverlay')">
+  <div class="modal modal-wide">
+    <div class="modal-header">
+      <h2>Product details</h2>
+      <button class="close-button" onclick="closeOverlay('productOverlay')" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="productDetail"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/*
+  NETRA MARKETPLACE STARTER
+  - Demo products and prices only.
+  - Replace demo items with verified product data.
+  - Firebase authentication, payments and affiliate tracking are not connected.
+*/
+
+const PRODUCTS = [
+  {id:1,name:"Wireless Bluetooth Headphones",category:"Electronics",price:28500,oldPrice:35000,rating:4.7,reviews:128,icon:"fa-headphones",badge:"Popular",description:"Wireless audio headphones for everyday listening.",image:""},
+  {id:2,name:"Smartphone 128GB",category:"Phones",price:185000,oldPrice:210000,rating:4.6,reviews:94,icon:"fa-mobile-screen-button",badge:"Featured",description:"A smartphone for everyday communication and entertainment.",image:""},
+  {id:3,name:"Classic Casual Sneakers",category:"Fashion",price:22500,oldPrice:28000,rating:4.5,reviews:67,icon:"fa-shoe-prints",badge:"Popular",description:"Versatile casual footwear for everyday use.",image:""},
+  {id:4,name:"Smart Watch",category:"Electronics",price:42000,oldPrice:50000,rating:4.4,reviews:83,icon:"fa-clock",badge:"Featured",description:"A smartwatch-inspired wearable for your daily routine.",image:""},
+  {id:5,name:"Everyday Backpack",category:"Accessories",price:18000,oldPrice:22000,rating:4.5,reviews:56,icon:"fa-briefcase",badge:"",description:"A practical bag for work, school and everyday travel.",image:""},
+  {id:6,name:"Modern Table Lamp",category:"Home",price:16500,oldPrice:20000,rating:4.3,reviews:39,icon:"fa-lightbulb",badge:"",description:"A simple decorative lamp for a desk or bedside table.",image:""},
+  {id:7,name:"Skincare Essentials Set",category:"Beauty",price:19500,oldPrice:24000,rating:4.6,reviews:102,icon:"fa-spa",badge:"Popular",description:"A skincare-themed product bundle. Check ingredients and suitability before purchasing.",image:""},
+  {id:8,name:"Portable Bluetooth Speaker",category:"Electronics",price:24000,oldPrice:30000,rating:4.4,reviews:71,icon:"fa-volume-high",badge:"",description:"A portable speaker concept for music at home or on the go.",image:""},
+  {id:9,name:"Everyday T-Shirt",category:"Fashion",price:8500,oldPrice:11000,rating:4.2,reviews:48,icon:"fa-shirt",badge:"",description:"A simple casual T-shirt for everyday wear.",image:""},
+  {id:10,name:"Phone Charging Cable",category:"Phones",price:4500,oldPrice:6000,rating:4.1,reviews:116,icon:"fa-plug",badge:"Popular",description:"A charging cable concept. Check compatibility before buying.",image:""},
+  {id:11,name:"Decorative Cushion",category:"Home",price:7500,oldPrice:9500,rating:4.3,reviews:33,icon:"fa-couch",badge:"",description:"A decorative cushion for a living room or bedroom.",image:""},
+  {id:12,name:"Fitness Training Mat",category:"Sports",price:14000,oldPrice:17500,rating:4.5,reviews:59,icon:"fa-dumbbell",badge:"",description:"An exercise mat concept for home fitness routines.",image:""},
+  {id:13,name:"Sunglasses",category:"Accessories",price:12000,oldPrice:15000,rating:4.2,reviews:43,icon:"fa-glasses",badge:"",description:"Everyday sunglasses. Check lens specifications before purchasing.",image:""},
+  {id:14,name:"Laptop Sleeve",category:"Electronics",price:11000,oldPrice:14000,rating:4.4,reviews:62,icon:"fa-laptop",badge:"",description:"A laptop sleeve concept. Confirm the dimensions fit your device.",image:""},
+  {id:15,name:"Water Bottle",category:"Sports",price:6500,oldPrice:8500,rating:4.3,reviews:88,icon:"fa-bottle-water",badge:"",description:"A reusable bottle concept for daily hydration.",image:""}
+];
+
+const money = amount => new Intl.NumberFormat("en-NG", {
+  style:"currency", currency:"NGN", maximumFractionDigits:0
+}).format(amount);
+
+const $ = id => document.getElementById(id);
+
+let currentCategory = "All";
+let currentQuery = "";
+let authMode = "login";
+let selectedProductId = null;
+let toastTimeout;
+
+let cart = [];
+let wishlist = new Set();
+
+try {
+  cart = JSON.parse(localStorage.getItem("netraCart") || "[]");
+  if (!Array.isArray(cart)) cart = [];
+} catch { cart = []; }
+
+try {
+  wishlist = new Set(JSON.parse(localStorage.getItem("netraWishlist") || "[]"));
+} catch { wishlist = new Set(); }
+
+let settings = {};
+try {
+  settings = JSON.parse(localStorage.getItem("netraSettings") || "{}");
+} catch { settings = {}; }
+
+function saveCart() {
+  localStorage.setItem("netraCart", JSON.stringify(cart));
+  updateCartCount();
+}
+
+function saveWishlist() {
+  localStorage.setItem("netraWishlist", JSON.stringify([...wishlist]));
+}
+
+function showToast(message) {
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove("show"), 2800);
+}
+
+function moneyValue(value) {
+  return money(value);
+}
+
+function getProduct(id) {
+  return PRODUCTS.find(p => p.id === Number(id));
+}
+
+function renderProducts() {
+  const grid = $("productGrid");
+  let list = PRODUCTS.filter(product => {
+    const categoryMatch = currentCategory === "All" || product.category === currentCategory;
+    const query = currentQuery.toLowerCase().trim();
+    const searchMatch = !query || (
+      product.name + " " + product.category + " " + product.description
+    ).toLowerCase().includes(query);
+    const wishlistMatch = !window.wishlistOnly || wishlist.has(product.id);
+    return categoryMatch && searchMatch && wishlistMatch;
+  });
+
+  const sort = $("sortSelect").value;
+  if (sort === "price-low") list.sort((a,b) => a.price - b.price);
+  if (sort === "price-high") list.sort((a,b) => b.price - a.price);
+  if (sort === "name") list.sort((a,b) => a.name.localeCompare(b.name));
+
+  $("productsHeading").textContent = window.wishlistOnly
+    ? "Your favourite products"
+    : currentQuery ? "Search results" : currentCategory === "All" ? "Featured products" : currentCategory;
+
+  $("productSubtitle").textContent = list.length
+    ? `${list.length} product${list.length === 1 ? "" : "s"} to explore`
+    : "Try a different search or category.";
+
+  grid.innerHTML = "";
+
+  if (!list.length) {
+    grid.innerHTML = `
+      <div class="empty-state" style="display:block">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <h3>Nothing found just yet</h3>
+        <p>Try another search or reset your filters.</p>
+        <button class="primary-button" style="margin-top:16px" onclick="resetFilters()">Show all products</button>
+      </div>`;
+    updateFilterButtons();
+    return;
+  }
+
+  list.forEach(product => {
+    const card = document.createElement("article");
+    card.className = "product-card";
+    const image = product.image
+      ? `<img src="${escapeAttr(product.image)}" alt="${escapeAttr(product.name)}" loading="lazy" onerror="this.remove()">`
+      : `<i class="fa-solid ${escapeAttr(product.icon)} fallback-icon" aria-hidden="true"></i>`;
+
+    card.innerHTML = `
+      <div class="product-image">
+        ${image}
+        ${product.badge ? `<span class="product-badge ${product.badge === "Popular" ? "hot" : ""}">${escapeHTML(product.badge)}</span>` : ""}
+        <button class="wishlist ${wishlist.has(product.id) ? "liked" : ""}" onclick="toggleWishlist(${product.id})" aria-label="Save ${escapeAttr(product.name)}">
+          <i class="${wishlist.has(product.id) ? "fa-solid" : "fa-regular"} fa-heart"></i>
+        </button>
+      </div>
+      <div class="product-info">
+        <div class="product-category">${escapeHTML(product.category)}</div>
+        <h3 class="product-name">${escapeHTML(product.name)}</h3>
+        <div class="rating"><i class="fa-solid fa-star"></i> ${product.rating.toFixed(1)} <span>Demo rating</span></div>
+        <div class="product-price">${moneyValue(product.price)} <span class="old-price">${moneyValue(product.oldPrice)}</span></div>
+        <div class="stock"><i class="fa-solid fa-circle-check"></i> Example listing</div>
+        <div class="product-actions">
+          <button class="add-cart" onclick="addToCart(${product.id})"><i class="fa-solid fa-cart-plus"></i> Add</button>
+          <button class="view-product" onclick="openProduct(${product.id})">Details</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  updateFilterButtons();
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[ch]));
+}
+
+function escapeAttr(value) {
+  return escapeHTML(value);
+}
+
+function updateFilterButtons() {
+  document.querySelectorAll("[data-category]").forEach(button => {
+    button.classList.toggle("selected", button.dataset.category === currentCategory);
+  });
+
+  document.querySelectorAll("[data-filter]").forEach(button => {
+    button.classList.toggle("active", button.dataset.filter === currentCategory);
+  });
+}
+
+function filterCategory(category) {
+  currentCategory = category;
+  window.wishlistOnly = false;
+  renderProducts();
+  scrollToProducts();
+}
+
+function resetFilters() {
+  currentCategory = "All";
+  currentQuery = "";
+  window.wishlistOnly = false;
+  $("searchInput").value = "";
+  $("sortSelect").value = "featured";
+  renderProducts();
+}
+
+function scrollToProducts() {
+  $("products").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function goHome() {
+  resetFilters();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+$("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+  currentQuery = $("searchInput").value.trim();
+  window.wishlistOnly = false;
+  renderProducts();
+  scrollToProducts();
+});
+
+$("searchInput").addEventListener("input", event => {
+  currentQuery = event.target.value.trim();
+  window.wishlistOnly = false;
+  renderProducts();
+});
+
+function toggleWishlist(id) {
+  const product = getProduct(id);
+  if (!product) return;
+
+  if (wishlist.has(product.id)) {
+    wishlist.delete(product.id);
+    showToast("Removed from favourites.");
+  } else {
+    wishlist.add(product.id);
+    showToast("Added to favourites.");
+  }
+
+  saveWishlist();
+  renderProducts();
+}
+
+function showWishlist() {
+  window.wishlistOnly = true;
+  currentCategory = "All";
+  currentQuery = "";
+  $("searchInput").value = "";
+  renderProducts();
+  scrollToProducts();
+}
+
+function addToCart(id) {
+  const product = getProduct(id);
+  if (!product) return;
+
+  const existing = cart.find(item => item.id === product.id);
+  if (existing) existing.quantity++;
+  else cart.push({id:product.id, quantity:1});
+
+  saveCart();
+  showToast(product.name + " added to your cart.");
+}
+
+function updateCartCount() {
+  const count = cart.reduce((total, item) => total + item.quantity, 0);
+  $("cartCount").textContent = count > 99 ? "99+" : count;
+}
+
+function changeQuantity(id, change) {
+  const item = cart.find(entry => entry.id === Number(id));
+  if (!item) return;
+  item.quantity += change;
+  if (item.quantity <= 0) cart = cart.filter(entry => entry.id !== Number(id));
+  saveCart();
+  renderCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(item => item.id !== Number(id));
+  saveCart();
+  renderCart();
+  showToast("Product removed from cart.");
+}
+
+function renderCart() {
+  const list = $("cartList");
+  const totalBox = $("cartTotal");
+
+  if (!cart.length) {
+    list.innerHTML = `
+      <div style="text-align:center;padding:30px 10px">
+        <i class="fa-solid fa-bag-shopping" style="font-size:42px;color:var(--muted)"></i>
+        <h3 style="margin-top:15px">Your cart is empty</h3>
+        <p class="form-note">Explore the marketplace and add products you like.</p>
+        <button class="primary-button" style="margin-top:15px" onclick="closeOverlay('cartOverlay');scrollToProducts()">Explore products</button>
+      </div>`;
+    totalBox.innerHTML = "";
+    return;
+  }
+
+  list.innerHTML = cart.map(item => {
+    const product = getProduct(item.id);
+    if (!product) return "";
+    return `
+      <div class="cart-item">
+        <div class="cart-thumb"><i class="fa-solid ${escapeAttr(product.icon)}"></i></div>
+        <div>
+          <h4>${escapeHTML(product.name)}</h4>
+          <p>${moneyValue(product.price)} each</p>
+          <div class="quantity-controls">
+            <button onclick="changeQuantity(${product.id},-1)" aria-label="Decrease quantity">−</button>
+            <strong>${item.quantity}</strong>
+            <button onclick="changeQuantity(${product.id},1)" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="remove-item" onclick="removeFromCart(${product.id})">Remove</button>
+        </div>
+        <strong>${moneyValue(product.price * item.quantity)}</strong>
+      </div>`;
+  }).join("");
+
+  const subtotal = cart.reduce((sum,item) => {
+    const product = getProduct(item.id);
+    return sum + (product ? product.price * item.quantity : 0);
+  },0);
+
+  totalBox.innerHTML = `
+    <div class="total-row"><span>Subtotal</span><strong>${moneyValue(subtotal)}</strong></div>
+    <div class="total-row"><span>Delivery</span><span>Calculated at checkout</span></div>
+    <div class="total-row final"><span>Estimated subtotal</span><span>${moneyValue(subtotal)}</span></div>
+    <button class="primary-button full-button" style="margin-top:10px" onclick="checkoutNotice()">Continue to checkout <i class="fa-solid fa-arrow-right"></i></button>`;
+}
+
+function openCart() {
+  closeDropdowns();
+  renderCart();
+  openOverlay("cartOverlay");
+}
+
+function checkoutNotice() {
+  showToast("Checkout is not connected yet. No payment has been taken.");
+}
+
+function openProduct(id) {
+  const product = getProduct(id);
+  if (!product) return;
+  selectedProductId = product.id;
+
+  const image = product.image
+    ? `<img src="${escapeAttr(product.image)}" alt="${escapeAttr(product.name)}">`
+    : `<i class="fa-solid ${escapeAttr(product.icon)}"></i>`;
+
+  $("productDetail").innerHTML = `
+    <div class="product-detail">
+      <div class="detail-image">${image}</div>
+      <div class="detail-info">
+        <span class="mini-label">${escapeHTML(product.category)}</span>
+        <h2 id="detailTitle">${escapeHTML(product.name)}</h2>
+        <div class="rating"><i class="fa-solid fa-star"></i> ${product.rating.toFixed(1)} <span>Demo rating</span></div>
+        <div class="detail-price">${moneyValue(product.price)}</div>
+        <p>${escapeHTML(product.description)}</p>
+        <p><i class="fa-solid fa-circle-info"></i> This is a sample listing. Product availability, specifications and pricing must be verified before launch.</p>
+        <div class="detail-buttons">
+          <button class="primary-button" onclick="addToCart(${product.id});closeOverlay('productOverlay')"><i class="fa-solid fa-cart-plus"></i> Add to cart</button>
+          <button class="secondary-button" onclick="toggleWishlist(${product.id})"><i class="fa-regular fa-heart"></i> Save item</button>
+        </div>
+      </div>
+    </div>`;
+
+  openOverlay("productOverlay");
+}
+
+function openOverlay(id) {
+  closeDropdowns();
+  $(id).classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeOverlay(id) {
+  $(id).classList.remove("open");
+  if (!document.querySelector(".overlay.open")) document.body.style.overflow = "";
+}
+
+function overlayClick(event, id) {
+  if (event.target === $(id)) closeOverlay(id);
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    document.querySelectorAll(".overlay.open").forEach(el => closeOverlay(el.id));
+    closeDropdowns();
+  }
+});
+
+function toggleDropdown(id) {
+  const dropdown = $(id);
+  const wasOpen = dropdown.classList.contains("open");
+  closeDropdowns();
+  if (!wasOpen) dropdown.classList.add("open");
+}
+
+function closeDropdowns() {
+  document.querySelectorAll(".dropdown").forEach(el => el.classList.remove("open"));
+}
+
+document.addEventListener("click", event => {
+  if (!event.target.closest(".dropdown-wrap")) closeDropdowns();
+});
+
+function openSettings() {
+  closeDropdowns();
+  $("darkToggle").checked = document.body.classList.contains("dark");
+  $("notificationsToggle").checked = Boolean(settings.notifications);
+  openOverlay("settingsOverlay");
+}
+
+function setTheme(dark) {
+  document.body.classList.toggle("dark", dark);
+  settings.theme = dark ? "dark" : "light";
+  localStorage.setItem("netraSettings", JSON.stringify(settings));
+}
+
+function saveSetting(key, value) {
+  settings[key] = value;
+  localStorage.setItem("netraSettings", JSON.stringify(settings));
+  showToast("Your preference has been saved on this device.");
+}
+
+function resetSettings() {
+  settings = {theme:"light", notifications:false};
+  localStorage.setItem("netraSettings", JSON.stringify(settings));
+  document.body.classList.remove("dark");
+  $("darkToggle").checked = false;
+  $("notificationsToggle").checked = false;
+  showToast("Settings restored to defaults.");
+}
+
+function loadSettings() {
+  if (settings.theme === "dark") document.body.classList.add("dark");
+  $("darkToggle").checked = document.body.classList.contains("dark");
+  $("notificationsToggle").checked = Boolean(settings.notifications);
+}
+
+function openAuth(mode) {
+  closeDropdowns();
+  setAuthMode(mode);
+  openOverlay("authOverlay");
+}
+
+function setAuthMode(mode) {
+  authMode = mode;
+  const register = mode === "register";
+  $("authTitle").textContent = register ? "Create your account" : "Welcome back";
+  $("authSubmit").textContent = register ? "Create account" : "Sign in";
+  $("nameField").hidden = !register;
+  $("authName").required = register;
+  $("authPassword").autocomplete = register ? "new-password" : "current-password";
+  $("loginTab").classList.toggle("active", !register);
+  $("registerTab").classList.toggle("active", register);
+}
+
+$("authForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  // Demo only: do not store or pretend to authenticate a password.
+  showToast("Authentication is not connected yet. Set up Firebase Authentication to sign in securely.");
+});
+
+function logout() {
+  showToast("No active account session is connected.");
+  closeDropdowns();
+}
+
+$("newsletterForm").addEventListener("submit", event => {
+  event.preventDefault();
+  showToast("Thanks for your interest! Email subscription storage is not connected yet.");
+  $("newsletterForm").reset();
+});
+
+function applyAccountDisplay(name) {
+  $("accountLabel").textContent = name || "Account";
+  $("dropdownAccountTitle").textContent = name || "Welcome to Netra";
+  $("dropdownAccountText").textContent = name
+    ? "Your account interface is ready."
+    : "Sign in to manage your account.";
+  $("logoutButton").hidden = !name;
+}
+
+function initializeMarketplace() {
+  $("currentYear").textContent = new Date().getFullYear();
+  loadSettings();
+  renderProducts();
+  updateCartCount();
+  applyAccountDisplay("");
+}
+
+initializeMarketplace();
+</script>
+</body>
+</html>

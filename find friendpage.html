@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Netra - Find Friends</title>
+
+
+<!-- Google Font -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+
+<!-- Font Awesome -->
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+>
+
+<link rel="stylesheet" href="HomePage.html">
+<link rel="stylesheet" href="Friendspage.html">
+<link rel="stylesheet" href="NewsPage.html">
+<link rel="stylesheet" href="Videos.html">
+<link rel="stylesheet" href="Watch Page.html">
+<link rel="stylesheet" href="Profile Page.html">
+<link rel="stylesheet" href="Messagner.html">
+<link rel="stylesheet" href="Group Page.html">
+<link rel="stylesheet" href="Settings.html">
+<link rel="stylesheet" href="Storepage.html">
+
+
+<style>
+
+/* =========================================================
+   NETRA FIND FRIENDS
+   LIGHT + DARK MODE
+========================================================= */
+
+:root{
+
+    --primary:#1877f2;
+    --primary-dark:#0d65dc;
+
+    --background:#f5f7fb;
+    --card:#ffffff;
+
+    --text:#172033;
+    --muted:#788396;
+
+    --border:#e5e8ef;
+
+    --hover:#f1f4f9;
+
+    --input:#f1f3f7;
+
+    --avatar-bg:#eaf2ff;
+
+    --icon-bg:#f1f3f7;
+
+    --shadow:
+        0 8px 25px rgba(15,23,42,.05);
+
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode{
+
+    --primary:#4f8cff;
+    --primary-dark:#3978e8;
+
+    --background:#080e1a;
+    --card:#111827;
+
+    --text:#f1f5f9;
+    --muted:#9aa6b8;
+
+    --border:#273247;
+
+    --hover:#182235;
+
+    --input:#182235;
+
+    --avatar-bg:#172b4d;
+
+    --icon-bg:#182235;
+
+    --shadow:
+        0 12px 35px rgba(0,0,0,.32);
+
+    color-scheme:dark;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    transition:
+        background .3s ease,
+        color .3s ease;
+
+}
+
+
+button,
+input{
+
+    font:inherit;
+
+}
+
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+}
+
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+
+    height:70px;
+
+    background:var(--card);
+
+    border-bottom:
+        1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 25px;
+
+    gap:25px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    transition:
+        background .3s ease,
+        border-color .3s ease;
+
+}
+
+
+/* LOGO */
+
+.logo{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    cursor:pointer;
+
+    letter-spacing:-1px;
+
+}
+
+
+/* =========================================================
+   NAV SEARCH
+========================================================= */
+
+.nav-search{
+
+    width:320px;
+
+    position:relative;
+
+}
+
+
+.nav-search i{
+
+    position:absolute;
+
+    left:15px;
+
+    top:13px;
+
+    color:var(--muted);
+
+}
+
+
+.nav-search input{
+
+    width:100%;
+
+    height:42px;
+
+    border:none;
+
+    outline:none;
+
+    background:var(--input);
+
+    color:var(--text);
+
+    border-radius:22px;
+
+    padding:
+        0 18px 0 42px;
+
+    transition:.25s;
+
+}
+
+
+.nav-search input::placeholder{
+
+    color:var(--muted);
+
+}
+
+
+.nav-search input:focus{
+
+    box-shadow:
+        0 0 0 2px
+        rgba(24,119,242,.15);
+
+}
+
+
+/* =========================================================
+   NAV ACTIONS
+========================================================= */
+
+.nav-actions{
+
+    margin-left:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.icon-btn{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    background:var(--icon-bg);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:var(--muted);
+
+    transition:.2s;
+
+}
+
+
+.icon-btn:hover{
+
+    background:var(--hover);
+
+    color:var(--primary);
+
+    transform:translateY(-1px);
+
+}
+
+
+.icon-btn:active{
+
+    transform:scale(.94);
+
+}
+
+
+/* =========================================================
+   THEME BUTTON
+========================================================= */
+
+.theme-btn{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    background:var(--icon-bg);
+
+    border:
+        1px solid var(--border);
+
+    color:var(--text);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.25s;
+
+}
+
+
+.theme-btn:hover{
+
+    background:var(--hover);
+
+    color:var(--primary);
+
+    transform:rotate(10deg);
+
+}
+
+
+body.dark-mode .theme-btn{
+
+    color:#facc15;
+
+}
+
+
+/* PROFILE */
+
+.profile-btn{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.2s;
+
+}
+
+
+.profile-btn:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.layout{
+
+    display:grid;
+
+    grid-template-columns:
+        240px
+        1fr
+        280px;
+
+    gap:20px;
+
+    max-width:1450px;
+
+    margin:auto;
+
+    padding:25px;
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:15px;
+
+    height:max-content;
+
+    position:sticky;
+
+    top:95px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.side-link{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:13px;
+
+    border-radius:10px;
+
+    margin-bottom:5px;
+
+    color:var(--muted);
+
+    font-weight:600;
+
+    transition:.2s;
+
+}
+
+
+.side-link i{
+
+    width:22px;
+
+    text-align:center;
+
+}
+
+
+.side-link:hover{
+
+    background:var(--hover);
+
+    color:var(--primary);
+
+}
+
+
+.side-link.active{
+
+    background:
+        rgba(24,119,242,.10);
+
+    color:var(--primary);
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+
+    min-width:0;
+
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.page-header{
+
+    background:var(--card);
+
+    padding:25px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:16px;
+
+    margin-bottom:20px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.page-header h1{
+
+    font-size:28px;
+
+    margin-bottom:8px;
+
+}
+
+
+.page-header h1 i{
+
+    color:var(--primary);
+
+    margin-right:5px;
+
+}
+
+
+.page-header p{
+
+    color:var(--muted);
+
+}
+
+
+/* =========================================================
+   SEARCH CARD
+========================================================= */
+
+.search-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.search-box{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+.search-box input{
+
+    flex:1;
+
+    height:50px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:12px;
+
+    outline:none;
+
+    padding:0 16px;
+
+    font-size:15px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    transition:.2s;
+
+}
+
+
+.search-box input::placeholder{
+
+    color:var(--muted);
+
+}
+
+
+.search-box input:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(24,119,242,.10);
+
+}
+
+
+.search-btn{
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:0 25px;
+
+    border-radius:12px;
+
+    font-weight:700;
+
+    transition:.2s;
+
+}
+
+
+.search-btn:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-1px);
+
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+.results-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:25px;
+
+    min-height:300px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.results-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+
+.results-header h2{
+
+    font-size:20px;
+
+}
+
+
+/* RESULTS GRID */
+
+.results{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty{
+
+    text-align:center;
+
+    padding:65px 20px;
+
+    color:var(--muted);
+
+}
+
+
+.empty i{
+
+    font-size:55px;
+
+    color:var(--muted);
+
+    opacity:.55;
+
+    margin-bottom:18px;
+
+}
+
+
+.empty h3{
+
+    color:var(--text);
+
+    margin-bottom:8px;
+
+}
+
+
+/* =========================================================
+   USER CARD
+========================================================= */
+
+.user-card{
+
+    border:
+        1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:18px;
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:center;
+
+    background:var(--card);
+
+}
+
+
+.user-avatar{
+
+    width:62px;
+
+    height:62px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    background:var(--avatar-bg);
+
+    color:var(--primary);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+
+.user-info{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+
+.user-info h3{
+
+    font-size:16px;
+
+    margin-bottom:5px;
+
+}
+
+
+.user-info p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-bottom:10px;
+
+}
+
+
+.add-btn{
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:9px 14px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+.add-btn.sent{
+
+    background:var(--hover);
+
+    color:var(--muted);
+
+}
+
+
+.add-btn:hover{
+
+    opacity:.9;
+
+}
+
+
+/* =========================================================
+   RIGHTBAR
+========================================================= */
+
+.rightbar{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+
+.info-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.info-card h3{
+
+    margin-bottom:15px;
+
+}
+
+
+.info-item{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:10px 0;
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    transition:.2s;
+
+}
+
+
+.info-item i{
+
+    color:var(--primary);
+
+    width:20px;
+
+}
+
+
+.info-item[style*="cursor:pointer"]:hover{
+
+    color:var(--primary);
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    background:#172033;
+
+    color:white;
+
+    padding:14px 20px;
+
+    border-radius:10px;
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:5000;
+
+}
+
+
+body.dark-mode .toast{
+
+    background:#f1f5f9;
+
+    color:#111827;
+
+}
+
+
+.toast.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu{
+
+    display:none;
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:var(--icon-bg);
+
+    color:var(--text);
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+/* =========================================================
+   SMOOTH TRANSITIONS
+========================================================= */
+
+.navbar,
+.nav-search input,
+.icon-btn,
+.theme-btn,
+.sidebar,
+.side-link,
+.page-header,
+.search-card,
+.results-card,
+.search-box input,
+.user-card,
+.info-card{
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .layout{
+
+        grid-template-columns:
+            210px
+            1fr;
+
+    }
+
+
+    .rightbar{
+
+        display:none;
+
+    }
+
+}
+
+
+@media(max-width:750px){
+
+    .navbar{
+
+        padding:0 15px;
+
+    }
+
+
+    .nav-search{
+
+        display:none;
+
+    }
+
+
+    .layout{
+
+        display:block;
+
+        padding:15px;
+
+    }
+
+
+    .sidebar{
+
+        position:static;
+
+        display:flex;
+
+        overflow-x:auto;
+
+        margin-bottom:15px;
+
+        padding:8px;
+
+        scrollbar-width:none;
+
+    }
+
+
+    .sidebar::-webkit-scrollbar{
+
+        display:none;
+
+    }
+
+
+    .side-link{
+
+        white-space:nowrap;
+
+        margin:0;
+
+    }
+
+
+    .side-link span{
+
+        display:none;
+
+    }
+
+
+    .results{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .search-box{
+
+        flex-direction:column;
+
+    }
+
+
+    .search-btn{
+
+        height:48px;
+
+    }
+
+
+}
+
+
+@media(max-width:500px){
+
+    .navbar{
+
+        height:65px;
+
+        padding:0 10px;
+
+        gap:10px;
+
+    }
+
+
+    .logo{
+
+        font-size:24px;
+
+    }
+
+
+    .nav-actions{
+
+        gap:5px;
+
+    }
+
+
+    .icon-btn,
+    .theme-btn,
+    .profile-btn{
+
+        width:38px;
+
+        height:38px;
+
+    }
+
+
+    .icon-btn:nth-child(2){
+
+        display:none;
+
+    }
+
+
+    .page-header{
+
+        padding:20px;
+
+    }
+
+
+    .page-header h1{
+
+        font-size:23px;
+
+    }
+
+
+    .search-card{
+
+        padding:15px;
+
+    }
+
+
+    .results-card{
+
+        padding:18px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:360px){
+
+    .icon-btn:nth-child(3){
+
+        display:none;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     NAVBAR
+======================================================= -->
+
+<nav class="navbar">
+
+
+    <!-- LOGO -->
+
+    <div
+        class="logo"
+        onclick="go('HomePage.html')"
+    >
+
+        Netra
+
+    </div>
+
+
+    <!-- TOP SEARCH -->
+
+    <div class="nav-search">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            placeholder="Search Netra"
+            id="topSearch"
+            onkeydown="topSearch(event)"
+        >
+
+    </div>
+
+
+    <!-- NAV ACTIONS -->
+
+    <div class="nav-actions">
+
+
+        <!-- HOME -->
+
+        <button
+            class="icon-btn"
+            title="Home"
+            onclick="go('HomePage.html')"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+        </button>
+
+
+        <!-- MESSENGER -->
+
+        <button
+            class="icon-btn"
+            title="Messenger"
+            onclick="go('Messagner.html')"
+        >
+
+            <i class="fa-solid fa-comment"></i>
+
+        </button>
+
+
+        <!-- DARK / LIGHT -->
+
+        <button
+            class="theme-btn"
+            id="themeToggle"
+            title="Switch to dark mode"
+            aria-label="Switch to dark mode"
+            onclick="toggleTheme()"
+        >
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
+
+        <!-- SETTINGS -->
+
+        <button
+            class="icon-btn"
+            title="Settings"
+            onclick="go('settings.html')"
+        >
+
+            <i class="fa-solid fa-gear"></i>
+
+        </button>
+
+
+        <!-- PROFILE -->
+
+        <button
+            class="profile-btn"
+            title="Profile"
+            onclick="go('profile page.html')"
+        >
+
+            <i class="fa-solid fa-user"></i>
+
+        </button>
+
+
+    </div>
+
+</nav>
+
+
+
+<!-- =======================================================
+     LAYOUT
+======================================================= -->
+
+<div class="layout">
+
+
+    <!-- ===================================================
+         SIDEBAR
+    ==================================================== -->
+
+    <aside class="sidebar">
+
+
+        <a
+            href="HomePage.html"
+            class="side-link"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Home</span>
+
+        </a>
+
+
+        <a
+            href="Friendspage.html"
+            class="side-link active"
+        >
+
+            <i class="fa-solid fa-user-group"></i>
+
+            <span>Friends</span>
+
+        </a>
+
+
+        <a
+            href="Group page.html"
+            class="side-link"
+        >
+
+            <i class="fa-solid fa-users"></i>
+
+            <span>Communities</span>
+
+        </a>
+
+
+        <a
+            href="Messagner.html"
+            class="side-link"
+        >
+
+            <i class="fa-solid fa-message"></i>
+
+            <span>Messages</span>
+
+        </a>
+
+
+        <a
+            href="Newspage.html"
+            class="side-link"
+        >
+
+            <i class="fa-solid fa-newspaper"></i>
+
+            <span>News</span>
+
+        </a>
+
+
+        <a
+            href="Watch page.html"
+            class="side-link"
+        >
+
+            <i class="fa-solid fa-video"></i>
+
+            <span>Reels</span>
+
+        </a>
+
+
+        <a
+            href="Storepage.html"
+            class="side-link"
+        >
+
+            <i class="fa-solid fa-store"></i>
+
+            <span>Marketplace</span>
+
+        </a>
+
+
+        <a
+            href="profile page.html"
+            class="side-link"
+        >
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>Profile</span>
+
+        </a>
+
+
+        <a
+            href="settings.html"
+            class="side-link"
+        >
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+
+    </aside>
+
+
+
+    <!-- ===================================================
+         MAIN
+    ==================================================== -->
+
+    <main class="main">
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="page-header">
+
+            <h1>
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Find Friends
+
+            </h1>
+
+
+            <p>
+
+                Find people you know and build your
+                Netra circle.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- SEARCH -->
+
+        <section class="search-card">
+
+
+            <div class="search-box">
+
+
+                <input
+                    type="text"
+                    id="friendSearch"
+                    placeholder="Search by name, username or email..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    class="search-btn"
+                    onclick="searchFriends()"
+                >
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Search
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- RESULTS -->
+
+        <section class="results-card">
+
+
+            <div class="results-header">
+
+                <h2 id="resultsTitle">
+
+                    People You May Know
+
+                </h2>
+
+            </div>
+
+
+            <div id="results">
+
+                <div class="empty">
+
+                    <i class="fa-solid fa-user-group"></i>
+
+
+                    <h3>
+                        Find people on Netra
+                    </h3>
+
+
+                    <p>
+                        Search for a name or username
+                        to find friends.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ===================================================
+         RIGHTBAR
+    ==================================================== -->
+
+    <aside class="rightbar">
+
+
+        <!-- HOW IT WORKS -->
+
+        <div class="info-card">
+
+
+            <h3>
+                How it works
+            </h3>
+
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span>
+                    Search for someone on Netra.
+                </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                <span>
+                    Send them a friend request.
+                </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                <span>
+                    Once accepted, you'll become friends.
+                </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-message"></i>
+
+                <span>
+                    Start chatting through Messenger.
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="info-card">
+
+
+            <h3>
+                Quick Links
+            </h3>
+
+
+            <div
+                class="info-item"
+                onclick="go('Friendspage.html')"
+                style="cursor:pointer"
+            >
+
+                <i class="fa-solid fa-user-group"></i>
+
+                <span>
+                    My Friends
+                </span>
+
+            </div>
+
+
+            <div
+                class="info-item"
+                onclick="go('Messagner.html')"
+                style="cursor:pointer"
+            >
+
+                <i class="fa-solid fa-message"></i>
+
+                <span>
+                    Messenger
+                </span>
+
+            </div>
+
+
+            <div
+                class="info-item"
+                onclick="go('profile page.html')"
+                style="cursor:pointer"
+            >
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>
+                    My Profile
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </aside>
+
+
+</div>
+
+
+
+<!-- =======================================================
+     TOAST
+======================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+
+<script>
+
+/* =========================================================
+   NETRA FIND FRIENDS JAVASCRIPT
+========================================================= */
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function go(page){
+
+    window.location.href = page;
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+        setTimeout(
+            function(){
+
+                toast.classList.remove("show");
+
+            },
+            2500
+        );
+
+}
+
+
+/* =========================================================
+   DARK / LIGHT MODE
+========================================================= */
+
+const themeToggle =
+    document.getElementById(
+        "themeToggle"
+    );
+
+
+/* Read the SAME theme used by
+   Friends + News pages */
+
+const savedTheme =
+    localStorage.getItem(
+        "netra-theme"
+    );
+
+
+/* Apply saved theme */
+
+if(savedTheme === "dark"){
+
+    document.body.classList.add(
+        "dark-mode"
+    );
+
+}
+
+
+/* Update icon */
+
+function updateThemeIcon(){
+
+    const isDark =
+        document.body.classList.contains(
+            "dark-mode"
+        );
+
+
+    if(isDark){
+
+        themeToggle.innerHTML =
+            '<i class="fa-solid fa-sun"></i>';
+
+
+        themeToggle.setAttribute(
+            "title",
+            "Switch to Light Mode"
+        );
+
+
+        themeToggle.setAttribute(
+            "aria-label",
+            "Switch to Light Mode"
+        );
+
+    }
+
+    else{
+
+        themeToggle.innerHTML =
+            '<i class="fa-solid fa-moon"></i>';
+
+
+        themeToggle.setAttribute(
+            "title",
+            "Switch to Dark Mode"
+        );
+
+
+        themeToggle.setAttribute(
+            "aria-label",
+            "Switch to Dark Mode"
+        );
+
+    }
+
+}
+
+
+/* Initial icon */
+
+updateThemeIcon();
+
+
+/* Toggle */
+
+function toggleTheme(){
+
+    document.body.classList.toggle(
+        "dark-mode"
+    );
+
+
+    const isDark =
+        document.body.classList.contains(
+            "dark-mode"
+        );
+
+
+    localStorage.setItem(
+        "netra-theme",
+        isDark
+        ? "dark"
+        : "light"
+    );
+
+
+    updateThemeIcon();
+
+
+    showToast(
+        isDark
+        ? "Dark mode enabled."
+        : "Light mode enabled."
+    );
+
+}
+
+
+
+/* =========================================================
+   TOP SEARCH
+========================================================= */
+
+function topSearch(event){
+
+    if(event.key === "Enter"){
+
+        const value =
+            document
+                .getElementById(
+                    "topSearch"
+                )
+                .value
+                .trim();
+
+
+        if(!value) return;
+
+
+        document
+            .getElementById(
+                "friendSearch"
+            )
+            .value = value;
+
+
+        searchFriends();
+
+    }
+
+}
+
+
+
+/* =========================================================
+   SEARCH FRIENDS
+========================================================= */
+
+function searchFriends(){
+
+    const search =
+        document
+            .getElementById(
+                "friendSearch"
+            )
+            .value
+            .trim();
+
+
+    const results =
+        document.getElementById(
+            "results"
+        );
+
+
+    const title =
+        document.getElementById(
+            "resultsTitle"
+        );
+
+
+    if(!search){
+
+        title.textContent =
+            "People You May Know";
+
+
+        results.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-user-group"></i>
+
+                <h3>
+                    Find people on Netra
+                </h3>
+
+                <p>
+                    Search for a name or username
+                    to find friends.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+        NO FAKE USERS ARE DISPLAYED.
+
+        When Firebase is connected, this function
+        will search the real Netra users collection.
+    */
+
+
+    title.textContent =
+        "Search Results";
+
+
+    results.innerHTML = `
+
+        <div class="empty">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <h3>
+                No users found yet
+            </h3>
+
+            <p>
+                Firebase user search will appear here
+                when your Netra backend is connected.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   FRIEND REQUEST
+========================================================= */
+
+function sendFriendRequest(
+    button,
+    userId
+){
+
+    button.innerHTML =
+        '<i class="fa-solid fa-check"></i> Request Sent';
+
+
+    button.classList.add(
+        "sent"
+    );
+
+
+    button.disabled = true;
+
+
+    showToast(
+        "Friend request sent."
+    );
+
+
+    /*
+        Firebase will later save:
+
+        senderId
+        receiverId
+        status: "pending"
+        createdAt
+    */
+
+}
+
+
+
+/* =========================================================
+   ENTER TO SEARCH
+========================================================= */
+
+document
+    .getElementById(
+        "friendSearch"
+    )
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+
+                searchFriends();
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>

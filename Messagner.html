@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1769ff">
+<title>Netra Messenger | Connect privately</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root {
+  --primary: #1769ff;
+  --primary-dark: #0d4fc7;
+  --soft-blue: #edf4ff;
+  --bg: #f5f7fb;
+  --surface: #fff;
+  --text: #182238;
+  --muted: #8590a4;
+  --border: #e7ecf4;
+  --sidebar: 245px;
+  --radius: 18px;
+  --shadow: 0 8px 30px rgba(30,50,90,.05);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg); color: var(--text);
+  height: 100vh; overflow: hidden;
+}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible,
+textarea:focus-visible { outline: 3px solid #9cbfff; outline-offset: 3px; }
+.app { display: flex; height: 100vh; }
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar); flex-shrink: 0; background: var(--surface);
+  border-right: 1px solid var(--border); padding: 25px 15px;
+  display: flex; flex-direction: column; z-index: 5;
+}
+.brand {
+  display: flex; align-items: center; gap: 11px;
+  padding: 0 10px; margin-bottom: 39px;
+  font-size: 24px; font-weight: 800; letter-spacing: -1px;
+}
+.brand-mark {
+  width: 41px; height: 41px; display: grid; place-items: center;
+  border-radius: 13px; color: white; font-size: 26px;
+  background: linear-gradient(140deg,#438bff,#0752df);
+  box-shadow: 0 6px 15px #1769ff30;
+}
+.brand-name span { color: var(--primary); }
+.section-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
+  color: var(--muted); padding: 0 12px; margin: 0 0 12px;
+}
+.nav { display: flex; flex-direction: column; gap: 5px; }
+.nav a {
+  display: flex; align-items: center; gap: 13px;
+  text-decoration: none; color: #6d788d;
+  padding: 13px 12px; border-radius: 11px;
+  font-size: 12px; font-weight: 600; transition: .2s;
+}
+.nav a i { width: 20px; text-align: center; font-size: 16px; }
+.nav a:hover { background: #f5f8fe; color: var(--primary); }
+.nav a.active { background: var(--soft-blue); color: var(--primary); }
+.nav-separator { margin-top: 28px; }
+.sidebar-bottom { margin-top: auto; }
+.tip-card {
+  background: linear-gradient(140deg,#eef5ff,#f5f1ff);
+  border: 1px solid #e5ebfc; border-radius: 15px; padding: 16px;
+  margin-bottom: 19px;
+}
+.tip-card > i { color: var(--primary); font-size: 20px; }
+.tip-card h3 { font-size: 12px; margin: 12px 0 7px; }
+.tip-card p { font-size: 10px; color: #77849b; line-height: 1.7; }
+.tip-card button {
+  margin-top: 12px; border: 0; background: var(--primary);
+  color: white; border-radius: 8px; padding: 9px 11px;
+  font-size: 10px; font-weight: 700;
+}
+.account {
+  border-top: 1px solid var(--border); padding: 16px 7px 0;
+  display: flex; align-items: center; gap: 10px;
+}
+.avatar {
+  width: 41px; height: 41px; border-radius: 50%;
+  display: grid; place-items: center; flex-shrink: 0;
+  background: #e7efff; color: #2b63cc; font-weight: 800;
+}
+.account-info { flex: 1; min-width: 0; }
+.account-info strong { display: block; font-size: 11px; }
+.account-info small { display: block; color: var(--muted); font-size: 10px; margin-top: 4px; }
+.icon-button {
+  display: inline-grid; place-items: center; flex-shrink: 0;
+  width: 38px; height: 38px; border-radius: 11px;
+  border: 1px solid var(--border); background: var(--surface);
+  color: #748097; transition: .2s;
+}
+.icon-button:hover { background: var(--soft-blue); color: var(--primary); }
+
+/* Header */
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.topbar {
+  height: 76px; flex-shrink: 0; background: var(--surface);
+  border-bottom: 1px solid var(--border); padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 15px;
+}
+.topbar h1 { font-size: 20px; letter-spacing: -.6px; }
+.topbar p { color: var(--muted); font-size: 11px; margin-top: 5px; }
+.top-actions { display: flex; align-items: center; gap: 10px; }
+.search-global {
+  display: flex; align-items: center; gap: 9px;
+  padding: 11px 13px; width: 215px;
+  background: #f8faff; border: 1px solid var(--border);
+  border-radius: 11px; color: #98a2b4;
+}
+.search-global input {
+  border: 0; outline: 0; background: transparent;
+  width: 100%; min-width: 0; font-size: 11px; color: var(--text);
+}
+
+/* Main messenger */
+.workspace {
+  flex: 1; min-height: 0; display: flex; gap: 17px; padding: 19px;
+}
+.inbox, .chat {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.inbox { width: 330px; min-width: 270px; display: flex; flex-direction: column; }
+.inbox-header { padding: 20px 18px 16px; }
+.inbox-heading { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.inbox-heading h2 { font-size: 17px; }
+.inbox-heading p { font-size: 10px; color: var(--muted); margin-top: 6px; }
+.primary-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; background: var(--primary); color: white;
+  border: 0; border-radius: 10px; padding: 12px 15px;
+  font-size: 11px; font-weight: 700; transition: .2s;
+}
+.primary-button:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.new-button { width: 38px; height: 38px; padding: 0; }
+.inbox-search {
+  margin: 0 15px 15px; padding: 11px 12px;
+  background: #f6f8fc; border-radius: 10px;
+  display: flex; align-items: center; gap: 9px; color: #97a2b5;
+}
+.inbox-search input {
+  width: 100%; min-width: 0; border: 0; outline: 0;
+  background: transparent; font-size: 11px; color: var(--text);
+}
+.filters { display: flex; gap: 7px; padding: 0 15px 15px; }
+.filter {
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); color: #7f8a9f;
+  padding: 7px 12px; font-size: 10px; font-weight: 600;
+}
+.filter.active { background: var(--soft-blue); color: var(--primary); border-color: #d7e5ff; }
+.conversation-list { flex: 1; overflow-y: auto; border-top: 1px solid #f0f2f7; }
+.empty-inbox {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 37px 21px 30px;
+}
+.empty-icon {
+  width: 69px; height: 69px; border-radius: 23px;
+  display: grid; place-items: center; background: var(--soft-blue);
+  color: var(--primary); font-size: 27px; margin-bottom: 17px;
+}
+.empty-inbox h3 { font-size: 13px; margin-bottom: 8px; }
+.empty-inbox p { font-size: 10px; line-height: 1.8; color: var(--muted); }
+.empty-inbox .primary-button { width: 100%; margin-top: 18px; }
+.empty-inbox .secondary-button { width: 100%; margin-top: 9px; }
+.secondary-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 11px 14px; border: 1px solid var(--border);
+  border-radius: 10px; background: var(--surface);
+  color: var(--text); font-size: 11px; font-weight: 700;
+}
+.secondary-button:hover { border-color: #b6ceff; color: var(--primary); }
+
+/* Welcome panel */
+.chat { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.chat-top {
+  height: 75px; flex-shrink: 0; border-bottom: 1px solid var(--border);
+  padding: 0 20px; display: flex; align-items: center; justify-content: space-between;
+}
+.chat-top-left { display: flex; align-items: center; gap: 12px; }
+.chat-top-left h3 { font-size: 13px; }
+.chat-top-left p { font-size: 10px; color: var(--muted); margin-top: 5px; }
+.chat-top-actions { display: flex; gap: 8px; }
+.welcome-panel {
+  flex: 1; overflow-y: auto; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; padding: 30px 22px;
+  text-align: center; background:
+    radial-gradient(ellipse at 50% 38%,#edf4ff 0%,transparent 55%),
+    var(--surface);
+}
+.illustration {
+  width: min(100%, 310px); height: 205px; margin-bottom: 19px;
+  display: grid; place-items: center; position: relative;
+}
+.illustration .orb {
+  position: absolute; width: 165px; height: 165px; border-radius: 50%;
+  background: linear-gradient(145deg,#e8f1ff,#dbe8ff);
+}
+.illustration .bubble-main {
+  position: absolute; left: 50%; top: 46%; transform: translate(-50%,-50%);
+  width: 120px; height: 91px; border-radius: 26px 26px 26px 7px;
+  background: linear-gradient(145deg,#4d91ff,#1769ff);
+  box-shadow: 0 15px 35px #1769ff35;
+  display: flex; justify-content: center; align-items: center; gap: 9px;
+}
+.illustration .bubble-main span {
+  width: 9px; height: 9px; border-radius: 50%; background: white;
+  animation: dot 1.2s infinite ease-in-out;
+}
+.illustration .bubble-main span:nth-child(2) { animation-delay: .15s; }
+.illustration .bubble-main span:nth-child(3) { animation-delay: .3s; }
+.illustration .bubble-small {
+  position: absolute; width: 54px; height: 44px; border-radius: 15px;
+  background: white; box-shadow: 0 9px 22px #4c71a51c;
+  display: grid; place-items: center; color: var(--primary); font-size: 17px;
+}
+.illustration .bubble-left { left: 27px; top: 25px; transform: rotate(-12deg); }
+.illustration .bubble-right { right: 25px; bottom: 20px; transform: rotate(10deg); }
+.illustration .sparkle { position: absolute; color: #73a5ff; font-size: 18px; }
+.illustration .sparkle.one { left: 45px; bottom: 23px; }
+.illustration .sparkle.two { right: 48px; top: 18px; font-size: 13px; }
+@keyframes dot { 0%,60%,100% { transform: translateY(0); opacity: .65; } 30% { transform: translateY(-5px); opacity: 1; } }
+.welcome-kicker {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 11px; border-radius: 20px; background: var(--soft-blue);
+  color: var(--primary); font-size: 10px; font-weight: 700; margin-bottom: 15px;
+}
+.welcome-panel h2 { font-size: clamp(22px,2.3vw,30px); letter-spacing: -1px; line-height: 1.3; }
+.welcome-panel h2 span { color: var(--primary); }
+.welcome-description {
+  max-width: 370px; margin-top: 12px; color: var(--muted);
+  font-size: 12px; line-height: 1.9;
+}
+.welcome-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+.welcome-actions button { padding: 13px 17px; }
+.welcome-features {
+  display: flex; gap: 23px; flex-wrap: wrap; justify-content: center;
+  margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border);
+}
+.feature { display: flex; align-items: center; gap: 7px; font-size: 10px; color: #8793a8; }
+.feature i { color: #39a875; }
+
+/* Modals */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 50;
+  background: #111b30a6; backdrop-filter: blur(4px);
+  align-items: center; justify-content: center; padding: 18px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto;
+  background: var(--surface); color: var(--text); border-radius: 19px;
+  padding: 25px; box-shadow: 0 20px 70px #0002;
+}
+.modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.modal-head h2 { font-size: 19px; }
+.modal-description { color: var(--muted); font-size: 11px; line-height: 1.8; margin: 11px 0 20px; }
+.form-label { display: block; font-size: 11px; font-weight: 700; margin: 15px 0 8px; }
+.form-input {
+  width: 100%; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--bg); color: var(--text); padding: 12px;
+  font-size: 12px; outline: 0;
+}
+.form-input:focus { border-color: #8ab1ff; }
+.modal-submit { width: 100%; margin-top: 19px; }
+.modal-footnote { margin-top: 13px; color: var(--muted); font-size: 10px; line-height: 1.7; }
+.toast {
+  position: fixed; z-index: 100; bottom: 22px; right: 22px;
+  max-width: calc(100vw - 44px); padding: 13px 17px;
+  border-radius: 11px; color: white; background: #18243a;
+  font-size: 11px; box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(9px); pointer-events: none; transition: .25s;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.mobile-back { display: none; }
+
+/* Dark theme */
+body.dark {
+  --bg: #0d1422; --surface: #141e30; --text: #eef3fc;
+  --muted: #9aa8bf; --border: #2a374c; --soft-blue: #1c3154;
+}
+body.dark .topbar, body.dark .sidebar, body.dark .inbox,
+body.dark .chat, body.dark .icon-button, body.dark .secondary-button,
+body.dark .filter { background: var(--surface); color: var(--text); }
+body.dark .nav a { color: #a6b4ca; }
+body.dark .nav a.active, body.dark .nav a:hover { background: #1c3154; color: #88b3ff; }
+body.dark .search-global, body.dark .inbox-search { background: #101a2b; border-color: var(--border); }
+body.dark .search-global input, body.dark .inbox-search input { color: var(--text); }
+body.dark .tip-card { background: #1b2940; border-color: var(--border); }
+body.dark .welcome-panel { background: radial-gradient(ellipse at 50% 38%,#1a2a45 0%,transparent 58%),var(--surface); }
+body.dark .illustration .orb { background: #243752; }
+body.dark .illustration .bubble-small { background: #26364e; }
+body.dark .conversation-list { border-color: var(--border); }
+
+/* Responsive */
+@media(max-width: 1100px) {
+  :root { --sidebar: 205px; }
+  .workspace { padding: 12px; gap: 12px; }
+  .inbox { width: 290px; min-width: 255px; }
+  .topbar { padding: 0 18px; }
+  .search-global { width: 170px; }
+}
+@media(max-width: 780px) {
+  .sidebar { width: 70px; align-items: center; padding: 22px 8px; }
+  .brand { padding: 0; }
+  .brand-mark { width: 44px; height: 44px; }
+  .brand-name, .section-label, .nav a span, .sidebar-bottom { display: none; }
+  .nav { width: 100%; }
+  .nav a { justify-content: center; padding: 14px 5px; }
+  .nav a i { font-size: 18px; }
+  .topbar { height: 68px; padding: 0 14px; }
+  .topbar p, .search-global { display: none; }
+  .workspace { padding: 10px; gap: 10px; }
+  .inbox { width: 265px; min-width: 235px; }
+  .welcome-features { gap: 12px; }
+}
+@media(max-width: 540px) {
+  body { overflow: hidden; }
+  .sidebar { display: none; }
+  .workspace { padding: 0; gap: 0; }
+  .inbox, .chat { border: 0; border-radius: 0; width: 100%; min-width: 0; }
+  .chat { display: none; }
+  .topbar { height: 62px; }
+  .topbar h1 { font-size: 17px; }
+  .top-actions { gap: 7px; }
+  .app.mobile-chat-open .inbox { display: none; }
+  .app.mobile-chat-open .chat { display: flex; }
+  .mobile-back { display: inline-grid; }
+  .chat-top { height: 65px; padding: 0 13px; }
+  .welcome-panel { padding: 24px 18px; }
+  .illustration { height: 175px; }
+  .illustration .orb { width: 140px; height: 140px; }
+  .illustration .bubble-main { width: 105px; height: 79px; }
+  .welcome-panel h2 { font-size: 24px; }
+  .welcome-description { font-size: 11px; }
+  .welcome-actions { flex-direction: column; width: 100%; max-width: 300px; }
+  .welcome-actions button { width: 100%; }
+  .welcome-features { margin-top: 23px; gap: 11px; }
+  .feature { font-size: 9px; }
+  .inbox-header { padding-top: 17px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+
+<body>
+<div class="app" id="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      
+      <div class="brand-name">NE<span>TRA</span></div>
+    </div>
+
+    <div class="section-label">MAIN MENU</div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="HomePage.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+      <a href="Friendspage.html"><i class="fa-solid fa-user-group"></i><span>Friends</span></a>
+      <a href="NewsPage.html"><i class="fa-regular fa-compass"></i><span>News</span></a>
+      <a href="Group Page.html"><i class="fa-solid fa-people-group"></i><span>Groups</span></a>
+      <a href="Storepage.html"><i class="fa-solid fa-bag-shopping"></i><span>Netra Store</span></a>
+      <a href="Watch Page.html"><i class="fa-solid fa-circle-play"></i><span>Netra Reels</span></a>
+    </nav>
+
+    <div class="section-label nav-separator">YOUR SPACE</div>
+    <nav class="nav" aria-label="Your account">
+      <a href="Messagner.html" class="active" aria-current="page"><i class="fa-regular fa-message"></i><span>Messenger</span></a>
+      <a href="Notification.html"><i class="fa-regular fa-bell"></i><span>Notifications</span></a>
+      <a href="profile page.html"><i class="fa-regular fa-user"></i><span>My Profile</span></a>
+      <a href="Settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="tip-card">
+        <i class="fa-regular fa-lightbulb"></i>
+        <h3>Make a connection</h3>
+        <p>Find people you know and start building your Netra community.</p>
+        <button onclick="goToFriends()">Find friends <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+      <div class="account">
+        <div class="avatar" id="profileAvatar">U</div>
+        <div class="account-info">
+          <strong id="profileName">Your account</strong>
+          <small>Welcome to Netra</small>
+        </div>
+        <button class="icon-button" onclick="goTo('Settings.html')" aria-label="Account settings"><i class="fa-solid fa-ellipsis"></i></button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1>Messenger</h1>
+        <p>A little closer, wherever you are.</p>
+      </div>
+      <div class="top-actions">
+        <label class="search-global">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="globalSearch" type="search" placeholder="Search messages..." aria-label="Search messages">
+        </label>
+        <button class="icon-button" onclick="toggleTheme()" id="themeButton" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <i class="fa-regular fa-moon"></i>
+        </button>
+    
+      </div>
+    </header>
+
+    <section class="workspace">
+
+      <!-- Empty inbox: no invented users or sample conversations -->
+      <aside class="inbox">
+        <div class="inbox-header">
+          <div class="inbox-heading">
+            <div>
+              <h2>Messages</h2>
+              <p id="inboxSubtitle">Your personal inbox</p>
+            </div>
+            <button class="primary-button new-button" onclick="openNewMessage()" title="New message" aria-label="New message">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </div>
+        </div>
+
+        <label class="inbox-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="inboxSearch" type="search" placeholder="Search conversations..." aria-label="Search conversations">
+        </label>
+
+        <div class="filters" aria-label="Conversation filters">
+          <button class="filter active" onclick="setFilter('all',this)">All</button>
+          <button class="filter" onclick="setFilter('unread',this)">Unread</button>
+          <button class="filter" onclick="setFilter('friends',this)">Friends</button>
+        </div>
+
+        <div class="conversation-list" id="conversationList">
+          <div class="empty-inbox">
+            <div class="empty-icon"><i class="fa-regular fa-comments"></i></div>
+            <h3>Your inbox is fresh</h3>
+            <p>Your conversations will appear here when you connect with people on Netra.</p>
+            <button class="primary-button" onclick="goToFriends()"><i class="fa-solid fa-user-plus"></i> Find friends</button>
+            <button class="secondary-button" onclick="openNewMessage()"><i class="fa-regular fa-paper-plane"></i> New message</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Welcome experience -->
+      <section class="chat" aria-label="Messenger welcome panel">
+        <div class="chat-top">
+          <div class="chat-top-left">
+            <button class="icon-button mobile-back" onclick="backToInbox()" aria-label="Back to inbox"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="avatar"><i class="fa-regular fa-paper-plane"></i></div>
+            <div>
+              <h3>Welcome to Messenger</h3>
+              <p>Your next conversation starts here</p>
+            </div>
+          </div>
+          <div class="chat-top-actions">
+            <button class="icon-button" onclick="showToast('Choose a conversation to view its details.')" title="Details" aria-label="Details"><i class="fa-solid fa-circle-info"></i></button>
+          </div>
+        </div>
+
+        <div class="welcome-panel">
+          <div class="illustration" aria-label="Illustration of messaging bubbles">
+            <div class="orb"></div>
+            <div class="bubble-small bubble-left"><i class="fa-solid fa-star"></i></div>
+            <div class="bubble-main"><span></span><span></span><span></span></div>
+            <div class="bubble-small bubble-right"><i class="fa-solid fa-paper-plane"></i></div>
+            <i class="fa-solid fa-sparkles sparkle one"></i>
+            <i class="fa-solid fa-plus sparkle two"></i>
+          </div>
+
+          <div class="welcome-kicker"><i class="fa-solid fa-wand-magic-sparkles"></i> YOUR NEXT CONNECTION STARTS HERE</div>
+          <h2>Say hello to a world<br>of <span>new connections.</span></h2>
+          <p class="welcome-description">
+            Welcome to your Netra inbox. Find friends, meet new people, and share the little moments that bring us closer.
+          </p>
+
+          <div class="welcome-actions">
+            <button class="primary-button" onclick="goToFriends()"><i class="fa-solid fa-user-plus"></i> Find friends</button>
+            <button class="secondary-button" onclick="openNewMessage()"><i class="fa-regular fa-paper-plane"></i> New message</button>
+          </div>
+
+          <div class="welcome-features">
+            <div class="feature"><i class="fa-solid fa-check-circle"></i> Your own inbox</div>
+            <div class="feature"><i class="fa-solid fa-lock"></i> Personal conversations</div>
+            <div class="feature"><i class="fa-solid fa-heart"></i> Meaningful connections</div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+
+<!-- New message modal -->
+<div class="modal-overlay" id="newMessageModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">Start a conversation</h2>
+      <button class="icon-button" onclick="closeNewMessage()" aria-label="Close dialog"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <p class="modal-description">
+      Search for someone on Netra to start chatting. User discovery will work when Firebase is connected.
+    </p>
+    <form id="newMessageForm">
+      <label class="form-label" for="recipientSearch">Find a person</label>
+      <input class="form-input" id="recipientSearch" type="search" maxlength="100" placeholder="Enter a name or username" required>
+      <button class="primary-button modal-submit" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Find person</button>
+    </form>
+    <p class="modal-footnote">
+      This new-user version does not create fake contacts or send pretend messages. Connect Firebase to search registered users and start real conversations.
+    </p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+let activeFilter = "all";
+let toastTimer;
+
+function showToast(message) {
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
+}
+
+function goTo(page) {
+  window.location.href = page;
+}
+
+function goToFriends() {
+  // Update this filename if your friends page uses another exact name.
+  goTo("Friendspage.html");
+}
+
+function openNewMessage() {
+  $("newMessageModal").classList.add("open");
+  $("recipientSearch").value = "";
+  $("recipientSearch").focus();
+}
+
+function closeNewMessage() {
+  $("newMessageModal").classList.remove("open");
+}
+
+$("newMessageModal").addEventListener("click", event => {
+  if (event.target === $("newMessageModal")) closeNewMessage();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeNewMessage();
+});
+
+$("newMessageForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const query = $("recipientSearch").value.trim();
+  if (!query) return;
+
+  // Deliberately do not invent users. Firebase user search goes here.
+  showToast("User search is not connected yet. Connect Firebase to find registered Netra users.");
+});
+
+function setFilter(filter, button) {
+  activeFilter = filter;
+  document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
+  button.classList.add("active");
+
+  const search = $("inboxSearch").value.trim() || $("globalSearch").value.trim();
+
+  if (search) {
+    showToast("There are no conversations to filter yet.");
+  } else if (filter === "unread") {
+    showToast("You have no unread conversations yet.");
+  } else if (filter === "friends") {
+    showToast("Your friends' conversations will appear here when available.");
+  }
+}
+
+$("inboxSearch").addEventListener("input", () => {
+  const query = $("inboxSearch").value.trim();
+  $("globalSearch").value = query;
+  if (query) showEmptySearch();
+  else resetEmptyInbox();
+});
+
+$("globalSearch").addEventListener("input", () => {
+  const query = $("globalSearch").value.trim();
+  $("inboxSearch").value = query;
+  if (query) showEmptySearch();
+  else resetEmptyInbox();
+});
+
+function showEmptySearch() {
+  $("conversationList").innerHTML = `
+    <div class="empty-inbox">
+      <div class="empty-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+      <h3>No conversations found</h3>
+      <p>Your inbox is empty. Find friends to start a conversation.</p>
+      <button class="primary-button" onclick="goToFriends()"><i class="fa-solid fa-user-plus"></i> Find friends</button>
+    </div>`;
+}
+
+function resetEmptyInbox() {
+  $("conversationList").innerHTML = `
+    <div class="empty-inbox">
+      <div class="empty-icon"><i class="fa-regular fa-comments"></i></div>
+      <h3>Your inbox is fresh</h3>
+      <p>Your conversations will appear here when you connect with people on Netra.</p>
+      <button class="primary-button" onclick="goToFriends()"><i class="fa-solid fa-user-plus"></i> Find friends</button>
+      <button class="secondary-button" onclick="openNewMessage()"><i class="fa-regular fa-paper-plane"></i> New message</button>
+    </div>`;
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+  const dark = document.body.classList.contains("dark");
+  $("themeButton").innerHTML = dark
+    ? '<i class="fa-regular fa-sun"></i>'
+    : '<i class="fa-regular fa-moon"></i>';
+
+  try {
+    localStorage.setItem("netra-messenger-theme", dark ? "dark" : "light");
+  } catch (error) {}
+}
+
+function backToInbox() {
+  $("app").classList.remove("mobile-chat-open");
+}
+
+function loadPreferences() {
+  try {
+    if (localStorage.getItem("netra-messenger-theme") === "dark") {
+      document.body.classList.add("dark");
+      $("themeButton").innerHTML = '<i class="fa-regular fa-sun"></i>';
+    }
+
+    // If a profile name has been saved by your existing site, display it.
+    const savedName = localStorage.getItem("netra-user-name");
+    if (savedName && savedName.trim()) {
+      $("profileName").textContent = savedName.trim();
+      $("profileAvatar").textContent = savedName.trim().charAt(0).toUpperCase();
+    }
+  } catch (error) {}
+}
+
+loadPreferences();
+</script>
+</body>
+</html>

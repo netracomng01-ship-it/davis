@@ -1,0 +1,3577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Netra — Connect. discover. Belong.</title>
+<meta name="description" content="Netra — Connect, share, discover and build your community.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="index.html">
+<link rel="stylesheet" href="NewsPage.html">
+<link rel="stylesheet" href="Friendspage.html">
+<link rel="stylesheet" href="Videos.html">
+<link rel="stylesheet" href="Watch Page.html">
+<link rel="stylesheet" href="Profile Page.html">
+<link rel="stylesheet" href="Messagner.html">
+<link rel="stylesheet" href="Group Page.html">
+<link rel="stylesheet" href="Find friendpage.html">
+<link rel="stylesheet" href="Settings.html">
+<link rel="stylesheet" href="Storepage.html">
+<link rel="stylesheet" href="Notification.html">
+<script src="firebase.js"></script>
+<style>
+:root{
+    --primary:#635bff;
+    --primary-dark:#5148e8;
+    --secondary:#8b5cf6;
+    --accent:#06b6d4;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#7b8498;
+    --border:#e8ebf2;
+    --soft:#f1f3f8;
+    --danger:#ef476f;
+    --success:#10b981;
+    --shadow:0 10px 35px rgba(30,41,59,.07);
+    --radius:22px;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:.25s ease;
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:0;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+body.dark{
+    --bg:#080b12;
+    --card:#111827;
+    --text:#f8fafc;
+    --muted:#9ca3af;
+    --border:#273244;
+    --soft:#182131;
+    --shadow:0 10px 35px rgba(0,0,0,.25);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    height:72px;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    padding:0 28px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.nav-inner{
+    width:100%;
+    max-width:1450px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:800;
+    color:var(--text);
+    min-width:150px;
+}
+
+.logo-mark{
+    width:40px;
+    height:40px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    color:white;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    box-shadow:0 7px 18px rgba(99,91,255,.25);
+}
+
+.search-box{
+    flex:1;
+    max-width:500px;
+    position:relative;
+}
+
+.search-box i{
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--muted);
+}
+
+.search-box input{
+    width:100%;
+    border:1px solid var(--border);
+    background:var(--soft);
+    color:var(--text);
+    border-radius:14px;
+    padding:12px 15px 12px 44px;
+    outline:none;
+}
+
+.nav-actions{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:var(--soft);
+    color:var(--text);
+    display:grid;
+    place-items:center;
+    position:relative;
+    transition:.2s;
+}
+
+.icon-btn:hover{
+    background:var(--primary);
+    color:white;
+}
+
+.notification-badge{
+    position:absolute;
+    top:-3px;
+    right:-2px;
+    min-width:18px;
+    height:18px;
+    border-radius:50%;
+    background:var(--danger);
+    color:white;
+    font-size:10px;
+    display:grid;
+    place-items:center;
+    border:2px solid var(--card);
+}
+
+/* =========================
+   DROPDOWNS
+========================= */
+
+.dropdown{
+    position:absolute;
+    top:62px;
+    right:0;
+    width:360px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    display:none;
+    overflow:hidden;
+    z-index:1100;
+}
+
+.dropdown.show{
+    display:block;
+    animation:dropIn .18s ease;
+}
+
+@keyframes dropIn{
+    from{
+        opacity:0;
+        transform:translateY(-8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.dropdown-head{
+    padding:17px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+}
+
+.dropdown-head h3{
+    font-size:16px;
+}
+
+.dropdown-head button{
+    background:none;
+    color:var(--primary);
+    font-size:12px;
+    font-weight:700;
+}
+
+.empty-dropdown{
+    padding:35px 20px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.empty-dropdown i{
+    font-size:34px;
+    margin-bottom:10px;
+    color:var(--primary);
+}
+
+.notification-item{
+    display:flex;
+    gap:12px;
+    padding:14px 17px;
+    border-bottom:1px solid var(--border);
+    cursor:pointer;
+}
+
+.notification-item:hover{
+    background:var(--soft);
+}
+
+.notification-icon{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:rgba(99,91,255,.12);
+    color:var(--primary);
+    display:grid;
+    place-items:center;
+    flex-shrink:0;
+}
+
+.notification-item p{
+    font-size:13px;
+    line-height:1.45;
+}
+
+.notification-item small{
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+}
+
+/* ACCOUNT MENU */
+
+.account-menu{
+    padding:14px;
+}
+
+.account-profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    border-radius:14px;
+    background:var(--soft);
+    margin-bottom:8px;
+}
+
+.avatar{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+    display:grid;
+    place-items:center;
+    font-weight:800;
+}
+
+.account-profile strong{
+    display:block;
+}
+
+.account-profile small{
+    color:var(--muted);
+}
+
+.menu-item{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:12px;
+    background:none;
+    color:var(--text);
+    border-radius:12px;
+    text-align:left;
+}
+
+.menu-item:hover{
+    background:var(--soft);
+}
+
+.menu-item i{
+    width:20px;
+    color:var(--muted);
+}
+
+.menu-item.logout{
+    color:var(--danger);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.page-layout{
+    max-width:1450px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:245px minmax(0,650px) 290px;
+    gap:24px;
+    padding:24px;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:sticky;
+    top:96px;
+    height:max-content;
+}
+
+.sidebar-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:12px;
+    box-shadow:var(--shadow);
+}
+
+.sidebar-link{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:12px 13px;
+    border-radius:13px;
+    margin-bottom:4px;
+    color:var(--muted);
+    font-size:14px;
+    font-weight:600;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active{
+    background:rgba(99,91,255,.10);
+    color:var(--primary);
+}
+
+.sidebar-link i{
+    width:21px;
+    text-align:center;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+/* =========================
+   STORIES
+========================= */
+
+.stories-card{
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.stories-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.stories-header h3{
+    font-size:17px;
+}
+
+.stories-header span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.story-list{
+    display:flex;
+    gap:13px;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.story-list::-webkit-scrollbar{
+    display:none;
+}
+
+.story-item{
+    min-width:78px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.story-circle{
+    width:70px;
+    height:70px;
+    padding:3px;
+    margin:auto;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+}
+
+.story-inner{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:var(--card);
+    padding:3px;
+}
+
+.story-preview{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    overflow:hidden;
+    display:grid;
+    place-items:center;
+    background:var(--soft);
+    color:var(--primary);
+}
+
+.story-preview img,
+.story-preview video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.story-item span{
+    display:block;
+    margin-top:7px;
+    font-size:11px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.add-story .story-circle{
+    background:var(--soft);
+    border:2px dashed var(--primary);
+    padding:0;
+}
+
+.add-story .story-preview{
+    font-size:22px;
+}
+
+.empty-story{
+    text-align:center;
+    padding:22px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.empty-story i{
+    font-size:30px;
+    color:var(--primary);
+    margin-bottom:8px;
+}
+
+.empty-story small{
+    font-size:11px;
+}
+
+/* =========================
+   COMPOSER
+========================= */
+
+.composer{
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.composer-top{
+    display:flex;
+    gap:12px;
+}
+
+.composer-avatar{
+    flex-shrink:0;
+}
+
+.composer textarea{
+    width:100%;
+    min-height:55px;
+    resize:none;
+    border:1px solid var(--border);
+    background:var(--soft);
+    color:var(--text);
+    border-radius:15px;
+    padding:14px;
+    outline:none;
+}
+
+.composer-preview{
+    margin-top:13px;
+    position:relative;
+}
+
+.composer-preview img,
+.composer-preview video{
+    width:100%;
+    max-height:350px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.remove-media{
+    position:absolute;
+    top:8px;
+    right:8px;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:rgba(0,0,0,.65);
+    color:white;
+}
+
+.composer-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:14px;
+    gap:10px;
+}
+
+.composer-tools{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+}
+
+.composer-tool{
+    background:var(--soft);
+    color:var(--muted);
+    border-radius:10px;
+    padding:9px 11px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.composer-tool:hover{
+    color:var(--primary);
+}
+
+.post-btn{
+    background:var(--primary);
+    color:white;
+    border-radius:11px;
+    padding:10px 18px;
+    font-weight:700;
+}
+
+.post-btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+.counter{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:5px;
+    text-align:right;
+}
+
+/* =========================
+   POSTS
+========================= */
+
+.feed{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.post-card{
+    padding:18px;
+    position:relative;
+}
+
+.post-head{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.post-info{
+    flex:1;
+}
+
+.post-info strong{
+    display:block;
+    font-size:14px;
+}
+
+.post-info small{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.post-menu-btn{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:var(--soft);
+    color:var(--muted);
+}
+
+.post-menu{
+    position:absolute;
+    top:55px;
+    right:18px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:13px;
+    box-shadow:var(--shadow);
+    width:150px;
+    display:none;
+    z-index:20;
+    overflow:hidden;
+}
+
+.post-menu.show{
+    display:block;
+}
+
+.post-menu button{
+    width:100%;
+    padding:11px 13px;
+    background:none;
+    color:var(--text);
+    text-align:left;
+    font-size:12px;
+}
+
+.post-menu button:hover{
+    background:var(--soft);
+}
+
+.post-menu .delete-btn{
+    color:var(--danger);
+}
+
+.post-text{
+    margin:15px 0;
+    font-size:14px;
+    line-height:1.65;
+    white-space:pre-wrap;
+}
+
+.post-media{
+    overflow:hidden;
+    border-radius:17px;
+    background:#000;
+}
+
+.post-media img,
+.post-media video{
+    width:100%;
+    max-height:500px;
+    display:block;
+    object-fit:cover;
+}
+
+.post-stats{
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:11px;
+    padding:12px 3px;
+}
+
+.post-actions{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:4px 0;
+}
+
+.post-action{
+    background:none;
+    color:var(--muted);
+    padding:10px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.post-action:hover{
+    background:var(--soft);
+    color:var(--primary);
+}
+
+.post-action.liked{
+    color:var(--danger);
+}
+
+.comments{
+    display:none;
+    margin-top:13px;
+}
+
+.comments.show{
+    display:block;
+}
+
+.comment-input{
+    display:flex;
+    gap:7px;
+}
+
+.comment-input input{
+    flex:1;
+    border:1px solid var(--border);
+    background:var(--soft);
+    color:var(--text);
+    border-radius:11px;
+    padding:10px;
+    outline:none;
+}
+
+.comment-input button{
+    width:40px;
+    border-radius:11px;
+    background:var(--primary);
+    color:white;
+}
+
+.comment{
+    padding:9px 0;
+    border-bottom:1px solid var(--border);
+    font-size:12px;
+}
+
+.comment strong{
+    margin-right:5px;
+}
+
+.empty-feed{
+    padding:45px 20px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.empty-feed i{
+    font-size:40px;
+    color:var(--primary);
+    margin-bottom:12px;
+}
+
+/* =========================
+   RIGHT COLUMN
+========================= */
+
+.right-sidebar{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.side-card{
+    padding:18px;
+}
+
+.side-card h3{
+    font-size:15px;
+    margin-bottom:12px;
+}
+
+.trending-empty{
+    text-align:center;
+    padding:15px 4px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+}
+
+.business-card{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+}
+
+.business-card p{
+    font-size:12px;
+    line-height:1.6;
+    opacity:.9;
+    margin:10px 0 15px;
+}
+
+.business-card button{
+    width:100%;
+    background:white;
+    color:var(--primary);
+    padding:10px;
+    border-radius:11px;
+    font-weight:700;
+}
+
+.skill{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+}
+
+.skill:last-child{
+    border-bottom:0;
+}
+
+.skill i{
+    color:var(--primary);
+}
+
+/* =========================
+   STORY MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:3000;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.story-modal{
+    width:500px;
+    max-width:100%;
+    max-height:90vh;
+    overflow:auto;
+    background:var(--card);
+    border-radius:22px;
+    padding:22px;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-close{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:var(--soft);
+    color:var(--text);
+}
+
+.story-modal textarea{
+    width:100%;
+    min-height:130px;
+    resize:none;
+    background:var(--soft);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:14px;
+    outline:none;
+}
+
+.story-upload{
+    margin-top:12px;
+    border:1px dashed var(--border);
+    border-radius:15px;
+    padding:18px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.story-upload label{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 15px;
+    background:var(--primary);
+    color:white;
+    border-radius:11px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+}
+
+.story-upload input{
+    display:none;
+}
+
+.story-preview-large{
+    margin-top:15px;
+}
+
+.story-preview-large img,
+.story-preview-large video{
+    width:100%;
+    max-height:300px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.story-caption{
+    margin-top:12px;
+}
+
+.story-caption input{
+    width:100%;
+    padding:12px;
+    background:var(--soft);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:12px;
+    outline:none;
+}
+
+.share-story{
+    width:100%;
+    margin-top:14px;
+    padding:12px;
+    border-radius:12px;
+    background:var(--primary);
+    color:white;
+    font-weight:700;
+}
+
+/* =========================
+   STORY VIEWER
+========================= */
+
+.story-viewer{
+    position:fixed;
+    inset:0;
+    background:#050505;
+    display:none;
+    z-index:4000;
+    color:white;
+}
+
+.story-viewer.show{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.viewer-content{
+    width:430px;
+    height:90vh;
+    max-height:850px;
+    position:relative;
+    background:#111;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.viewer-progress{
+    position:absolute;
+    top:10px;
+    left:10px;
+    right:10px;
+    display:flex;
+    gap:4px;
+    z-index:5;
+}
+
+.progress-bar{
+    height:3px;
+    flex:1;
+    background:rgba(255,255,255,.3);
+    border-radius:5px;
+    overflow:hidden;
+}
+
+.progress-bar.active{
+    background:white;
+}
+
+.viewer-top{
+    position:absolute;
+    top:20px;
+    left:15px;
+    right:15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:6;
+}
+
+.viewer-top .avatar{
+    width:36px;
+    height:36px;
+}
+
+.viewer-user{
+    flex:1;
+}
+
+.viewer-user strong{
+    display:block;
+    font-size:13px;
+}
+
+.viewer-user small{
+    opacity:.7;
+    font-size:10px;
+}
+
+.viewer-top button{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:rgba(0,0,0,.4);
+    color:white;
+}
+
+.viewer-media{
+    width:100%;
+    height:100%;
+    display:grid;
+    place-items:center;
+}
+
+.viewer-media img,
+.viewer-media video{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.viewer-text{
+    padding:30px;
+    text-align:center;
+    font-size:24px;
+    line-height:1.5;
+    font-weight:600;
+}
+
+.viewer-caption{
+    position:absolute;
+    left:20px;
+    right:20px;
+    bottom:110px;
+    text-align:center;
+    background:rgba(0,0,0,.45);
+    padding:10px;
+    border-radius:12px;
+    font-size:13px;
+}
+
+.viewer-actions{
+    position:absolute;
+    left:15px;
+    right:15px;
+    bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.viewer-actions button{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:rgba(255,255,255,.13);
+    color:white;
+}
+
+.viewer-actions button.liked{
+    color:#ff4f75;
+}
+
+.viewer-actions input{
+    flex:1;
+    border:0;
+    outline:none;
+    background:rgba(255,255,255,.13);
+    color:white;
+    padding:11px 13px;
+    border-radius:20px;
+}
+
+.viewer-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    color:white;
+    z-index:10;
+}
+
+.viewer-prev{
+    left:-65px;
+}
+
+.viewer-next{
+    right:-65px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,120px);
+    background:#172033;
+    color:white;
+    padding:12px 18px;
+    border-radius:12px;
+    font-size:12px;
+    z-index:6000;
+    opacity:0;
+    transition:.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* =========================
+   MOBILE NAV
+========================= */
+
+.mobile-nav{
+    display:none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1150px){
+    .page-layout{
+        grid-template-columns:210px minmax(0,650px);
+    }
+
+    .right-sidebar{
+        display:none;
+    }
+}
+
+@media(max-width:850px){
+    .navbar{
+        padding:0 15px;
+    }
+
+    .logo{
+        min-width:auto;
+    }
+
+    .search-box{
+        max-width:none;
+    }
+
+    .page-layout{
+        display:block;
+        padding:15px;
+        padding-bottom:90px;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .mobile-nav{
+        position:fixed;
+        display:flex;
+        bottom:0;
+        left:0;
+        right:0;
+        height:65px;
+        background:var(--card);
+        border-top:1px solid var(--border);
+        z-index:2000;
+        justify-content:space-around;
+        align-items:center;
+    }
+
+    .mobile-nav a{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:4px;
+        color:var(--muted);
+        font-size:10px;
+    }
+
+    .mobile-nav a i{
+        font-size:18px;
+    }
+
+    .mobile-nav a.active{
+        color:var(--primary);
+    }
+
+    .dropdown{
+        position:fixed;
+        top:72px;
+        right:12px;
+        left:12px;
+        width:auto;
+    }
+
+    .viewer-prev{
+        left:10px;
+    }
+
+    .viewer-next{
+        right:10px;
+    }
+
+    .viewer-content{
+        width:100%;
+        height:100%;
+        max-height:none;
+        border-radius:0;
+    }
+}
+
+@media(max-width:600px){
+    .navbar{
+        height:64px;
+    }
+
+    .logo span{
+        display:none;
+    }
+
+    .search-box{
+        display:none;
+    }
+
+    .nav-actions{
+        margin-left:auto;
+    }
+
+    .page-layout{
+        padding:10px;
+        padding-bottom:80px;
+    }
+
+    .stories-card,
+    .composer,
+    .post-card,
+    .side-card{
+        border-radius:17px;
+    }
+
+    .composer-bottom{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .post-btn{
+        width:100%;
+    }
+
+    .story-modal{
+        padding:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+    <div class="nav-inner">
+
+        <a href="HomePage.html" class="logo">
+            <div class="logo-mark">
+                <i class="fa-solid fa-n"></i>
+            </div>
+            <span>NETRA</span>
+        </a>
+
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search Netra..." id="globalSearch">
+        </div>
+
+        <div class="nav-actions">
+
+            <div style="position:relative;">
+                <button class="icon-btn" onclick="toggleNotifications()" aria-label="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-badge" id="notificationBadge">0</span>
+                </button>
+
+                <div class="dropdown" id="notificationDropdown">
+
+                    <div class="dropdown-head">
+                        <h3>Notifications</h3>
+                        <button onclick="markNotificationsRead()">Mark all read</button>
+                    </div>
+
+                    <div id="notificationList">
+                        <div class="empty-dropdown">
+                            <i class="fa-regular fa-bell-slash"></i>
+                            <p>No notifications yet.</p>
+                            <small>
+                                Likes, comments, reposts and other activity will appear here.
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div style="position:relative;">
+                <button class="icon-btn" onclick="toggleMenu()" aria-label="Account menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="dropdown" id="menuDropdown">
+
+                    <div class="account-menu">
+
+                        <div class="account-profile">
+                            <div class="avatar">J</div>
+
+                            <div>
+                                <strong>Joshua</strong>
+                                <small>@joshua</small>
+                            </div>
+                        </div>
+
+                        <button class="menu-item" onclick="goTo('profile page.html')">
+                            <i class="fa-regular fa-user"></i>
+                            Profile
+                        </button>
+
+                        <button class="menu-item" onclick="goTo('settings.html')">
+                            <i class="fa-solid fa-gear"></i>
+                            Settings
+                        </button>
+
+                        <button class="menu-item" onclick="toggleDarkMode()">
+                            <i class="fa-solid fa-moon"></i>
+                            Dark Mode
+                        </button>
+
+                        <button class="menu-item" onclick="showToast('Saved posts will appear here.')">
+                            <i class="fa-regular fa-bookmark"></i>
+                            Saved
+                        </button>
+
+                        <button class="menu-item" onclick="showToast('Help Center is coming soon.')">
+                            <i class="fa-regular fa-circle-question"></i>
+                            Help Center
+                        </button>
+
+                        <button class="menu-item logout" onclick="logoutUser()">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="page-layout">
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-card">
+
+            <a class="sidebar-link active" href="HomePage.html">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a class="sidebar-link" href="Newspage.html">
+                <i class="fa-regular fa-newspaper"></i>
+                News Update
+            </a>
+
+            <a class="sidebar-link" href="Friendspage.html">
+                <i class="fa-solid fa-user-group"></i>
+                Your Friends
+            </a>
+
+            <a class="sidebar-link" href="Group page.html">
+                <i class="fa-solid fa-users"></i>
+                Communities
+            </a>
+
+            <a class="sidebar-link" href="Watch page.html">
+                <i class="fa-solid fa-clapperboard"></i>
+                Reels
+            </a>
+
+            <a class="sidebar-link" href="Storepage.html">
+                <i class="fa-solid fa-store"></i>
+                Marketplace
+            </a>
+
+            <a class="sidebar-link" href="Messagner.html">
+                <i class="fa-regular fa-message"></i>
+                Messenger
+            </a>
+
+            <a class="sidebar-link" href="videos.html">
+                <i class="fa-solid fa-play"></i>
+                NetraTube
+            </a>
+
+            <a class="sidebar-link" href="profile page.html">
+                <i class="fa-regular fa-user"></i>
+                Profile
+            </a>
+
+            <a class="sidebar-link" href="#" onclick="showToast('Saved posts will appear here.')">
+                <i class="fa-regular fa-bookmark"></i>
+                Saved
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- CENTER -->
+
+    <section>
+
+        <!-- STORIES -->
+
+        <section class="card stories-card">
+
+            <div class="stories-header">
+                <h3>Stories</h3>
+                <span>Disappear after 24 hours</span>
+            </div>
+
+            <div class="story-list" id="storyList">
+
+                <div class="story-item add-story" onclick="openStoryModal()">
+
+                    <div class="story-circle">
+
+                        <div class="story-inner">
+
+                            <div class="story-preview">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <span>Add Story</span>
+
+                </div>
+
+            </div>
+
+            <div class="empty-story" id="emptyStory">
+
+                <i class="fa-regular fa-images"></i>
+
+                <br>
+
+                No stories yet.
+
+                <br>
+
+                <small>
+                    Be the first to share a moment.
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- POST COMPOSER -->
+
+        <section class="card composer">
+
+            <div class="composer-top">
+
+                <div class="avatar composer-avatar">
+                    J
+                </div>
+
+                <div style="flex:1;">
+
+                    <textarea
+                        id="postText"
+                        maxlength="5000"
+                        placeholder="What's happening, Joshua?"
+                        oninput="updatePostButton()"
+                    ></textarea>
+
+                    <div class="counter">
+                        <span id="postCounter">0</span>/5000
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="composer-preview" id="composerPreview"></div>
+
+            <div class="composer-bottom">
+
+                <div class="composer-tools">
+
+                    <label class="composer-tool">
+                        <i class="fa-regular fa-image"></i>
+                        Photo
+                        <input
+                            type="file"
+                            accept="image/*"
+                            hidden
+                            onchange="previewPostImage(event)"
+                        >
+                    </label>
+
+                    <label class="composer-tool">
+                        <i class="fa-solid fa-video"></i>
+                        Video
+                        <input
+                            type="file"
+                            accept="video/*"
+                            hidden
+                            onchange="previewPostVideo(event)"
+                        >
+                    </label>
+
+                    <button class="composer-tool" onclick="insertFeeling()">
+                        <i class="fa-regular fa-face-smile"></i>
+                        Feeling
+                    </button>
+
+                </div>
+
+                <button
+                    class="post-btn"
+                    id="postButton"
+                    disabled
+                    onclick="createPost()"
+                >
+                    Post
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEED -->
+
+        <section id="feed" class="feed"></section>
+
+    </section>
+
+
+    <!-- RIGHT SIDEBAR -->
+
+    <aside class="right-sidebar">
+
+        <section class="card side-card">
+
+            <h3>
+                <i class="fa-solid fa-fire" style="color:var(--primary);"></i>
+                Trending
+            </h3>
+
+            <div class="trending-empty">
+                Nothing trending yet.<br>
+                Trending topics will appear as the Netra community grows.
+            </div>
+
+        </section>
+
+
+        <section class="card side-card business-card">
+
+            <h3>
+                Grow Your Business 🚀
+            </h3>
+
+            <p>
+                Reach customers, showcase your products and build your business
+                community on Netra.
+            </p>
+
+            <button onclick="showToast('Business tools are coming soon.')">
+                Explore Business
+            </button>
+
+        </section>
+
+
+        <section class="card side-card">
+
+            <h3>Explore Skills</h3>
+
+            <div class="skill">
+                <i class="fa-solid fa-code"></i>
+                Web Design
+            </div>
+
+            <div class="skill">
+                <i class="fa-solid fa-pen-ruler"></i>
+                UI/UX Design
+            </div>
+
+            <div class="skill">
+                <i class="fa-solid fa-laptop-code"></i>
+                Frontend Development
+            </div>
+
+            <div class="skill">
+                <i class="fa-solid fa-laptop-code"></i>
+                Web Development
+            </div>
+
+            <div class="skill">
+                <i class="fa-solid fa-laptop-code"></i>
+                Programing
+            </div>
+
+        </section>
+
+    </aside>
+
+</main>
+
+
+<!-- =========================
+     MOBILE NAV
+========================= -->
+
+<nav class="mobile-nav">
+
+    <a class="active" href="HomePage.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+
+    <a href="Newspage.html">
+        <i class="fa-regular fa-newspaper"></i>
+        News
+    </a>
+
+    <a href="Friendspage.html">
+        <i class="fa-solid fa-user-group"></i>
+        Friends
+    </a>
+
+    <a href="Group page.html">
+        <i class="fa-solid fa-users"></i>
+        Communities
+    </a>
+
+    <a href="Storepage.html">
+    <i class="fa-solid fa-store"></i>
+        Marketplace
+    </a>
+
+    <a href="Messagner.html">
+        <i class="fa-regular fa-message"></i>
+        Messenger
+    </a>
+
+    <a href="videos.html">
+    <i class="fa-solid fa-play"></i>
+        Netratube
+    </a>
+
+    <a href="Watch page.html">
+    <i class="fa-solid fa-clapperboard"></i>
+        Reels
+    </a>
+
+
+
+</nav>
+
+
+<!-- =========================
+     STORY CREATE MODAL
+========================= -->
+
+<div class="modal" id="storyModal">
+
+    <div class="story-modal">
+
+        <div class="modal-head">
+
+            <h3>Create Story</h3>
+
+            <button class="modal-close" onclick="closeStoryModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <textarea
+            id="storyText"
+            maxlength="1000"
+            placeholder="Write something for your story..."
+            oninput="updateStoryCounter()"
+        ></textarea>
+
+        <div class="counter">
+            <span id="storyCounter">0</span>/1000
+        </div>
+
+        <div class="story-upload">
+
+            <p style="margin-bottom:10px;">
+                Add an image or video to your story
+            </p>
+
+            <label>
+                <i class="fa-solid fa-upload"></i>
+                Choose Media
+
+                <input
+                    type="file"
+                    id="storyFile"
+                    accept="image/*,video/*"
+                    onchange="previewStory(event)"
+                >
+            </label>
+
+        </div>
+
+        <div class="story-preview-large" id="storyPreview"></div>
+
+        <div class="story-caption">
+
+            <input
+                type="text"
+                id="storyCaption"
+                maxlength="500"
+                placeholder="Add a caption..."
+            >
+
+        </div>
+
+        <button class="share-story" onclick="postStory()">
+            <i class="fa-solid fa-paper-plane"></i>
+            Share to Story
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     STORY VIEWER
+========================= -->
+
+<div class="story-viewer" id="storyViewer">
+
+    <div class="viewer-content">
+
+        <div class="viewer-progress" id="viewerProgress"></div>
+
+        <div class="viewer-top">
+
+            <div class="avatar" id="viewerAvatar">
+                J
+            </div>
+
+            <div class="viewer-user">
+
+                <strong id="viewerUser">
+                    Joshua
+                </strong>
+
+                <small id="viewerTime">
+                    Just now
+                </small>
+
+            </div>
+
+            <button onclick="toggleStoryMenu()">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+
+            <button onclick="closeViewer()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div id="storyMenu"
+             style="
+                position:absolute;
+                top:70px;
+                right:15px;
+                background:#181818;
+                border-radius:12px;
+                display:none;
+                z-index:20;
+                overflow:hidden;
+             ">
+
+            <button
+                onclick="deleteCurrentStory()"
+                style="
+                    display:block;
+                    background:none;
+                    color:#ff5a72;
+                    padding:12px 18px;
+                "
+            >
+                <i class="fa-solid fa-trash"></i>
+                Delete Story
+            </button>
+
+        </div>
+
+        <button
+            class="viewer-arrow viewer-prev"
+            onclick="previousStory()"
+        >
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <button
+            class="viewer-arrow viewer-next"
+            onclick="nextStory()"
+        >
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="viewer-media" id="viewerMedia"></div>
+
+        <div class="viewer-caption" id="viewerCaption"></div>
+
+        <div class="viewer-actions">
+
+            <button
+                id="storyLikeButton"
+                onclick="likeStory()"
+            >
+                <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <button onclick="toggleStoryComment()">
+                <i class="fa-regular fa-comment"></i>
+            </button>
+
+            <button onclick="shareStory()">
+                <i class="fa-solid fa-share"></i>
+            </button>
+
+            <input
+                id="storyReply"
+                placeholder="Reply to story..."
+                onkeydown="if(event.key==='Enter') sendStoryComment()"
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================
+   USER
+========================= */
+
+const currentUser = {
+    name:"Joshua"
+};
+
+
+/* =========================
+   STORAGE
+========================= */
+
+let posts =
+    JSON.parse(localStorage.getItem("netraPosts")) || [];
+
+let storyUsers =
+    JSON.parse(localStorage.getItem("netraStoryUsers")) || [];
+
+let notifications =
+    JSON.parse(localStorage.getItem("netraNotifications")) || [];
+
+let activeStoryUserIndex = 0;
+let activeStoryIndex = 0;
+let selectedStoryFile = null;
+let selectedPostFile = null;
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function savePosts(){
+    localStorage.setItem(
+        "netraPosts",
+        JSON.stringify(posts)
+    );
+}
+
+function saveStories(){
+    localStorage.setItem(
+        "netraStoryUsers",
+        JSON.stringify(storyUsers)
+    );
+}
+
+function saveNotifications(){
+    localStorage.setItem(
+        "netraNotifications",
+        JSON.stringify(notifications)
+    );
+}
+
+function escapeHTML(text){
+    return String(text || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function formatTime(time){
+
+    const diff = Date.now() - time;
+
+    const minute = 60000;
+    const hour = minute * 60;
+    const day = hour * 24;
+
+    if(diff < minute) return "Just now";
+
+    if(diff < hour){
+        return Math.floor(diff / minute) + "m";
+    }
+
+    if(diff < day){
+        return Math.floor(diff / hour) + "h";
+    }
+
+    return Math.floor(diff / day) + "d";
+}
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function(){
+        toast.classList.remove("show");
+    },2500);
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function goTo(page){
+    window.location.href = page;
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+function addNotification(icon,text){
+
+    notifications.unshift({
+        id:Date.now(),
+        icon:icon,
+        text:text,
+        createdAt:Date.now(),
+        read:false
+    });
+
+    notifications =
+        notifications.slice(0,30);
+
+    saveNotifications();
+
+    renderNotifications();
+}
+
+function renderNotifications(){
+
+    const list =
+        document.getElementById("notificationList");
+
+    const badge =
+        document.getElementById("notificationBadge");
+
+    const unread =
+        notifications.filter(n => !n.read).length;
+
+    badge.textContent = unread;
+
+    badge.style.display =
+        unread > 0 ? "grid" : "none";
+
+    if(!notifications.length){
+
+        list.innerHTML = `
+            <div class="empty-dropdown">
+                <i class="fa-regular fa-bell-slash"></i>
+                <p>No notifications yet.</p>
+                <small>
+                    Likes, comments, reposts and other
+                    activity will appear here.
+                </small>
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML =
+        notifications.map(n => `
+
+            <div
+                class="notification-item"
+                onclick="readNotification(${n.id})"
+                style="${n.read ? "" : "background:rgba(99,91,255,.06);"}"
+            >
+
+                <div class="notification-icon">
+                    <i class="${n.icon}"></i>
+                </div>
+
+                <div>
+
+                    <p>${escapeHTML(n.text)}</p>
+
+                    <small>
+                        ${formatTime(n.createdAt)}
+                    </small>
+
+                </div>
+
+            </div>
+
+        `).join("");
+}
+
+function readNotification(id){
+
+    const notification =
+        notifications.find(n => n.id === id);
+
+    if(notification){
+        notification.read = true;
+    }
+
+    saveNotifications();
+    renderNotifications();
+}
+
+function markNotificationsRead(){
+
+    notifications.forEach(n => {
+        n.read = true;
+    });
+
+    saveNotifications();
+    renderNotifications();
+
+    showToast("All notifications marked as read.");
+}
+
+function toggleNotifications(){
+
+    const dropdown =
+        document.getElementById("notificationDropdown");
+
+    const menu =
+        document.getElementById("menuDropdown");
+
+    menu.classList.remove("show");
+
+    dropdown.classList.toggle("show");
+}
+
+
+/* =========================
+   ACCOUNT MENU
+========================= */
+
+function toggleMenu(){
+
+    const menu =
+        document.getElementById("menuDropdown");
+
+    const notifications =
+        document.getElementById("notificationDropdown");
+
+    notifications.classList.remove("show");
+
+    menu.classList.toggle("show");
+}
+
+function logoutUser(){
+
+    showToast("Logout connected to your authentication system.");
+
+    document.getElementById("menuDropdown")
+        .classList.remove("show");
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+function loadDarkMode(){
+
+    const dark =
+        localStorage.getItem("netraDarkMode");
+
+    if(dark === "true"){
+        document.body.classList.add("dark");
+    }
+}
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "netraDarkMode",
+        document.body.classList.contains("dark")
+    );
+
+    showToast(
+        document.body.classList.contains("dark")
+        ? "Dark mode enabled."
+        : "Light mode enabled."
+    );
+}
+
+
+/* =========================
+   POST COMPOSER
+========================= */
+
+function updatePostButton(){
+
+    const text =
+        document.getElementById("postText").value;
+
+    document.getElementById("postCounter")
+        .textContent = text.length;
+
+    const button =
+        document.getElementById("postButton");
+
+    button.disabled =
+        text.trim().length === 0 &&
+        !selectedPostFile;
+}
+
+function focusPostText(){
+
+    document.getElementById("postText").focus();
+}
+
+function insertFeeling(){
+
+    const textarea =
+        document.getElementById("postText");
+
+    textarea.value +=
+        textarea.value ? " 😊" : "😊";
+
+    updatePostButton();
+}
+
+function previewPostImage(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    selectedPostFile = {
+        file:file,
+        type:"image"
+    };
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        document.getElementById("composerPreview")
+            .innerHTML = `
+
+            <button
+                class="remove-media"
+                onclick="removePostMedia()"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <img src="${e.target.result}">
+        `;
+
+        selectedPostFile.data = e.target.result;
+
+        updatePostButton();
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function previewPostVideo(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    selectedPostFile = {
+        file:file,
+        type:"video"
+    };
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        document.getElementById("composerPreview")
+            .innerHTML = `
+
+            <button
+                class="remove-media"
+                onclick="removePostMedia()"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <video
+                src="${e.target.result}"
+                controls
+            ></video>
+        `;
+
+        selectedPostFile.data = e.target.result;
+
+        updatePostButton();
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function removePostMedia(){
+
+    selectedPostFile = null;
+
+    document.getElementById("composerPreview")
+        .innerHTML = "";
+
+    updatePostButton();
+}
+
+function createPost(){
+
+    const textarea =
+        document.getElementById("postText");
+
+    const text =
+        textarea.value.trim();
+
+    if(!text && !selectedPostFile){
+
+        showToast("Write something or add media first.");
+
+        return;
+    }
+
+    const post = {
+
+        id:Date.now(),
+
+        name:currentUser.name,
+
+        text:text,
+
+        image:
+            selectedPostFile?.type === "image"
+            ? selectedPostFile.data
+            : "",
+
+        video:
+            selectedPostFile?.type === "video"
+            ? selectedPostFile.data
+            : "",
+
+        createdAt:Date.now(),
+
+        likes:0,
+
+        liked:false,
+
+        shares:0,
+
+        comments:[]
+
+    };
+
+    posts.unshift(post);
+
+    savePosts();
+
+    textarea.value = "";
+
+    removePostMedia();
+
+    renderFeed();
+
+    addNotification(
+        "fa-solid fa-paper-plane",
+        "Your post was published successfully."
+    );
+
+    showToast("Post published.");
+}
+
+
+/* =========================
+   FEED
+========================= */
+
+function renderFeed(){
+
+    const feed =
+        document.getElementById("feed");
+
+    if(!posts.length){
+
+        feed.innerHTML = `
+
+            <section class="card empty-feed">
+
+                <i class="fa-regular fa-comments"></i>
+
+                <h3>No posts yet.</h3>
+
+                <p>
+                    Be the first person to share
+                    something on Netra.
+                </p>
+
+            </section>
+
+        `;
+
+        return;
+    }
+
+    feed.innerHTML =
+        posts.map(post => renderPost(post)).join("");
+}
+
+function renderPost(post){
+
+    const comments =
+        post.comments || [];
+
+    let media = "";
+
+    if(post.image){
+
+        media = `
+            <div class="post-media">
+                <img src="${post.image}">
+            </div>
+        `;
+
+    }else if(post.video){
+
+        media = `
+            <div class="post-media">
+                <video src="${post.video}" controls></video>
+            </div>
+        `;
+    }
+
+    return `
+
+        <article class="card post-card">
+
+            <div class="post-head">
+
+                <div class="avatar">
+                    ${escapeHTML(post.name.charAt(0))}
+                </div>
+
+                <div class="post-info">
+
+                    <strong>
+                        ${escapeHTML(post.name)}
+                    </strong>
+
+                    <small>
+                        ${formatTime(post.createdAt)}
+                    </small>
+
+                </div>
+
+                <button
+                    class="post-menu-btn"
+                    onclick="togglePostMenu(${post.id})"
+                >
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+
+            </div>
+
+            <div
+                class="post-menu"
+                id="postMenu-${post.id}"
+            >
+
+                <button onclick="showToast('Post saved.')">
+                    <i class="fa-regular fa-bookmark"></i>
+                    Save Post
+                </button>
+
+                ${
+                    post.name === currentUser.name
+                    ? `
+                        <button
+                            class="delete-btn"
+                            onclick="deletePost(${post.id})"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                            Delete Post
+                        </button>
+                    `
+                    : ""
+                }
+
+            </div>
+
+            ${
+                post.text
+                ? `
+                    <div class="post-text">
+                        ${escapeHTML(post.text)}
+                    </div>
+                `
+                : ""
+            }
+
+            ${media}
+
+            <div class="post-stats">
+
+                <span>
+                    ${post.likes}
+                    ${post.likes === 1 ? "Like" : "Likes"}
+                </span>
+
+                <span>
+                    ${comments.length}
+                    ${comments.length === 1 ? "Comment" : "Comments"}
+                    · ${post.shares} Shares
+                </span>
+
+            </div>
+
+            <div class="post-actions">
+
+                <button
+                    class="post-action ${post.liked ? "liked" : ""}"
+                    onclick="likePost(${post.id})"
+                >
+                    <i class="${post.liked
+                        ? "fa-solid"
+                        : "fa-regular"
+                    } fa-heart"></i>
+                    Like
+                </button>
+
+                <button
+                    class="post-action"
+                    onclick="toggleComment(${post.id})"
+                >
+                    <i class="fa-regular fa-comment"></i>
+                    Comment
+                </button>
+
+                <button
+                    class="post-action"
+                    onclick="repost(${post.id})"
+                >
+                    <i class="fa-solid fa-retweet"></i>
+                    Repost
+                </button>
+
+            </div>
+
+            <div
+                class="comments"
+                id="comments-${post.id}"
+            >
+
+                <div class="comment-input">
+
+                    <input
+                        id="commentInput-${post.id}"
+                        placeholder="Write a comment..."
+                        onkeydown="
+                            if(event.key==='Enter')
+                            addComment(${post.id})
+                        "
+                    >
+
+                    <button onclick="addComment(${post.id})">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+
+                </div>
+
+                <div>
+                    ${
+                        comments.map(comment => `
+
+                            <div class="comment">
+
+                                <strong>
+                                    ${escapeHTML(comment.name)}
+                                </strong>
+
+                                ${escapeHTML(comment.text)}
+
+                            </div>
+
+                        `).join("")
+                    }
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+}
+
+function likePost(id){
+
+    const post =
+        posts.find(p => p.id === id);
+
+    if(!post) return;
+
+    post.liked = !post.liked;
+
+    post.likes +=
+        post.liked ? 1 : -1;
+
+    savePosts();
+
+    renderFeed();
+
+    if(post.liked){
+
+        addNotification(
+            "fa-regular fa-heart",
+            "You liked a post."
+        );
+    }
+}
+
+function toggleComment(id){
+
+    const comments =
+        document.getElementById(
+            `comments-${id}`
+        );
+
+    if(comments){
+        comments.classList.toggle("show");
+    }
+}
+
+function addComment(id){
+
+    const input =
+        document.getElementById(
+            `commentInput-${id}`
+        );
+
+    if(!input) return;
+
+    const text =
+        input.value.trim();
+
+    if(!text) return;
+
+    const post =
+        posts.find(p => p.id === id);
+
+    if(!post) return;
+
+    if(!post.comments){
+        post.comments = [];
+    }
+
+    post.comments.push({
+
+        name:currentUser.name,
+
+        text:text,
+
+        createdAt:Date.now()
+
+    });
+
+    savePosts();
+
+    renderFeed();
+
+    document
+        .getElementById(`comments-${id}`)
+        ?.classList.add("show");
+
+    addNotification(
+        "fa-regular fa-comment",
+        "You commented on a post."
+    );
+
+    showToast("Comment added.");
+}
+
+function repost(id){
+
+    const post =
+        posts.find(p => p.id === id);
+
+    if(!post) return;
+
+    post.shares++;
+
+    savePosts();
+
+    renderFeed();
+
+    addNotification(
+        "fa-solid fa-retweet",
+        "You reposted a post."
+    );
+
+    showToast("Post reposted.");
+}
+
+function togglePostMenu(id){
+
+    document
+        .querySelectorAll(".post-menu")
+        .forEach(menu => {
+
+            if(menu.id !== `postMenu-${id}`){
+                menu.classList.remove("show");
+            }
+
+        });
+
+    const menu =
+        document.getElementById(
+            `postMenu-${id}`
+        );
+
+    if(menu){
+        menu.classList.toggle("show");
+    }
+}
+
+function deletePost(id){
+
+    const post =
+        posts.find(p => p.id === id);
+
+    if(!post) return;
+
+    if(!confirm("Delete this post?")){
+        return;
+    }
+
+    posts =
+        posts.filter(p => p.id !== id);
+
+    savePosts();
+
+    renderFeed();
+
+    showToast("Post deleted.");
+}
+
+
+/* =========================
+   STORIES
+========================= */
+
+function updateStoryCounter(){
+
+    const text =
+        document.getElementById("storyText").value;
+
+    document.getElementById("storyCounter")
+        .textContent = text.length;
+}
+
+function openStoryModal(){
+
+    document
+        .getElementById("storyModal")
+        .classList.add("show");
+
+    document.getElementById("storyText").value = "";
+
+    document.getElementById("storyCaption").value = "";
+
+    document.getElementById("storyPreview").innerHTML = "";
+
+    selectedStoryFile = null;
+
+    updateStoryCounter();
+}
+
+function closeStoryModal(){
+
+    document
+        .getElementById("storyModal")
+        .classList.remove("show");
+}
+
+function previewStory(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+    const allowed =
+        file.type.startsWith("image/")
+        ||
+        file.type.startsWith("video/");
+
+    if(!allowed){
+
+        showToast("Only images and videos are allowed.");
+
+        return;
+    }
+
+    selectedStoryFile = file;
+
+    const reader =
+        new FileReader();
+
+    reader.onload = function(e){
+
+        const preview =
+            document.getElementById("storyPreview");
+
+        if(file.type.startsWith("image/")){
+
+            preview.innerHTML = `
+                <img src="${e.target.result}">
+            `;
+
+        }else{
+
+            preview.innerHTML = `
+                <video
+                    src="${e.target.result}"
+                    controls
+                ></video>
+            `;
+        }
+
+        selectedStoryFile.data =
+            e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function postStory(){
+
+    const text =
+        document.getElementById("storyText")
+        .value.trim();
+
+    const caption =
+        document.getElementById("storyCaption")
+        .value.trim();
+
+    if(!text && !selectedStoryFile){
+
+        showToast(
+            "Write something or choose an image/video."
+        );
+
+        return;
+    }
+
+    const now = Date.now();
+
+    let mediaData = "";
+
+    let mediaType = "";
+
+    if(selectedStoryFile){
+
+        mediaData =
+            selectedStoryFile.data;
+
+        mediaType =
+            selectedStoryFile.type.startsWith("image/")
+            ? "image"
+            : "video";
+    }
+
+    const story = {
+
+        id:now,
+
+        text:text,
+
+        media:mediaData,
+
+        type:mediaType,
+
+        caption:caption,
+
+        liked:false,
+
+        likes:0,
+
+        comments:[],
+
+        createdAt:now,
+
+        expiresAt:
+            now + (24 * 60 * 60 * 1000)
+
+    };
+
+    let user =
+        storyUsers.find(
+            u => u.name === currentUser.name
+        );
+
+    if(!user){
+
+        user = {
+
+            name:currentUser.name,
+
+            stories:[]
+
+        };
+
+        storyUsers.push(user);
+    }
+
+    user.stories.push(story);
+
+    saveStories();
+
+    closeStoryModal();
+
+    renderStories();
+
+    addNotification(
+        "fa-solid fa-circle-plus",
+        "Your story was shared."
+    );
+
+    showToast("Story shared successfully.");
+}
+
+function removeExpiredStories(){
+
+    const now = Date.now();
+
+    storyUsers.forEach(user => {
+
+        user.stories =
+            user.stories.filter(
+                story =>
+                    story.expiresAt > now
+            );
+
+    });
+
+    storyUsers =
+        storyUsers.filter(
+            user => user.stories.length > 0
+        );
+
+    saveStories();
+}
+
+function renderStories(){
+
+    removeExpiredStories();
+
+    const list =
+        document.getElementById("storyList");
+
+    const empty =
+        document.getElementById("emptyStory");
+
+    list.innerHTML = `
+
+        <div
+            class="story-item add-story"
+            onclick="openStoryModal()"
+        >
+
+            <div class="story-circle">
+
+                <div class="story-inner">
+
+                    <div class="story-preview">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <span>Add Story</span>
+
+        </div>
+
+    `;
+
+    if(!storyUsers.length){
+
+        empty.style.display = "block";
+
+        return;
+    }
+
+    empty.style.display = "none";
+
+    storyUsers.forEach((user,index) => {
+
+        const latest =
+            user.stories[
+                user.stories.length - 1
+            ];
+
+        let preview = "";
+
+        if(latest.media){
+
+            if(latest.type === "image"){
+
+                preview = `
+                    <img src="${latest.media}">
+                `;
+
+            }else{
+
+                preview = `
+                    <video
+                        src="${latest.media}"
+                        muted
+                    ></video>
+                `;
+            }
+
+        }else{
+
+            preview = `
+                <span style="
+                    padding:7px;
+                    text-align:center;
+                    font-size:10px;
+                    line-height:1.2;
+                ">
+                    ${escapeHTML(
+                        latest.text.substring(0,25)
+                    )}
+                </span>
+            `;
+        }
+
+        list.innerHTML += `
+
+            <div
+                class="story-item"
+                onclick="openUserStories(${index})"
+            >
+
+                <div class="story-circle">
+
+                    <div class="story-inner">
+
+                        <div class="story-preview">
+                            ${preview}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span>
+                    ${escapeHTML(user.name)}
+                </span>
+
+            </div>
+
+        `;
+    });
+}
+
+function openUserStories(index){
+
+    activeStoryUserIndex = index;
+
+    activeStoryIndex = 0;
+
+    showStory();
+
+    document
+        .getElementById("storyViewer")
+        .classList.add("show");
+}
+
+function showStory(){
+
+    const user =
+        storyUsers[activeStoryUserIndex];
+
+    if(!user) return;
+
+    const story =
+        user.stories[activeStoryIndex];
+
+    if(!story) return;
+
+    document.getElementById("viewerUser")
+        .textContent = user.name;
+
+    document.getElementById("viewerTime")
+        .textContent = formatTime(story.createdAt);
+
+    document.getElementById("viewerAvatar")
+        .textContent =
+            user.name.charAt(0).toUpperCase();
+
+    const media =
+        document.getElementById("viewerMedia");
+
+    if(story.media){
+
+        if(story.type === "image"){
+
+            media.innerHTML = `
+                <img src="${story.media}">
+            `;
+
+        }else{
+
+            media.innerHTML = `
+                <video
+                    src="${story.media}"
+                    controls
+                    autoplay
+                ></video>
+            `;
+        }
+
+    }else{
+
+        media.innerHTML = `
+            <div class="viewer-text">
+                ${escapeHTML(story.text)}
+            </div>
+        `;
+    }
+
+    document.getElementById("viewerCaption")
+        .textContent =
+            story.caption || "";
+
+    updateStoryLikeButton();
+
+    renderStoryProgress();
+
+    document.getElementById("storyMenu")
+        .style.display = "none";
+}
+
+function renderStoryProgress(){
+
+    const user =
+        storyUsers[activeStoryUserIndex];
+
+    const container =
+        document.getElementById("viewerProgress");
+
+    container.innerHTML =
+        user.stories.map(
+            (_,index) => `
+
+                <div
+                    class="progress-bar
+                    ${index <= activeStoryIndex
+                        ? "active"
+                        : ""}"
+                ></div>
+
+            `
+        ).join("");
+}
+
+function nextStory(){
+
+    const user =
+        storyUsers[activeStoryUserIndex];
+
+    if(!user) return;
+
+    if(activeStoryIndex < user.stories.length - 1){
+
+        activeStoryIndex++;
+
+        showStory();
+
+        return;
+    }
+
+    if(activeStoryUserIndex < storyUsers.length - 1){
+
+        activeStoryUserIndex++;
+
+        activeStoryIndex = 0;
+
+        showStory();
+
+        return;
+    }
+
+    closeViewer();
+}
+
+function previousStory(){
+
+    if(activeStoryIndex > 0){
+
+        activeStoryIndex--;
+
+        showStory();
+
+        return;
+    }
+
+    if(activeStoryUserIndex > 0){
+
+        activeStoryUserIndex--;
+
+        const user =
+            storyUsers[activeStoryUserIndex];
+
+        activeStoryIndex =
+            user.stories.length - 1;
+
+        showStory();
+    }
+}
+
+function toggleStoryMenu(){
+
+    const menu =
+        document.getElementById("storyMenu");
+
+    menu.style.display =
+        menu.style.display === "block"
+        ? "none"
+        : "block";
+}
+
+function deleteCurrentStory(){
+
+    const user =
+        storyUsers[activeStoryUserIndex];
+
+    if(!user) return;
+
+    if(!confirm("Delete this story?")){
+        return;
+    }
+
+    user.stories.splice(
+        activeStoryIndex,
+        1
+    );
+
+    storyUsers =
+        storyUsers.filter(
+            u => u.stories.length
+        );
+
+    saveStories();
+
+    closeViewer();
+
+    renderStories();
+
+    showToast("Story deleted.");
+}
+
+function likeStory(){
+
+    const user =
+        storyUsers[activeStoryUserIndex];
+
+    if(!user) return;
+
+    const story =
+        user.stories[activeStoryIndex];
+
+    if(!story) return;
+
+    story.liked =
+        !story.liked;
+
+    story.likes +=
+        story.liked ? 1 : -1;
+
+    saveStories();
+
+    updateStoryLikeButton();
+
+    if(story.liked){
+
+        addNotification(
+            "fa-regular fa-heart",
+            "You liked a story."
+        );
+    }
+}
+
+function updateStoryLikeButton(){
+
+    const user =
+        storyUsers[activeStoryUserIndex];
+
+    if(!user) return;
+
+    const story =
+        user.stories[activeStoryIndex];
+
+    if(!story) return;
+
+    const button =
+        document.getElementById("storyLikeButton");
+
+    button.classList.toggle(
+        "liked",
+        story.liked
+    );
+
+    button.innerHTML =
+        story.liked
+        ? '<i class="fa-solid fa-heart"></i>'
+        : '<i class="fa-regular fa-heart"></i>';
+}
+
+function toggleStoryComment(){
+
+    document
+        .getElementById("storyReply")
+        .focus();
+}
+
+function sendStoryComment(){
+
+    const input =
+        document.getElementById("storyReply");
+
+    const text =
+        input.value.trim();
+
+    if(!text) return;
+
+    const user =
+        storyUsers[activeStoryUserIndex];
+
+    if(!user) return;
+
+    const story =
+        user.stories[activeStoryIndex];
+
+    if(!story) return;
+
+    if(!story.comments){
+        story.comments = [];
+    }
+
+    story.comments.push({
+
+        name:currentUser.name,
+
+        text:text,
+
+        createdAt:Date.now()
+
+    });
+
+    saveStories();
+
+    input.value = "";
+
+    addNotification(
+        "fa-regular fa-comment",
+        "You replied to a story."
+    );
+
+    showToast("Reply sent.");
+}
+
+function shareStory(){
+
+    const user =
+        storyUsers[activeStoryUserIndex];
+
+    if(!user) return;
+
+    const story =
+        user.stories[activeStoryIndex];
+
+    if(!story) return;
+
+    if(navigator.share){
+
+        navigator.share({
+            title:"Netra Story",
+            text:story.text || "Check out this story on Netra."
+        }).catch(()=>{});
+
+    }else{
+
+        navigator.clipboard
+            ?.writeText(
+                story.text ||
+                "Check out this story on Netra."
+            );
+
+        showToast("Story link copied.");
+    }
+}
+
+function closeViewer(){
+
+    document
+        .getElementById("storyViewer")
+        .classList.remove("show");
+
+    document
+        .getElementById("storyMenu")
+        .style.display = "none";
+}
+
+
+/* =========================
+   OUTSIDE CLICK
+========================= */
+
+document.addEventListener("click",function(event){
+
+    if(
+        !event.target.closest(".nav-actions")
+    ){
+
+        document
+            .getElementById("notificationDropdown")
+            .classList.remove("show");
+
+        document
+            .getElementById("menuDropdown")
+            .classList.remove("show");
+    }
+
+    if(
+        !event.target.closest(".post-menu") &&
+        !event.target.closest(".post-menu-btn")
+    ){
+
+        document
+            .querySelectorAll(".post-menu")
+            .forEach(menu =>
+                menu.classList.remove("show")
+            );
+    }
+
+});
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener("keydown",function(event){
+
+    const viewer =
+        document.getElementById("storyViewer");
+
+    if(!viewer.classList.contains("show")){
+        return;
+    }
+
+    if(event.key === "ArrowRight"){
+        nextStory();
+    }
+
+    if(event.key === "ArrowLeft"){
+        previousStory();
+    }
+
+    if(event.key === "Escape"){
+        closeViewer();
+    }
+});
+
+
+/* =========================
+   AUTO EXPIRATION
+========================= */
+
+setInterval(function(){
+
+    removeExpiredStories();
+
+    renderStories();
+
+},60000);
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+loadDarkMode();
+
+renderNotifications();
+
+renderStories();
+
+renderFeed();
+
+</script>
+
+</body>
+</html>

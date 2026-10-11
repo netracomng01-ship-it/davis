@@ -1,0 +1,2487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Netra Communities</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="HomePage.html">
+<link rel="stylesheet" href="NewsPage.html">
+<link rel="stylesheet" href="Friendspage.html">
+<link rel="stylesheet" href="Videos.html">
+<link rel="stylesheet" href="Watch Page.html">
+<link rel="stylesheet" href="Profile Page.html">
+<link rel="stylesheet" href="Messagner.html">
+<link rel="stylesheet" href="Find friendpage.html">
+<link rel="stylesheet" href="Settings.html">
+<link rel="stylesheet" href="Storepage.html">
+
+
+<style>
+
+/* =========================================================
+   NETRA COMMUNITIES
+   Complete HTML + CSS + JavaScript
+   ========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --secondary:#7c3aed;
+
+    --background:#f4f7fb;
+    --card:#ffffff;
+    --input:#f1f4f8;
+
+    --text:#172033;
+    --muted:#667085;
+    --soft-text:#98a2b3;
+
+    --border:#e6eaf0;
+    --hover:#f1f4f8;
+
+    --soft-blue:#edf4ff;
+    --soft-purple:#f3edff;
+
+    --shadow:0 8px 30px rgba(15,23,42,.06);
+
+    --radius:20px;
+}
+
+body.dark-mode{
+
+    --primary:#5b8cff;
+    --primary-dark:#4b7df0;
+    --secondary:#9b6cff;
+
+    --background:#080e1a;
+    --card:#111827;
+    --input:#182235;
+
+    --text:#f1f5f9;
+    --muted:#a4afc0;
+    --soft-text:#7f8ba0;
+
+    --border:#263247;
+    --hover:#192437;
+
+    --soft-blue:#172b4d;
+    --soft-purple:#281d45;
+
+    --shadow:0 10px 35px rgba(0,0,0,.28);
+
+    color-scheme:dark;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--background);
+    color:var(--text);
+    font-family:"Inter",Arial,sans-serif;
+    transition:
+        background .25s ease,
+        color .25s ease;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar{
+
+    height:72px;
+
+    background:var(--card);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 28px;
+
+    position:sticky;
+    top:0;
+
+    z-index:1000;
+
+    border-bottom:1px solid var(--border);
+
+    transition:.25s;
+}
+
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.logo{
+
+    font-size:30px;
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    cursor:pointer;
+
+    letter-spacing:-1px;
+}
+
+.search{
+
+    width:330px;
+    height:44px;
+
+    background:var(--input);
+
+    border-radius:25px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 16px;
+    gap:10px;
+
+    border:1px solid transparent;
+
+    transition:.2s;
+}
+
+.search:focus-within{
+
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.10);
+}
+
+.search i{
+    color:var(--soft-text);
+}
+
+.search input{
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+
+    color:var(--text);
+
+    width:100%;
+
+    font-size:14px;
+}
+
+.search input::placeholder{
+    color:var(--soft-text);
+}
+
+.nav-right{
+
+    display:flex;
+    align-items:center;
+
+    gap:9px;
+}
+
+.nav-btn{
+
+    width:44px;
+    height:44px;
+
+    border-radius:50%;
+
+    border:1px solid transparent;
+
+    background:var(--input);
+
+    color:var(--text);
+
+    font-size:17px;
+
+    transition:.2s;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.nav-btn:hover{
+
+    background:var(--hover);
+
+    color:var(--primary);
+
+    transform:translateY(-1px);
+}
+
+.profile-mini{
+
+    width:44px;
+    height:44px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--soft-blue),
+            var(--soft-purple)
+        );
+
+    color:var(--primary);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    margin-left:5px;
+
+    border:1px solid var(--border);
+
+    transition:.2s;
+}
+
+.profile-mini:hover{
+    transform:translateY(-1px);
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.layout{
+
+    display:grid;
+
+    grid-template-columns:
+        245px
+        minmax(0,1fr)
+        300px;
+
+    gap:22px;
+
+    max-width:1450px;
+
+    margin:auto;
+
+    padding:25px;
+}
+
+.main{
+    min-width:0;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:18px;
+
+    height:max-content;
+
+    position:sticky;
+
+    top:95px;
+
+    box-shadow:var(--shadow);
+}
+
+.side-title{
+
+    font-size:11px;
+
+    color:var(--soft-text);
+
+    text-transform:uppercase;
+
+    letter-spacing:.8px;
+
+    margin:
+        5px 12px
+        12px;
+
+    font-weight:800;
+}
+
+.side-link{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    margin-bottom:5px;
+
+    color:var(--muted);
+
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.side-link i{
+
+    width:24px;
+
+    font-size:18px;
+
+    text-align:center;
+}
+
+.side-link:hover{
+
+    background:var(--hover);
+
+    color:var(--primary);
+}
+
+.side-link.active{
+
+    background:var(--soft-blue);
+
+    color:var(--primary);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    border-radius:24px;
+
+    padding:34px;
+
+    color:white;
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:22px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(37,99,235,.16);
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:310px;
+    height:310px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.07);
+
+    right:-100px;
+    top:-150px;
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.05);
+
+    right:100px;
+    bottom:-120px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:7px 11px;
+
+    background:
+        rgba(255,255,255,.14);
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    margin-bottom:14px;
+}
+
+.hero h1{
+
+    font-size:32px;
+
+    line-height:1.15;
+
+    margin-bottom:10px;
+
+    letter-spacing:-.7px;
+}
+
+.hero p{
+
+    color:#e9efff;
+
+    max-width:680px;
+
+    line-height:1.65;
+
+    font-size:14px;
+}
+
+.hero-actions{
+
+    margin-top:23px;
+
+    display:flex;
+
+    gap:10px;
+}
+
+.create-btn{
+
+    background:white;
+
+    color:#2563eb;
+
+    border:none;
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    font-weight:800;
+
+    transition:.2s;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.create-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,.12);
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+.tabs{
+
+    background:var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    padding:7px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    gap:5px;
+
+    margin-bottom:22px;
+
+    box-shadow:var(--shadow);
+}
+
+.tab{
+
+    flex:1;
+
+    border:none;
+
+    background:transparent;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    color:var(--muted);
+
+    transition:.2s;
+}
+
+.tab:hover{
+
+    background:var(--hover);
+
+    color:var(--text);
+}
+
+.tab.active{
+
+    background:var(--soft-blue);
+
+    color:var(--primary);
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.section-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:15px;
+}
+
+.section-header h2{
+
+    font-size:21px;
+
+    letter-spacing:-.3px;
+}
+
+.section-header span{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state{
+
+    background:var(--card);
+
+    border-radius:20px;
+
+    padding:72px 25px;
+
+    text-align:center;
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:var(--shadow);
+}
+
+.empty-icon{
+
+    width:82px;
+    height:82px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--soft-blue),
+            var(--soft-purple)
+        );
+
+    color:var(--primary);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:31px;
+
+    border:
+        1px solid
+        var(--border);
+}
+
+.empty-state h3{
+
+    margin-top:20px;
+
+    font-size:20px;
+}
+
+.empty-state p{
+
+    color:var(--muted);
+
+    max-width:520px;
+
+    margin:10px auto 22px;
+
+    line-height:1.65;
+
+    font-size:14px;
+}
+
+.empty-btn{
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.empty-btn:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-1px);
+}
+
+
+/* =========================================================
+   RIGHTBAR
+   ========================================================= */
+
+.rightbar{
+
+    height:max-content;
+
+    position:sticky;
+
+    top:95px;
+}
+
+.widget{
+
+    background:var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    box-shadow:var(--shadow);
+}
+
+.widget h3{
+
+    margin-bottom:15px;
+
+    font-size:16px;
+}
+
+.widget-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.widget-item:last-child{
+    border-bottom:none;
+}
+
+.widget-item:hover{
+    color:var(--primary);
+}
+
+.widget-icon{
+
+    width:40px;
+    height:40px;
+
+    flex-shrink:0;
+
+    border-radius:12px;
+
+    background:var(--soft-blue);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:var(--primary);
+}
+
+.widget-text{
+    flex:1;
+}
+
+.widget-text strong{
+
+    display:block;
+
+    font-size:13px;
+
+    margin-bottom:3px;
+}
+
+.widget-text small{
+
+    color:var(--soft-text);
+
+    font-size:11px;
+}
+
+.invite{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--soft-blue),
+            var(--soft-purple)
+        );
+}
+
+.invite p{
+
+    color:var(--muted);
+
+    line-height:1.6;
+
+    font-size:13px;
+}
+
+.invite button{
+
+    margin-top:15px;
+
+    width:100%;
+
+    border:none;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:11px;
+
+    border-radius:10px;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.invite button:hover{
+    background:var(--primary-dark);
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(4,10,22,.68);
+
+    backdrop-filter:
+        blur(5px);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:5000;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+
+    width:470px;
+
+    max-width:100%;
+
+    background:var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:22px;
+
+    padding:25px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.25);
+
+    animation:
+        modalIn .2s ease;
+}
+
+@keyframes modalIn{
+
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.modal-header h2{
+    font-size:20px;
+}
+
+.close{
+
+    width:35px;
+    height:35px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--input);
+
+    color:var(--text);
+
+    transition:.2s;
+}
+
+.close:hover{
+
+    background:var(--hover);
+
+    color:var(--primary);
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+
+    width:100%;
+
+    padding:12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+    outline:none;
+
+    background:var(--input);
+
+    color:var(--text);
+
+    transition:.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.10);
+}
+
+.form-group textarea{
+
+    height:105px;
+
+    resize:none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+    color:var(--soft-text);
+}
+
+.submit{
+
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.submit:hover{
+    background:var(--primary-dark);
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast{
+
+    position:fixed;
+
+    right:25px;
+    bottom:25px;
+
+    background:
+        #172033;
+
+    color:white;
+
+    padding:14px 20px;
+
+    border-radius:11px;
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:6000;
+
+    font-size:13px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.2);
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:1150px){
+
+    .layout{
+
+        grid-template-columns:
+            220px
+            minmax(0,1fr);
+    }
+
+    .rightbar{
+        display:none;
+    }
+
+}
+
+@media(max-width:850px){
+
+    .navbar{
+        padding:0 18px;
+    }
+
+    .nav-left{
+        gap:14px;
+    }
+
+    .search{
+        width:240px;
+    }
+
+    .layout{
+
+        grid-template-columns:1fr;
+
+        padding:15px;
+    }
+
+    .sidebar{
+
+        position:static;
+
+        display:flex;
+
+        overflow-x:auto;
+
+        gap:5px;
+
+        padding:10px;
+
+        scrollbar-width:none;
+    }
+
+    .sidebar::-webkit-scrollbar{
+        display:none;
+    }
+
+    .side-title{
+        display:none;
+    }
+
+    .side-link{
+
+        white-space:nowrap;
+
+        margin:0;
+
+        flex-shrink:0;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .navbar{
+        height:64px;
+        padding:0 12px;
+    }
+
+    .logo{
+        font-size:25px;
+    }
+
+    .search{
+        display:none;
+    }
+
+    .nav-right{
+        gap:5px;
+    }
+
+    .nav-btn,
+    .profile-mini{
+
+        width:39px;
+        height:39px;
+    }
+
+    .layout{
+        padding:12px;
+    }
+
+    .hero{
+
+        padding:25px;
+
+        border-radius:20px;
+    }
+
+    .hero h1{
+        font-size:26px;
+    }
+
+    .hero p{
+        font-size:13px;
+    }
+
+    .tabs{
+        overflow-x:auto;
+    }
+
+    .tab{
+
+        min-width:130px;
+
+        flex:0 0 auto;
+    }
+
+    .section-header h2{
+        font-size:18px;
+    }
+
+    .empty-state{
+        padding:55px 20px;
+    }
+
+}
+
+@media(max-width:430px){
+
+    .nav-right .nav-btn:nth-child(2){
+        display:none;
+    }
+
+    .hero h1{
+        font-size:23px;
+    }
+
+    .hero-actions{
+        width:100%;
+    }
+
+    .create-btn{
+        width:100%;
+        justify-content:center;
+    }
+
+    .empty-icon{
+        width:70px;
+        height:70px;
+        font-size:27px;
+    }
+
+    .empty-state h3{
+        font-size:18px;
+    }
+
+    .toast{
+
+        left:15px;
+        right:15px;
+        bottom:15px;
+
+        text-align:center;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+     ========================================================= -->
+
+<nav class="navbar">
+
+    <div class="nav-left">
+
+        <div
+            class="logo"
+            onclick="go('HomePage.html')">
+
+            Netra
+
+        </div>
+
+
+        <div class="search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Search communities..."
+                autocomplete="off">
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-right">
+
+
+        <!-- HOME -->
+
+        <button
+            class="nav-btn"
+            title="Home"
+            aria-label="Home"
+            onclick="go('HomePage.html')">
+
+            <i class="fa-solid fa-house"></i>
+
+        </button>
+
+
+        <!-- MESSAGES -->
+
+        <button
+            class="nav-btn"
+            title="Messenger"
+            aria-label="Messenger"
+            onclick="go('Messagner.html')">
+
+            <i class="fa-regular fa-message"></i>
+
+        </button>
+
+
+        <!-- THEME -->
+
+        <button
+            class="nav-btn"
+            id="themeToggle"
+            title="Dark mode"
+            aria-label="Toggle theme"
+            onclick="toggleTheme()">
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
+
+        <!-- SETTINGS -->
+
+        <button
+            class="nav-btn"
+            title="Settings"
+            aria-label="Settings"
+            onclick="go('settings.html')">
+
+            <i class="fa-solid fa-gear"></i>
+
+        </button>
+
+
+        <!-- PROFILE -->
+
+        <div
+            class="profile-mini"
+            title="Profile"
+            aria-label="Profile"
+            onclick="go('profile page.html')">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     PAGE LAYOUT
+     ========================================================= -->
+
+<div class="layout">
+
+
+<!-- =========================================================
+     SIDEBAR
+     ========================================================= -->
+
+<aside class="sidebar">
+
+    <div class="side-title">
+        Navigation
+    </div>
+
+
+    <a
+        class="side-link"
+        href="HomePage.html">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Home</span>
+
+    </a>
+
+
+    <a
+        class="side-link"
+        href="Friendspage.html">
+
+        <i class="fa-solid fa-user-group"></i>
+
+        <span>Friends</span>
+
+    </a>
+
+
+    <a
+        class="side-link active"
+        href="Group page.html">
+
+        <i class="fa-solid fa-users"></i>
+
+        <span>Communities</span>
+
+    </a>
+
+
+    <a
+        class="side-link"
+        href="Watch page.html">
+
+        <i class="fa-solid fa-video"></i>
+
+        <span>Reels</span>
+
+    </a>
+
+
+    <a
+        class="side-link"
+        href="Messagner.html">
+
+        <i class="fa-solid fa-message"></i>
+
+        <span>Messenger</span>
+
+    </a>
+
+
+    <a
+        class="side-link"
+        href="Storepage.html">
+
+        <i class="fa-solid fa-store"></i>
+
+        <span>Marketplace</span>
+
+    </a>
+
+
+    <a
+        class="side-link"
+        href="profile page.html">
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>My Profile</span>
+
+    </a>
+
+
+    <a
+        class="side-link"
+        href="settings.html">
+
+        <i class="fa-solid fa-gear"></i>
+
+        <span>Settings</span>
+
+    </a>
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="main">
+
+    <div id="communityHome">
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    Netra Communities
+
+                </div>
+
+
+                <h1>
+                    Find Your Community
+                </h1>
+
+
+                <p>
+
+                    Connect with people who share your interests,
+                    discover new ideas, build meaningful relationships,
+                    and grow together on Netra.
+
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <button
+                        class="create-btn"
+                        onclick="openCreateModal()">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Create Community
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- TABS -->
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                onclick="switchTab('discover',this)">
+
+                <i class="fa-solid fa-compass"></i>
+
+                Discover
+
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="switchTab('joined',this)">
+
+                <i class="fa-solid fa-user-group"></i>
+
+                My Communities
+
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="switchTab('popular',this)">
+
+                <i class="fa-solid fa-fire"></i>
+
+                Popular
+
+            </button>
+
+        </div>
+
+
+
+        <!-- SECTION HEADER -->
+
+        <div class="section-header">
+
+            <h2 id="sectionTitle">
+                Discover Communities
+            </h2>
+
+            <span id="communityCount">
+                0 communities
+            </span>
+
+        </div>
+
+
+
+        <!-- COMMUNITY CONTENT -->
+
+        <div id="communityContent"></div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     RIGHTBAR
+     ========================================================= -->
+
+<aside class="rightbar">
+
+
+    <div class="widget">
+
+        <h3>
+            Community Tools
+        </h3>
+
+
+        <div
+            class="widget-item"
+            onclick="openCreateModal()">
+
+            <div class="widget-icon">
+
+                <i class="fa-solid fa-plus"></i>
+
+            </div>
+
+            <div class="widget-text">
+
+                <strong>
+                    Create Community
+                </strong>
+
+                <small>
+                    Start your own community
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="widget-item"
+            onclick="showSearch()">
+
+            <div class="widget-icon">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </div>
+
+            <div class="widget-text">
+
+                <strong>
+                    Find Communities
+                </strong>
+
+                <small>
+                    Search for communities
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="widget-item"
+            onclick="go('Friendspage.html')">
+
+            <div class="widget-icon">
+
+                <i class="fa-solid fa-user-group"></i>
+
+            </div>
+
+            <div class="widget-text">
+
+                <strong>
+                    Find Friends
+                </strong>
+
+                <small>
+                    Connect with people
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="widget invite">
+
+        <h3>
+            Build something together 🚀
+        </h3>
+
+        <p>
+
+            Create a community around your interests,
+            ideas, business, education, technology,
+            entertainment or passion.
+
+        </p>
+
+
+        <button
+            onclick="openCreateModal()">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Create Community
+
+        </button>
+
+    </div>
+
+</aside>
+
+</div>
+
+
+
+<!-- =========================================================
+     CREATE COMMUNITY MODAL
+     ========================================================= -->
+
+<div
+    class="modal"
+    id="createModal">
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Create Community
+            </h2>
+
+
+            <button
+                class="close"
+                onclick="closeCreateModal()"
+                aria-label="Close">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <form id="createForm">
+
+
+            <div class="form-group">
+
+                <label for="newName">
+                    Community Name
+                </label>
+
+                <input
+                    type="text"
+                    id="newName"
+                    placeholder="e.g. Nigerian Entrepreneurs"
+                    maxlength="80"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="newCategory">
+                    Category
+                </label>
+
+                <select id="newCategory">
+
+                    <option value="Business">
+                        Business
+                    </option>
+
+                    <option value="Technology">
+                        Technology
+                    </option>
+
+                    <option value="Education">
+                        Education
+                    </option>
+
+                    <option value="Entertainment">
+                        Entertainment
+                    </option>
+
+                    <option value="Sports">
+                        Sports
+                    </option>
+
+                    <option value="Photography">
+                        Photography
+                    </option>
+
+                    <option value="Music">
+                        Music
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="newDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="newDescription"
+                    placeholder="Tell people what your community is about..."
+                    maxlength="500"
+                    required></textarea>
+
+            </div>
+
+
+            <button
+                class="submit"
+                type="submit">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Create Community
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function go(page){
+
+    window.location.href = page;
+
+}
+
+
+/* =========================================================
+   THEME SYSTEM
+   Shared with other Netra pages
+   localStorage key: netra-theme
+   ========================================================= */
+
+function applyTheme(){
+
+    const savedTheme =
+        localStorage.getItem("netra-theme");
+
+    const isDark =
+        savedTheme === "dark";
+
+    document.body.classList.toggle(
+        "dark-mode",
+        isDark
+    );
+
+    updateThemeIcon();
+
+}
+
+
+function toggleTheme(){
+
+    document.body.classList.toggle(
+        "dark-mode"
+    );
+
+    const isDark =
+        document.body.classList.contains(
+            "dark-mode"
+        );
+
+    localStorage.setItem(
+        "netra-theme",
+        isDark ? "dark" : "light"
+    );
+
+    updateThemeIcon();
+
+}
+
+
+function updateThemeIcon(){
+
+    const button =
+        document.getElementById(
+            "themeToggle"
+        );
+
+    if(!button) return;
+
+    const icon =
+        button.querySelector("i");
+
+    const isDark =
+        document.body.classList.contains(
+            "dark-mode"
+        );
+
+    if(isDark){
+
+        icon.className =
+            "fa-solid fa-sun";
+
+        button.title =
+            "Light mode";
+
+        button.setAttribute(
+            "aria-label",
+            "Switch to light mode"
+        );
+
+    }else{
+
+        icon.className =
+            "fa-solid fa-moon";
+
+        button.title =
+            "Dark mode";
+
+        button.setAttribute(
+            "aria-label",
+            "Switch to dark mode"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(function(){
+
+            toast.classList.remove("show");
+
+        },2500);
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function showSearch(){
+
+    const search =
+        document.getElementById("search");
+
+    if(window.innerWidth <= 650){
+
+        showToast(
+            "Community search is available from the search area."
+        );
+
+        return;
+
+    }
+
+    search.focus();
+
+    showToast(
+        "Search for a community"
+    );
+
+}
+
+
+document
+.getElementById("search")
+.addEventListener(
+    "input",
+    function(){
+
+        const value =
+            this.value.trim();
+
+        if(value){
+
+            document
+            .getElementById(
+                "sectionTitle"
+            )
+            .textContent =
+                "Searching Communities";
+
+            document
+            .getElementById(
+                "communityCount"
+            )
+            .textContent =
+                "Search ready";
+
+        }else{
+
+            updateTabTitle();
+
+            document
+            .getElementById(
+                "communityCount"
+            )
+            .textContent =
+                "0 communities";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+let currentTab =
+    "discover";
+
+
+function switchTab(
+    tab,
+    button
+){
+
+    currentTab =
+        tab;
+
+
+    document
+    .querySelectorAll(".tab")
+    .forEach(function(item){
+
+        item.classList.remove(
+            "active"
+        );
+
+    });
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    updateTabTitle();
+
+    showEmptyState();
+
+}
+
+
+function updateTabTitle(){
+
+    const title =
+        document.getElementById(
+            "sectionTitle"
+        );
+
+    const count =
+        document.getElementById(
+            "communityCount"
+        );
+
+
+    if(currentTab === "joined"){
+
+        title.textContent =
+            "My Communities";
+
+        count.textContent =
+            "0 communities";
+
+    }
+
+    else if(currentTab === "popular"){
+
+        title.textContent =
+            "Popular Communities";
+
+        count.textContent =
+            "0 communities";
+
+    }
+
+    else{
+
+        title.textContent =
+            "Discover Communities";
+
+        count.textContent =
+            "0 communities";
+
+    }
+
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+function showEmptyState(){
+
+    const content =
+        document.getElementById(
+            "communityContent"
+        );
+
+    let title =
+        "Your community journey starts here";
+
+    let text =
+        "There are no communities to display yet. Search for communities or create your own and start building your Netra community.";
+
+    let icon =
+        "fa-users";
+
+
+    if(currentTab === "joined"){
+
+        title =
+            "You haven't joined any communities";
+
+        text =
+            "When you join a community, it will appear here. Discover communities and connect with people who share your interests.";
+
+        icon =
+            "fa-user-group";
+
+    }
+
+
+    else if(currentTab === "popular"){
+
+        title =
+            "No popular communities yet";
+
+        text =
+            "Popular communities will appear here as Netra communities grow and become more active.";
+
+        icon =
+            "fa-fire";
+
+    }
+
+
+    content.innerHTML = `
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid ${icon}"></i>
+
+            </div>
+
+
+            <h3>
+                ${title}
+            </h3>
+
+
+            <p>
+                ${text}
+            </p>
+
+
+            <button
+                class="empty-btn"
+                onclick="openCreateModal()">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Create Community
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CREATE COMMUNITY MODAL
+   ========================================================= */
+
+function openCreateModal(){
+
+    document
+    .getElementById(
+        "createModal"
+    )
+    .classList.add("show");
+
+    setTimeout(function(){
+
+        document
+        .getElementById(
+            "newName"
+        )
+        .focus();
+
+    },100);
+
+}
+
+
+function closeCreateModal(){
+
+    document
+    .getElementById(
+        "createModal"
+    )
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   CREATE COMMUNITY FORM
+   ========================================================= */
+
+document
+.getElementById(
+    "createForm"
+)
+.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+
+        const name =
+            document
+            .getElementById(
+                "newName"
+            )
+            .value.trim();
+
+
+        const category =
+            document
+            .getElementById(
+                "newCategory"
+            )
+            .value;
+
+
+        const description =
+            document
+            .getElementById(
+                "newDescription"
+            )
+            .value.trim();
+
+
+        if(!name){
+
+            showToast(
+                "Please enter a community name."
+            );
+
+            return;
+
+        }
+
+
+        if(!description){
+
+            showToast(
+                "Please describe your community."
+            );
+
+            return;
+
+        }
+
+
+        /*
+            Firebase connection comes here.
+
+            Example future data:
+
+            {
+                communityId,
+                ownerId,
+                name,
+                category,
+                description,
+                createdAt,
+                members,
+                posts
+            }
+        */
+
+
+        closeCreateModal();
+
+        this.reset();
+
+
+        showToast(
+            "Community form completed. Connect Firebase to publish it."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+   ========================================================= */
+
+document
+.getElementById(
+    "createModal"
+)
+.addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+
+            closeCreateModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESCAPE KEY
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeCreateModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE PAGE
+   ========================================================= */
+
+applyTheme();
+
+showEmptyState();
+
+</script>
+
+</body>
+</html>
